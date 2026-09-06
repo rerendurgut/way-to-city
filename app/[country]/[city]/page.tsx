@@ -4,7 +4,12 @@ import { CityHero, type HeroStat } from '@/components/city-hero'
 import { GuideTabs } from '@/components/guide-tabs'
 import { SiteHeader } from '@/components/site-header'
 import { SlidingMenu, type SlidingMenuItem } from '@/components/sliding-menu'
-import { formatPrice, getCities, getCityGuide } from '@/lib/sheets'
+import {
+  formatEuroRate,
+  formatPrice,
+  getCities,
+  getCityGuide,
+} from '@/lib/sheets'
 
 export const revalidate = 60
 
@@ -46,11 +51,20 @@ export default async function CityDetailPage({
     isActive: c.name.toLocaleLowerCase() === city.toLocaleLowerCase(),
   }))
 
+  const currency = guide.countryData?.currency || ''
+  const euroRateFormatted = formatEuroRate(
+    guide.countryData?.euroConversion,
+    currency,
+  )
+
   const stats: HeroStat[] = []
   if (guide.arrivals.length)
     stats.push({ label: 'Arrival routes', value: String(guide.arrivals.length) })
   if (guide.transport?.fare)
-    stats.push({ label: 'Single fare', value: formatPrice(guide.transport.fare) })
+    stats.push({
+      label: 'Single fare',
+      value: formatPrice(guide.transport.fare, currency),
+    })
   if (guide.pois.length)
     stats.push({ label: 'Places to see', value: String(guide.pois.length) })
   if (guide.foods.length)
@@ -73,7 +87,12 @@ export default async function CityDetailPage({
             </div>
           )}
 
-          <CityHero city={guide.city} stats={stats} />
+          <CityHero
+            city={guide.city}
+            stats={stats}
+            currency={currency}
+            euroRate={euroRateFormatted}
+          />
           <GuideTabs guide={guide} />
         </main>
       </div>

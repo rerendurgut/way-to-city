@@ -94,10 +94,32 @@ const eq = (a?: string, b?: string) =>
 
 const yes = (v?: string) => /^(yes|1|true|evet|var)$/i.test((v ?? '').trim())
 
-export function formatPrice(v?: string): string {
+export function formatPrice(v?: string, currencySymbol?: string): string {
   const n = (v ?? '').trim()
   if (!n) return ''
-  return /^\d/.test(n) ? `₺${n}` : n
+  if (/[^\d\s.,-]/.test(n)) return n
+  const symbol = (currencySymbol ?? '').trim() || '₺'
+  return /^[^\w]/u.test(symbol) ? `${symbol}${n}` : `${n} ${symbol}`
+}
+
+export function formatEuroRate(rate?: string, currency?: string): string {
+  const r = (rate ?? '').trim()
+  if (!r) return ''
+  const symbol = (currency ?? '').trim()
+
+  if (r.includes('/')) {
+    const parts = r.split('/')
+    const denominator = parts[1]?.trim()
+    if (denominator) {
+      return symbol ? `1 € ≈ ${denominator} ${symbol}` : `1 € ≈ ${denominator}`
+    }
+  }
+
+  if (!isNaN(Number(r.replace(',', '.')))) {
+    return symbol ? `1 € ≈ ${r} ${symbol}` : `1 € ≈ ${r}`
+  }
+
+  return r
 }
 
 // Convert a DMS coordinate string such as "40°11′02″K 29°03′43″D" to decimal
@@ -151,7 +173,12 @@ export function linkLabel(url?: string): string {
 
 export type TabId = 'arrival' | 'transit' | 'pois' | 'stay' | 'food'
 
-export type Country = { id: string; name: string }
+export type Country = {
+  id: string
+  name: string
+  currency?: string
+  euroConversion?: string
+}
 export type City = { id: string; country: string; name: string; desc: string }
 
 export type Arrival = {
@@ -206,6 +233,7 @@ export type Food = {
 
 export type CityGuide = {
   city: City
+  countryData: Country | null
   arrivals: Arrival[]
   transport: Transport | null
   pois: Poi[]
@@ -217,11 +245,30 @@ export type CityGuide = {
 
 export async function getCountries(): Promise<Country[]> {
   const rows = await fetchSheet('country')
-  const countries = rows.map((r) => ({ id: r.id, name: r.country })).filter((c) => c.name)
+  const countries = rows
+    .map((r) => ({
+      id: r.id,
+      name: r.country,
+      currency: r.currency || r.currency_symbol || r.currency_code || '',
+      euroConversion:
+        r.euro_conversion || r.euro_rate || r.eur_conversion || '',
+    }))
+    .filter((c) => c.name)
   countries.sort((a, b) =>
     a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' }),
   )
   return countries
+}
+
+export async function getCountry(
+  countryName: string,
+): Promise<Country | null> {
+  const countries = await getCountries()
+  return (
+    countries.find(
+      (c) => c.name.toLocaleLowerCase() === countryName.toLocaleLowerCase(),
+    ) ?? null
+  )
 }
 
 export async function getCities(country?: string): Promise<City[]> {
@@ -343,12 +390,22 @@ export async function getCityGuide(
 ): Promise<CityGuide | null> {
   const cityRow = await getCity(country, city)
   if (!cityRow) return null
-  const [arrivals, transport, pois, stays, foods] = await Promise.all([
-    getArrivals(city),
-    getTransport(city),
-    getPois(city),
-    getStays(city),
-    getFoods(city),
-  ])
-  return { city: cityRow, arrivals, transport, pois, stays, foods }
+  const [countryData, arrivals, transport, pois, stays, foods] =
+    await Promise.all([
+      getCountry(country),
+      getArrivals(city),
+      getTransport(city),
+      getPois(city),
+      getStays(city),
+      getFoods(city),
+    ])
+  return {
+    city: cityRow,
+    countryData,
+    arrivals,
+    transport,
+    pois,
+    stays,
+    foods,
+  }
 }

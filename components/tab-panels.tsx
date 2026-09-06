@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic'
 import {
   ArrowUpRight,
+  Banknote,
   BedDouble,
   Building2,
   CreditCard,
@@ -21,9 +22,11 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import {
+  formatEuroRate,
   formatPrice,
   linkLabel,
   type Arrival,
+  type Country,
   type Food,
   type Poi,
   type Stay,
@@ -178,12 +181,42 @@ function StatusBadge({
   )
 }
 
-export function TransitPanel({ transport }: { transport: Transport | null }) {
+export function TransitPanel({
+  transport,
+  countryData,
+}: {
+  transport: Transport | null
+  countryData?: Country | null
+}) {
   if (!transport)
     return <EmptyState>No transit card details for this city yet.</EmptyState>
 
+  const currency = countryData?.currency || ''
+  const euroRate = formatEuroRate(countryData?.euroConversion, currency)
+
   return (
     <div className="grid gap-3">
+      {euroRate && (
+        <article className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 shadow-sm">
+          <div className="flex items-center gap-3">
+            <span className="flex size-9 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+              <Banknote className="size-4" />
+            </span>
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">
+                Euro Exchange Rate
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                Local currency conversion
+              </p>
+            </div>
+          </div>
+          <span className="font-mono text-base font-bold text-emerald-600 dark:text-emerald-400">
+            {euroRate}
+          </span>
+        </article>
+      )}
+
       <article className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-center gap-3">
           <span className="flex size-9 items-center justify-center rounded-md bg-emerald-soft text-primary">
@@ -210,7 +243,7 @@ export function TransitPanel({ transport }: { transport: Transport | null }) {
             <div>
               <dt className="text-xs text-muted-foreground">Card cost</dt>
               <dd className="mt-0.5 text-sm text-foreground">
-                {formatPrice(transport.cardFee)}
+                {formatPrice(transport.cardFee, currency)}
               </dd>
             </div>
           )}
@@ -253,7 +286,7 @@ export function TransitPanel({ transport }: { transport: Transport | null }) {
                 )}
               </div>
               <span className="shrink-0 font-mono text-sm font-medium text-foreground">
-                {formatPrice(transport.fare)}
+                {formatPrice(transport.fare, currency)}
               </span>
             </div>
           )}
@@ -270,7 +303,7 @@ export function TransitPanel({ transport }: { transport: Transport | null }) {
               </div>
               {pass.price && (
                 <span className="shrink-0 font-mono text-sm font-medium text-foreground">
-                  {formatPrice(pass.price)}
+                  {formatPrice(pass.price, currency)}
                 </span>
               )}
             </div>

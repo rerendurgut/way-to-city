@@ -76,7 +76,12 @@ export function GuideTabs({ guide }: { guide: CityGuide }) {
         className="pt-6"
       >
         {active === 'arrival' && <ArrivalPanel arrivals={guide.arrivals} />}
-        {active === 'transit' && <TransitPanel transport={guide.transport} />}
+        {active === 'transit' && (
+          <TransitPanel
+            transport={guide.transport}
+            countryData={guide.countryData}
+          />
+        )}
         {active === 'pois' && <PoisPanel pois={guide.pois} />}
         {active === 'stay' && <StayPanel stays={guide.stays} />}
         {active === 'food' && <FoodPanel foods={guide.foods} />}
