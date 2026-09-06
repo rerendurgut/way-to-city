@@ -317,10 +317,10 @@ async function getFoods(city: string): Promise<Food[]> {
       id: r.id,
       name: r.food_name,
       desc: r.food_desc,
-      isMeat: r.is_meat === '1',
-      isSpicy: r.is_spicy === '1',
-      isVegan: r.is_vegan === '1',
-      isVegetarian: r.is_vegetarian === '1',
+      isMeat: yes(r.is_meat),
+      isSpicy: yes(r.is_spicy),
+      isVegan: yes(r.is_vegan),
+      isVegetarian: yes(r.is_vegetarian),
     }))
 }
 

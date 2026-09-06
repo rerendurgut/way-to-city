@@ -392,11 +392,36 @@ const dietBadges: {
   key: keyof Pick<Food, 'isMeat' | 'isSpicy' | 'isVegan' | 'isVegetarian'>
   label: string
   icon: LucideIcon
+  colorClass: string
 }[] = [
-  { key: 'isMeat', label: 'Meat', icon: Beef },
-  { key: 'isSpicy', label: 'Spicy', icon: Flame },
-  { key: 'isVegetarian', label: 'Vegetarian', icon: Salad },
-  { key: 'isVegan', label: 'Vegan', icon: Leaf },
+  {
+    key: 'isMeat',
+    label: 'Meat',
+    icon: Beef,
+    colorClass:
+      'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
+  },
+  {
+    key: 'isSpicy',
+    label: 'Spicy',
+    icon: Flame,
+    colorClass:
+      'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20',
+  },
+  {
+    key: 'isVegetarian',
+    label: 'Vegetarian',
+    icon: Salad,
+    colorClass:
+      'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
+  },
+  {
+    key: 'isVegan',
+    label: 'Vegan',
+    icon: Leaf,
+    colorClass:
+      'bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20',
+  },
 ]
 
 export function FoodPanel({ foods }: { foods: Food[] }) {
@@ -434,7 +459,7 @@ export function FoodPanel({ foods }: { foods: Food[] }) {
                     return (
                       <span
                         key={b.key}
-                        className="inline-flex items-center gap-1 rounded-md bg-emerald-soft px-2 py-1 text-xs text-primary"
+                        className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-1 text-xs font-medium ${b.colorClass}`}
                       >
                         <Icon className="size-3" />
                         {b.label}
