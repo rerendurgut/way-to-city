@@ -102,21 +102,21 @@ export function formatPrice(v?: string, currencySymbol?: string): string {
   return /^[^\w]/u.test(symbol) ? `${symbol}${n}` : `${n} ${symbol}`
 }
 
-export function formatEuroRate(rate?: string, currency?: string): string {
+export function formatEuroRate(rate?: string, currencyShort?: string): string {
   const r = (rate ?? '').trim()
   if (!r) return ''
-  const symbol = (currency ?? '').trim()
+  const symbol = (currencyShort ?? '').trim()
 
   if (r.includes('/')) {
     const parts = r.split('/')
     const denominator = parts[1]?.trim()
     if (denominator) {
-      return symbol ? `1 € ≈ ${denominator} ${symbol}` : `1 € ≈ ${denominator}`
+      return symbol ? `1 euro = ${denominator} ${symbol}` : `1 euro = ${denominator}`
     }
   }
 
   if (!isNaN(Number(r.replace(',', '.')))) {
-    return symbol ? `1 € ≈ ${r} ${symbol}` : `1 € ≈ ${r}`
+    return symbol ? `1 euro = ${r} ${symbol}` : `1 euro = ${r}`
   }
 
   return r
@@ -177,6 +177,7 @@ export type Country = {
   id: string
   name: string
   currency?: string
+  currencyShort?: string
   euroConversion?: string
 }
 export type City = { id: string; country: string; name: string; desc: string }
@@ -249,7 +250,8 @@ export async function getCountries(): Promise<Country[]> {
     .map((r) => ({
       id: r.id,
       name: r.country,
-      currency: r.currency || r.currency_symbol || r.currency_code || '',
+      currency: r.currency || '',
+      currencyShort: r.currency_short || r.currency_code || r.currency_symbol || '',
       euroConversion:
         r.euro_conversion || r.euro_rate || r.eur_conversion || '',
     }))

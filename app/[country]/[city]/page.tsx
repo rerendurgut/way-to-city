@@ -51,10 +51,10 @@ export default async function CityDetailPage({
     isActive: c.name.toLocaleLowerCase() === city.toLocaleLowerCase(),
   }))
 
-  const currency = guide.countryData?.currency || ''
+  const currencyShort = guide.countryData?.currencyShort || ''
   const euroRateFormatted = formatEuroRate(
     guide.countryData?.euroConversion,
-    currency,
+    currencyShort,
   )
 
   const stats: HeroStat[] = []
@@ -63,7 +63,7 @@ export default async function CityDetailPage({
   if (guide.transport?.fare)
     stats.push({
       label: 'Single fare',
-      value: formatPrice(guide.transport.fare, currency),
+      value: formatPrice(guide.transport.fare, currencyShort),
     })
   if (guide.pois.length)
     stats.push({ label: 'Places to see', value: String(guide.pois.length) })
@@ -89,8 +89,8 @@ export default async function CityDetailPage({
 
           <CityHero
             city={guide.city}
+            countryData={guide.countryData}
             stats={stats}
-            currency={currency}
             euroRate={euroRateFormatted}
           />
           <GuideTabs guide={guide} />

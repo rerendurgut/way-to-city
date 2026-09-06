@@ -191,8 +191,8 @@ export function TransitPanel({
   if (!transport)
     return <EmptyState>No transit card details for this city yet.</EmptyState>
 
-  const currency = countryData?.currency || ''
-  const euroRate = formatEuroRate(countryData?.euroConversion, currency)
+  const currencyShort = countryData?.currencyShort || countryData?.currency || ''
+  const euroRate = formatEuroRate(countryData?.euroConversion, currencyShort)
 
   return (
     <div className="grid gap-3">
@@ -243,7 +243,7 @@ export function TransitPanel({
             <div>
               <dt className="text-xs text-muted-foreground">Card cost</dt>
               <dd className="mt-0.5 text-sm text-foreground">
-                {formatPrice(transport.cardFee, currency)}
+                {formatPrice(transport.cardFee, currencyShort)}
               </dd>
             </div>
           )}
@@ -286,7 +286,7 @@ export function TransitPanel({
                 )}
               </div>
               <span className="shrink-0 font-mono text-sm font-medium text-foreground">
-                {formatPrice(transport.fare, currency)}
+                {formatPrice(transport.fare, currencyShort)}
               </span>
             </div>
           )}
@@ -303,7 +303,7 @@ export function TransitPanel({
               </div>
               {pass.price && (
                 <span className="shrink-0 font-mono text-sm font-medium text-foreground">
-                  {formatPrice(pass.price, currency)}
+                  {formatPrice(pass.price, currencyShort)}
                 </span>
               )}
             </div>
