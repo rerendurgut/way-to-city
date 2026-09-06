@@ -199,6 +199,7 @@ export type Transport = {
   fare: string
   exceptions: string
   whereToBuy: string
+  mobileApp: string
   contactless: boolean
   qr: boolean
   topUp: string
@@ -333,6 +334,13 @@ async function getTransport(city: string): Promise<Transport | null> {
     fare: r.fare,
     exceptions: r.exceptions,
     whereToBuy: r.where_to_buy,
+    mobileApp:
+      r.mobile_app ||
+      r.mobile_app_link ||
+      r.app_link ||
+      r.app ||
+      r.mobil_uygulama ||
+      '',
     contactless: yes(r.contactless),
     qr: yes(r.qr),
     topUp: r['top-up'],

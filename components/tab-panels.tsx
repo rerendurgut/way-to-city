@@ -14,6 +14,7 @@ import {
   Plane,
   QrCode,
   Salad,
+  Smartphone,
   TrainFront,
   Bus,
   Ticket,
@@ -192,31 +193,9 @@ export function TransitPanel({
     return <EmptyState>No transit card details for this city yet.</EmptyState>
 
   const currencyShort = countryData?.currencyShort || countryData?.currency || ''
-  const euroRate = formatEuroRate(countryData?.euroConversion, currencyShort)
 
   return (
     <div className="grid gap-3">
-      {euroRate && (
-        <article className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 shadow-sm">
-          <div className="flex items-center gap-3">
-            <span className="flex size-9 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
-              <Banknote className="size-4" />
-            </span>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Euro Exchange Rate
-              </h3>
-              <p className="text-xs text-muted-foreground">
-                Local currency conversion
-              </p>
-            </div>
-          </div>
-          <span className="font-mono text-base font-bold text-emerald-600 dark:text-emerald-400">
-            {euroRate}
-          </span>
-        </article>
-      )}
-
       <article className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-center gap-3">
           <span className="flex size-9 items-center justify-center rounded-md bg-emerald-soft text-primary">
@@ -247,8 +226,29 @@ export function TransitPanel({
               </dd>
             </div>
           )}
+          {transport.mobileApp && (
+            <div>
+              <dt className="text-xs text-muted-foreground">Mobile app</dt>
+              <dd className="mt-0.5 text-sm text-foreground flex items-center gap-1.5">
+                <Smartphone className="size-3.5 text-primary shrink-0" />
+                {transport.mobileApp.startsWith('http') ? (
+                  <a
+                    href={transport.mobileApp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+                  >
+                    {linkLabel(transport.mobileApp)}
+                    <ArrowUpRight className="size-3" />
+                  </a>
+                ) : (
+                  <span>{transport.mobileApp}</span>
+                )}
+              </dd>
+            </div>
+          )}
           {transport.topUp && (
-            <div className="sm:col-span-2">
+            <div className={transport.mobileApp ? '' : 'sm:col-span-2'}>
               <dt className="text-xs text-muted-foreground">Top-up</dt>
               <dd className="mt-0.5 text-sm leading-relaxed text-foreground">
                 {transport.topUp}
