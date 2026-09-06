@@ -1,0 +1,88 @@
+import { notFound } from 'next/navigation'
+import { MapPin } from 'lucide-react'
+import { CityHero, type HeroStat } from '@/components/city-hero'
+import { GuideTabs } from '@/components/guide-tabs'
+import { SiteHeader } from '@/components/site-header'
+import { SlidingMenu, type SlidingMenuItem } from '@/components/sliding-menu'
+import { formatPrice, getCities, getCityGuide } from '@/lib/sheets'
+
+export const revalidate = 3600
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ country: string; city: string }>
+}) {
+  const { country, city } = await params
+  const name = decodeURIComponent(city)
+  return {
+    title: `${name} — WayToCity`,
+    description: `Transit guide, arrival routes, points of interest, stays and local food for ${name}.`,
+  }
+}
+
+export default async function CityDetailPage({
+  params,
+}: {
+  params: Promise<{ country: string; city: string }>
+}) {
+  const { country: rawCountry, city: rawCity } = await params
+  const country = decodeURIComponent(rawCountry)
+  const city = decodeURIComponent(rawCity)
+
+  const [guide, allCities] = await Promise.all([
+    getCityGuide(country, city),
+    getCities(country),
+  ])
+
+  if (!guide) notFound()
+
+  const cityPillItems: SlidingMenuItem[] = allCities.map((c) => ({
+    id: c.id,
+    title: c.name,
+    href: `/${encodeURIComponent(country)}/${encodeURIComponent(c.name)}`,
+    icon: <MapPin className="size-3.5" />,
+    isActive: c.name.toLocaleLowerCase() === city.toLocaleLowerCase(),
+  }))
+
+  const stats: HeroStat[] = []
+  if (guide.arrivals.length)
+    stats.push({ label: 'Arrival routes', value: String(guide.arrivals.length) })
+  if (guide.transport?.fare)
+    stats.push({ label: 'Single fare', value: formatPrice(guide.transport.fare) })
+  if (guide.pois.length)
+    stats.push({ label: 'Places to see', value: String(guide.pois.length) })
+  if (guide.foods.length)
+    stats.push({ label: 'Local dishes', value: String(guide.foods.length) })
+
+  return (
+    <div className="min-h-svh bg-background">
+      <SiteHeader />
+
+      <main className="mx-auto max-w-4xl px-6 py-8">
+        {allCities.length > 1 && (
+          <div className="mb-6 border-b border-border pb-4">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="font-mono text-xs text-muted-foreground uppercase tracking-wider">
+                Cities in {country}
+              </span>
+            </div>
+            <SlidingMenu items={cityPillItems} variant="pill" />
+          </div>
+        )}
+
+        <CityHero city={guide.city} stats={stats} />
+        <GuideTabs guide={guide} />
+      </main>
+
+      <footer className="border-t border-border">
+        <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-6 text-xs text-muted-foreground">
+          <span>
+            WayToCity — {guide.city.name}, {guide.city.country}
+          </span>
+          <span className="font-mono">Live from Google Sheets</span>
+        </div>
+      </footer>
+    </div>
+  )
+}
