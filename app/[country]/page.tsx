@@ -48,7 +48,7 @@ export default async function CountryPage({
   }))
 
   return (
-    <div className="min-h-svh bg-background flex flex-col justify-between">
+    <div className="min-h-svh bg-background flex flex-col justify-between animate-fade-in">
       <div>
         <SiteHeader />
 

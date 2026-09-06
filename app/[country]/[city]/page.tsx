@@ -57,7 +57,7 @@ export default async function CityDetailPage({
     stats.push({ label: 'Local dishes', value: String(guide.foods.length) })
 
   return (
-    <div className="min-h-svh bg-background flex flex-col justify-between">
+    <div className="min-h-svh bg-background flex flex-col justify-between animate-fade-in">
       <div>
         <SiteHeader />
 
