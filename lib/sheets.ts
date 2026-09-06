@@ -211,7 +211,11 @@ export type CityGuide = {
 
 export async function getCountries(): Promise<Country[]> {
   const rows = await fetchSheet('country')
-  return rows.map((r) => ({ id: r.id, name: r.country })).filter((c) => c.name)
+  const countries = rows.map((r) => ({ id: r.id, name: r.country })).filter((c) => c.name)
+  countries.sort((a, b) =>
+    a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' }),
+  )
+  return countries
 }
 
 export async function getCities(country?: string): Promise<City[]> {

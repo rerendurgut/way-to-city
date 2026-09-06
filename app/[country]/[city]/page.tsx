@@ -37,6 +37,7 @@ export default async function CityDetailPage({
 
   if (!guide) notFound()
 
+  // Cities are sorted by ID behind the scenes, but ID is strictly hidden from the UI items
   const cityPillItems: SlidingMenuItem[] = allCities.map((c) => ({
     id: c.id,
     title: c.name,
@@ -56,31 +57,35 @@ export default async function CityDetailPage({
     stats.push({ label: 'Local dishes', value: String(guide.foods.length) })
 
   return (
-    <div className="min-h-svh bg-background">
-      <SiteHeader />
+    <div className="min-h-svh bg-background flex flex-col justify-between">
+      <div>
+        <SiteHeader />
 
-      <main className="mx-auto max-w-4xl px-6 py-8">
-        {allCities.length > 1 && (
-          <div className="mb-6 border-b border-border pb-4">
-            <div className="mb-2 flex items-center justify-between">
-              <span className="font-mono text-xs text-muted-foreground uppercase tracking-wider">
-                Cities in {country}
-              </span>
+        <main className="mx-auto max-w-5xl px-6 py-8 sm:py-12">
+          {allCities.length > 1 && (
+            <div className="mb-8 border-b border-border/60 pb-5">
+              <div className="mb-2.5 flex items-center justify-between">
+                <span className="font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">
+                  Cities in {country}
+                </span>
+              </div>
+              <SlidingMenu items={cityPillItems} variant="pill" />
             </div>
-            <SlidingMenu items={cityPillItems} variant="pill" />
-          </div>
-        )}
+          )}
 
-        <CityHero city={guide.city} stats={stats} />
-        <GuideTabs guide={guide} />
-      </main>
+          <CityHero city={guide.city} stats={stats} />
+          <GuideTabs guide={guide} />
+        </main>
+      </div>
 
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-6 text-xs text-muted-foreground">
+      <footer className="border-t border-border/60 bg-card/30 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6 text-xs text-muted-foreground">
           <span>
             WayToCity — {guide.city.name}, {guide.city.country}
           </span>
-          <span className="font-mono">Live from Google Sheets</span>
+          <span className="font-mono text-emerald-600 dark:text-emerald-400 font-medium">
+            Live from Google Sheets
+          </span>
         </div>
       </footer>
     </div>
