@@ -186,7 +186,13 @@ export type Poi = {
   lng: number | null
 }
 
-export type Stay = { id: string; where: string; desc: string; link: string }
+export type Stay = {
+  id: string
+  city?: string
+  where: string
+  desc: string
+  link: string
+}
 
 export type Food = {
   id: string
@@ -302,10 +308,17 @@ async function getPois(city: string): Promise<Poi[]> {
     })
 }
 
-async function getStays(): Promise<Stay[]> {
+async function getStays(city: string): Promise<Stay[]> {
   const rows = await fetchSheet('stay')
   return rows
-    .map((r) => ({ id: r.id, where: r.where, desc: r.desc, link: r.link }))
+    .filter((r) => !r.city || eq(r.city, city))
+    .map((r) => ({
+      id: r.id,
+      city: r.city,
+      where: r.where,
+      desc: r.desc,
+      link: r.link,
+    }))
     .filter((s) => s.where)
 }
 
@@ -334,7 +347,7 @@ export async function getCityGuide(
     getArrivals(city),
     getTransport(city),
     getPois(city),
-    getStays(),
+    getStays(city),
     getFoods(city),
   ])
   return { city: cityRow, arrivals, transport, pois, stays, foods }
