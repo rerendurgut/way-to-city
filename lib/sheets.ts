@@ -19,7 +19,7 @@ const SHEETS = {
   food: '1952657740',
 } as const
 
-const REVALIDATE_SECONDS = 3600
+const REVALIDATE_SECONDS = 60
 
 /* ------------------------------ CSV parsing ------------------------------ */
 

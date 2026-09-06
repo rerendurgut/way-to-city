@@ -5,7 +5,7 @@ import { SiteHeader } from '@/components/site-header'
 import { SlidingMenu, type SlidingMenuItem } from '@/components/sliding-menu'
 import { getCities, getCountries } from '@/lib/sheets'
 
-export const revalidate = 3600
+export const revalidate = 60
 
 export async function generateMetadata({
   params,
