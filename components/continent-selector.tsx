@@ -130,7 +130,7 @@ export function ContinentSelector({
         <SlidingMenu
           items={countryItems}
           variant="card"
-          searchPlaceholder={`Filter countries...`}
+          showSearch={false}
           emptyText={
             selectedContinent === 'All'
               ? 'No countries matching your search.'

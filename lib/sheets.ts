@@ -602,19 +602,20 @@ export async function getEvents(city: string): Promise<EventItem[]> {
       .from('events')
       .select('*')
       .ilike('city', city)
-      .gte('event_date', todayStr)
-      .order('event_date', { ascending: true })
 
     if (!error && data && data.length > 0) {
-      return data.map((r: any) => ({
-        id: String(r.id),
-        name: r.name || '',
-        desc: r.desc || '',
-        eventDate: r.event_date || '',
-        link: r.link || '',
-        location: r.location || '',
-        price: r.price || '',
-      }))
+      return data
+        .map((r: any) => ({
+          id: String(r.id),
+          name: r.name || r.event_name || '',
+          desc: r.desc || r.event_desc || '',
+          eventDate: r.event_date || r.date || '',
+          link: r.link || '',
+          location: r.location || '',
+          price: r.price || '',
+        }))
+        .filter((e) => e.name && (!e.eventDate || e.eventDate >= todayStr))
+        .sort((a, b) => (a.eventDate || '').localeCompare(b.eventDate || ''))
     }
   } catch (err) {
     console.error('Supabase getEvents error:', err)
@@ -633,7 +634,7 @@ export async function getEvents(city: string): Promise<EventItem[]> {
         location: r.location || '',
         price: r.price || '',
       }))
-      .filter((e) => !e.eventDate || e.eventDate >= todayStr)
+      .filter((e) => e.name && (!e.eventDate || e.eventDate >= todayStr))
       .sort((a, b) => (a.eventDate || '').localeCompare(b.eventDate || ''))
   } catch {
     return []
@@ -695,8 +696,6 @@ export async function getAllUpcomingEvents(): Promise<GlobalEventItem[]> {
     const { data, error } = await supabase
       .from('events')
       .select('*')
-      .gte('event_date', todayStr)
-      .order('event_date', { ascending: true })
 
     if (!error && data && data.length > 0) {
       eventsData = data
@@ -723,8 +722,8 @@ export async function getAllUpcomingEvents(): Promise<GlobalEventItem[]> {
       }
       return {
         id: String(r.id),
-        name: r.event_name || r.name || '',
-        desc: r.event_desc || r.desc || '',
+        name: r.name || r.event_name || '',
+        desc: r.desc || r.event_desc || '',
         eventDate: r.event_date || r.date || '',
         link: r.link || '',
         location: r.location || '',
