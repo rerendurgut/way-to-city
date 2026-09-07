@@ -107,7 +107,15 @@ function titleForArrival(a: Arrival) {
   return arrivalTitles[a.type] ?? `By ${a.type.charAt(0).toUpperCase() + a.type.slice(1)}`
 }
 
-export function ArrivalPanel({ arrivals }: { arrivals: Arrival[] }) {
+export function ArrivalPanel({
+  arrivals,
+  country,
+  city,
+}: {
+  arrivals: Arrival[]
+  country?: string
+  city?: string
+}) {
   const { openContribute } = useContributeModal()
 
   if (arrivals.length === 0)
@@ -144,6 +152,8 @@ export function ArrivalPanel({ arrivals }: { arrivals: Arrival[] }) {
                   openContribute({
                     mode: 'correction',
                     category: 'tocity',
+                    country,
+                    city,
                     title: method.name || titleForArrival(method),
                     description: method.desc || method.note,
                     link: method.link,
@@ -239,9 +249,13 @@ function StatusBadge({
 export function TransitPanel({
   transport,
   countryData,
+  country,
+  city,
 }: {
   transport: Transport | null
   countryData?: Country | null
+  country?: string
+  city?: string
 }) {
   const { openContribute } = useContributeModal()
 
@@ -272,6 +286,8 @@ export function TransitPanel({
               openContribute({
                 mode: 'correction',
                 category: 'transport',
+                country,
+                city,
                 title: transport.cardName,
                 description: transport.whereToBuy,
                 targetId: transport.id,
@@ -436,7 +452,15 @@ export function TransitPanel({
 
 /* ------------------------------ 3. POIs ----------------------------- */
 
-export function PoisPanel({ pois }: { pois: Poi[] }) {
+export function PoisPanel({
+  pois,
+  country,
+  city,
+}: {
+  pois: Poi[]
+  country?: string
+  city?: string
+}) {
   const { openContribute } = useContributeModal()
 
   if (pois.length === 0)
@@ -477,6 +501,8 @@ export function PoisPanel({ pois }: { pois: Poi[] }) {
                     openContribute({
                       mode: 'correction',
                       category: 'poi',
+                      country,
+                      city,
                       title: poi.name,
                       description: poi.desc,
                       link: poi.link,
@@ -526,7 +552,15 @@ function stayIcon(where: string): LucideIcon {
   return Building2
 }
 
-export function StayPanel({ stays }: { stays: Stay[] }) {
+export function StayPanel({
+  stays,
+  country,
+  city,
+}: {
+  stays: Stay[]
+  country?: string
+  city?: string
+}) {
   const { openContribute } = useContributeModal()
 
   if (stays.length === 0)
@@ -552,6 +586,8 @@ export function StayPanel({ stays }: { stays: Stay[] }) {
                   openContribute({
                     mode: 'correction',
                     category: 'stay',
+                    country,
+                    city,
                     title: stay.where,
                     description: stay.desc,
                     link: stay.link,
@@ -622,7 +658,15 @@ const dietBadges: {
   },
 ]
 
-export function FoodPanel({ foods }: { foods: Food[] }) {
+export function FoodPanel({
+  foods,
+  country,
+  city,
+}: {
+  foods: Food[]
+  country?: string
+  city?: string
+}) {
   const { openContribute } = useContributeModal()
 
   if (foods.length === 0)
@@ -653,6 +697,8 @@ export function FoodPanel({ foods }: { foods: Food[] }) {
                     openContribute({
                       mode: 'correction',
                       category: 'food',
+                      country,
+                      city,
                       title: item.name,
                       description: item.desc,
                       targetId: item.id,
@@ -702,7 +748,15 @@ export function FoodPanel({ foods }: { foods: Food[] }) {
 
 /* ---------------------------- 6. Events ---------------------------- */
 
-export function EventsPanel({ events }: { events: EventItem[] }) {
+export function EventsPanel({
+  events,
+  country,
+  city,
+}: {
+  events: EventItem[]
+  country?: string
+  city?: string
+}) {
   const { openContribute } = useContributeModal()
 
   return (
@@ -717,6 +771,8 @@ export function EventsPanel({ events }: { events: EventItem[] }) {
             openContribute({
               mode: 'new',
               category: 'events',
+              country,
+              city,
             })
           }
           className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 active:scale-95 transition-all"
@@ -760,6 +816,8 @@ export function EventsPanel({ events }: { events: EventItem[] }) {
                       openContribute({
                         mode: 'correction',
                         category: 'events',
+                        country,
+                        city,
                         title: evt.name,
                         description: evt.desc,
                         link: evt.link,

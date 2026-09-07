@@ -153,7 +153,6 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isOpen || mode !== 'correction' || !city.trim()) {
       setExistingItems([])
-      setSelectedItemId('')
       return
     }
 

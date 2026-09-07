@@ -89,17 +89,49 @@ function GuideTabsContent({ guide }: { guide: CityGuide }) {
         aria-labelledby={`tab-${active}`}
         className="pt-6"
       >
-        {active === 'arrival' && <ArrivalPanel arrivals={guide.arrivals} />}
+        {active === 'arrival' && (
+          <ArrivalPanel
+            arrivals={guide.arrivals}
+            country={guide.city.country}
+            city={guide.city.name}
+          />
+        )}
         {active === 'transit' && (
           <TransitPanel
             transport={guide.transport}
             countryData={guide.countryData}
+            country={guide.city.country}
+            city={guide.city.name}
           />
         )}
-        {active === 'pois' && <PoisPanel pois={guide.pois} />}
-        {active === 'stay' && <StayPanel stays={guide.stays} />}
-        {active === 'food' && <FoodPanel foods={guide.foods} />}
-        {active === 'events' && <EventsPanel events={guide.events} />}
+        {active === 'pois' && (
+          <PoisPanel
+            pois={guide.pois}
+            country={guide.city.country}
+            city={guide.city.name}
+          />
+        )}
+        {active === 'stay' && (
+          <StayPanel
+            stays={guide.stays}
+            country={guide.city.country}
+            city={guide.city.name}
+          />
+        )}
+        {active === 'food' && (
+          <FoodPanel
+            foods={guide.foods}
+            country={guide.city.country}
+            city={guide.city.name}
+          />
+        )}
+        {active === 'events' && (
+          <EventsPanel
+            events={guide.events}
+            country={guide.city.country}
+            city={guide.city.name}
+          />
+        )}
       </div>
     </section>
   )
