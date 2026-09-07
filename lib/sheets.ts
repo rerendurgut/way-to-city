@@ -228,6 +228,7 @@ export type Arrival = {
   desc: string
   link: string
   note: string
+  noteLink?: string
 }
 
 export type Pass = { name: string; desc: string; price: string }
@@ -383,6 +384,7 @@ async function getArrivals(city: string): Promise<Arrival[]> {
       desc: r.desc,
       link: r.link,
       note: r.put,
+      noteLink: r.put_link || r.note_link || r.putlink || r.put_url || '',
     }))
 }
 

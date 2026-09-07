@@ -136,18 +136,39 @@ export function ArrivalPanel({ arrivals }: { arrivals: Arrival[] }) {
             )}
 
             {method.note && (
-              <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-primary">
-                <MapPin className="size-3.5" />
-                {method.note}
-              </p>
+              method.noteLink ? (
+                <a
+                  href={method.noteLink}
+                  target="_blank"
+                  rel="noopener noreferrer sponsored"
+                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+                >
+                  <MapPin className="size-3.5" />
+                  {method.note}
+                  <ArrowUpRight className="size-3.5" />
+                </a>
+              ) : (
+                <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-primary">
+                  <MapPin className="size-3.5" />
+                  {method.note}
+                </p>
+              )
             )}
 
-            {method.link && (
+            {(method.link || method.noteLink) && (
               <div className="mt-4 flex flex-wrap gap-2 border-t border-border pt-4">
-                <AffiliateButton
-                  href={method.link}
-                  label={linkLabel(method.link)}
-                />
+                {method.link && (
+                  <AffiliateButton
+                    href={method.link}
+                    label={linkLabel(method.link)}
+                  />
+                )}
+                {method.noteLink && (
+                  <AffiliateButton
+                    href={method.noteLink}
+                    label={linkLabel(method.noteLink)}
+                  />
+                )}
               </div>
             )}
           </article>
