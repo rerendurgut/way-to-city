@@ -83,7 +83,11 @@ export default async function CityDetailPage({
                   Cities in {country}
                 </span>
               </div>
-              <SlidingMenu items={cityPillItems} variant="pill" />
+              <SlidingMenu
+                items={cityPillItems}
+                variant="pill"
+                showSearch={false}
+              />
             </div>
           )}
 
