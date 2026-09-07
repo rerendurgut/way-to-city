@@ -53,7 +53,12 @@ export default function AdminPage() {
           desc: sub.description || ''
         }])
       } else {
-        const targetTable = sub.category === 'tocity' ? 'tocity' : sub.category + 's' // pois, foods, stays
+        const targetTable =
+          sub.category === 'tocity'
+            ? 'tocity'
+            : sub.category === 'transport'
+            ? 'transport'
+            : sub.category + 's' // pois, foods, stays
         let insertData: any = {
           id: `user-${Date.now()}`,
           city: sub.city,
@@ -96,6 +101,19 @@ export default function AdminPage() {
             note_link: extra.noteLink || '',
             status: 'approved'
           }
+        } else if (sub.category === 'transport') {
+          insertData = {
+            id: `user-${Date.now()}`,
+            city: sub.city,
+            card_name: extra.cardName || sub.title,
+            card_fee: extra.cardFee || '',
+            fare: extra.fare || '',
+            where_to_buy: sub.description || '',
+            taxi_app: extra.taxiApp || '',
+            contactless: Boolean(extra.contactless),
+            qr: Boolean(extra.qr),
+            status: 'approved'
+          }
         } else if (sub.category === 'poi') {
           insertData = {
             id: `user-${Date.now()}`,
@@ -111,11 +129,6 @@ export default function AdminPage() {
         if (insertErr) {
           console.error(`Insert to ${targetTable} error:`, insertErr)
         }
-      }
-
-      const { error: insertErr } = await supabase.from(targetTable).insert([insertData])
-      if (insertErr) {
-        console.error(`Insert to ${targetTable} error:`, insertErr)
       }
 
       // 2. Update submission status to approved

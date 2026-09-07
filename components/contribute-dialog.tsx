@@ -29,6 +29,12 @@ export function ContributeDialog({
   const [isSpicy, setIsSpicy] = useState(false)
   const [isVegan, setIsVegan] = useState(false)
   const [isVegetarian, setIsVegetarian] = useState(false)
+  // Transit Guide dynamic fields
+  const [fare, setFare] = useState('')
+  const [cardFee, setCardFee] = useState('')
+  const [contactless, setContactless] = useState(false)
+  const [qr, setQr] = useState(false)
+  const [taxiApp, setTaxiApp] = useState('')
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -55,6 +61,13 @@ export function ContributeDialog({
         extra_info.isSpicy = isSpicy
         extra_info.isVegan = isVegan
         extra_info.isVegetarian = isVegetarian
+      } else if (category === 'transport') {
+        extra_info.cardName = title
+        extra_info.fare = fare
+        extra_info.cardFee = cardFee
+        extra_info.contactless = contactless
+        extra_info.qr = qr
+        extra_info.taxiApp = taxiApp
       }
 
       const { error } = await supabase.from('submissions').insert([
@@ -85,6 +98,11 @@ export function ContributeDialog({
         setIsSpicy(false)
         setIsVegan(false)
         setIsVegetarian(false)
+        setFare('')
+        setCardFee('')
+        setContactless(false)
+        setQr(false)
+        setTaxiApp('')
       }, 2500)
     } catch (err) {
       console.error('Submission error:', err)
@@ -134,8 +152,9 @@ export function ContributeDialog({
                 className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
               >
                 <option value="poi">📍 Place to See (POI)</option>
+                <option value="transport">🚆 Transit Guide / Urban Transport</option>
+                <option value="tocity">✈️ Arrival / Airport &amp; Intercity</option>
                 <option value="food">🍱 Local Food / Dish</option>
-                <option value="tocity">✈️ Arrival / Airport &amp; Transit Tip</option>
                 <option value="stay">🏨 Stay / Hotel</option>
                 <option value="city">🏙️ New City Suggestion</option>
               </select>
@@ -174,6 +193,7 @@ export function ContributeDialog({
             <div>
               <label className="block text-xs font-medium text-muted-foreground mb-1">
                 {category === 'poi' && 'Place / Attraction Name'}
+                {category === 'transport' && 'Transit Card or Ticket Name'}
                 {category === 'food' && 'Dish / Food Name'}
                 {category === 'tocity' && 'Airport or Station Name'}
                 {category === 'stay' && 'Hotel / Stay Name'}
@@ -185,6 +205,8 @@ export function ContributeDialog({
                 placeholder={
                   category === 'poi'
                     ? 'e.g. Eiffel Tower, Hagia Sophia'
+                    : category === 'transport'
+                    ? 'e.g. Istanbulkart, Navigo Pass, Oyster Card'
                     : category === 'food'
                     ? 'e.g. Iskender Kebab, Croissant'
                     : category === 'tocity'
@@ -212,6 +234,77 @@ export function ContributeDialog({
                   onChange={(e) => setCoordinates(e.target.value)}
                   className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
                 />
+              </div>
+            )}
+
+            {/* Category: Transit Specific (Fares, Apps, Payment Badges) */}
+            {category === 'transport' && (
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      Single Fare / Ticket Price
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. 15 ₺ or €2.15"
+                      value={fare}
+                      onChange={(e) => setFare(e.target.value)}
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      Card Fee / Deposit
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. 50 ₺ or €5"
+                      value={cardFee}
+                      onChange={(e) => setCardFee(e.target.value)}
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1">
+                    Taxi &amp; Ride App (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Uber, BiTaksi, Bolt"
+                    value={taxiApp}
+                    onChange={(e) => setTaxiApp(e.target.value)}
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-muted-foreground mb-2">
+                    Payment Options Supported
+                  </label>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <label className="flex items-center gap-2 cursor-pointer rounded-lg border border-border p-2 hover:bg-accent">
+                      <input
+                        type="checkbox"
+                        checked={contactless}
+                        onChange={(e) => setContactless(e.target.checked)}
+                        className="rounded border-border text-emerald-600 focus:ring-emerald-500"
+                      />
+                      <span>💳 Contactless Bank Card</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer rounded-lg border border-border p-2 hover:bg-accent">
+                      <input
+                        type="checkbox"
+                        checked={qr}
+                        onChange={(e) => setQr(e.target.checked)}
+                        className="rounded border-border text-emerald-600 focus:ring-emerald-500"
+                      />
+                      <span>📱 QR Code Payment</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             )}
 
@@ -299,6 +392,8 @@ export function ContributeDialog({
               <label className="block text-xs font-medium text-muted-foreground mb-1">
                 {category === 'tocity'
                   ? 'How to get from Airport/Station to City Center'
+                  : category === 'transport'
+                  ? 'Where to Buy & Public Transit Tips'
                   : 'Description / Local Tips'}
               </label>
               <textarea
@@ -306,6 +401,8 @@ export function ContributeDialog({
                 placeholder={
                   category === 'tocity'
                     ? 'e.g. Take M11 Metro Line or Havaist shuttle directly to Taksim...'
+                    : category === 'transport'
+                    ? 'e.g. Purchase card at yellow kiosks in metro stations. Valid on all buses and trains...'
                     : 'Tell travelers why this spot is worth visiting, prices, or recommendations...'
                 }
                 value={description}
