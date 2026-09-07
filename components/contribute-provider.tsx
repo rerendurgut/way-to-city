@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { PlusCircle, Send, CheckCircle2, X, Edit3 } from 'lucide-react'
+import { PlusCircle, Send, CheckCircle2, X, Edit3, Loader2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
 export type ContributeModalOptions = {
@@ -69,12 +69,114 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
   const [contactless, setContactless] = useState(false)
   const [qr, setQr] = useState(false)
 
+  // Correction selection list states
+  const [existingItems, setExistingItems] = useState<any[]>([])
+  const [selectedItemId, setSelectedItemId] = useState<string>('')
+  const [loadingExisting, setLoadingExisting] = useState<boolean>(false)
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Auto-fetch existing items from Supabase when in Correction mode
+  useEffect(() => {
+    if (!isOpen || mode !== 'correction' || !city.trim()) {
+      setExistingItems([])
+      setSelectedItemId('')
+      return
+    }
+
+    let isMounted = true
+    const fetchExisting = async () => {
+      setLoadingExisting(true)
+      try {
+        const table =
+          category === 'tocity'
+            ? 'tocity'
+            : category === 'transport'
+            ? 'transport'
+            : category === 'city'
+            ? 'cities'
+            : category + 's'
+
+        const { data, error } = await supabase
+          .from(table)
+          .select('*')
+          .ilike('city', city.trim())
+
+        if (isMounted) {
+          if (!error && data) {
+            setExistingItems(data)
+          } else {
+            setExistingItems([])
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching existing items for correction:', err)
+      } finally {
+        if (isMounted) setLoadingExisting(false)
+      }
+    }
+
+    fetchExisting()
+    return () => {
+      isMounted = false
+    }
+  }, [isOpen, mode, city, category])
+
+  const handleSelectItemToCorrect = (itemId: string) => {
+    setSelectedItemId(itemId)
+    if (!itemId) return
+
+    const item = existingItems.find((i) => String(i.id) === String(itemId))
+    if (!item) return
+
+    setTargetId(String(item.id))
+
+    if (category === 'food') {
+      setTitle(item.name || '')
+      setDescription(item.desc || '')
+      setIsMeat(Boolean(item.is_meat))
+      setIsSpicy(Boolean(item.is_spicy))
+      setIsVegan(Boolean(item.is_vegan))
+      setIsVegetarian(Boolean(item.is_vegetarian))
+    } else if (category === 'stay') {
+      setTitle(item.where || item.where_stay || item.name || '')
+      setDescription(item.desc || '')
+      setLink(item.link || '')
+    } else if (category === 'tocity') {
+      setTitle(item.name || '')
+      setDescription(item.desc || item.note || '')
+      setLink(item.link || '')
+      setArrivalType(item.type || 'plane')
+      setNoteLink(item.note_link || '')
+    } else if (category === 'transport') {
+      setTitle(item.card_name || 'Transit Card')
+      setDescription(item.where_to_buy || item.desc || '')
+      setFare(item.fare || '')
+      setCardFee(item.card_fee || '')
+      setTaxiApp(item.taxi_app || '')
+      setCarShareApp(item.car_share_app || '')
+      setCarRental(item.car_rental || '')
+      setMobileApp(item.mobile_app || '')
+      setContactless(Boolean(item.contactless))
+      setQr(Boolean(item.qr))
+      if (Array.isArray(item.passes)) {
+        setPassesInfo(item.passes.map((p: any) => `${p.name}: ${p.desc || p.price}`).join(', '))
+      }
+    } else if (category === 'poi') {
+      setTitle(item.name || '')
+      setDescription(item.desc || '')
+      setLink(item.link || '')
+      setCoordinates(item.lat && item.lng ? `${item.lat}, ${item.lng}` : '')
+    } else if (category === 'city') {
+      setTitle(item.name || item.city || '')
+      setDescription(item.desc || '')
+    }
+  }
 
   const openContribute = (options?: ContributeModalOptions) => {
     const m = options?.mode || 'new'
@@ -86,6 +188,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setDescription(options?.description || '')
     setLink(options?.link || '')
     setTargetId(options?.targetId)
+    setSelectedItemId(options?.targetId || '')
 
     const extra = options?.extra_info || {}
     setCoordinates(extra.coordinates || '')
@@ -133,6 +236,8 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setContactless(false)
     setQr(false)
     setTargetId(undefined)
+    setSelectedItemId('')
+    setExistingItems([])
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -254,7 +359,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
           </h2>
           <p className="text-xs text-muted-foreground mt-1">
             {mode === 'correction'
-              ? 'Found outdated or missing details? Edit below to send a correction for review.'
+              ? 'Found outdated or missing details? Pick an existing item or edit below to submit.'
               : 'Share a spot, food, stay, or transit tip. Submissions go to moderation before publishing.'}
           </p>
         </div>
@@ -317,6 +422,41 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
                 />
               </div>
             </div>
+
+            {/* Select Existing Item to Correct Dropdown (ONLY in Correction Mode) */}
+            {mode === 'correction' && (
+              <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-3 space-y-1.5">
+                <label className="block text-xs font-bold text-amber-700 dark:text-amber-400 flex items-center justify-between">
+                  <span>🎯 Select Existing Item to Edit ({city || 'City'})</span>
+                  {loadingExisting && <Loader2 className="size-3 animate-spin text-amber-600" />}
+                </label>
+                <select
+                  value={selectedItemId}
+                  onChange={(e) => handleSelectItemToCorrect(e.target.value)}
+                  disabled={loadingExisting || !city}
+                  className="w-full rounded-lg border border-amber-500/40 bg-background px-3 py-2 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-amber-500/40"
+                >
+                  <option value="">
+                    {!city
+                      ? 'Type Country & City first'
+                      : loadingExisting
+                      ? `Loading items in ${city}...`
+                      : existingItems.length === 0
+                      ? `No items found in ${city} for ${category}`
+                      : `-- Pick item from ${city} to auto-fill form --`}
+                  </option>
+                  {existingItems.map((item) => {
+                    const itemName =
+                      item.name || item.card_name || item.where || item.where_stay || item.city
+                    return (
+                      <option key={item.id} value={item.id}>
+                        {itemName}
+                      </option>
+                    )
+                  })}
+                </select>
+              </div>
+            )}
 
             {/* Title / Primary Name */}
             <div>
