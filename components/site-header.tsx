@@ -1,4 +1,5 @@
 import { Navigation } from 'lucide-react'
+import { ContributeDialog } from '@/components/contribute-dialog'
 
 export function SiteHeader() {
   return (
@@ -12,6 +13,10 @@ export function SiteHeader() {
             WayToCity
           </span>
         </a>
+
+        <div className="flex items-center gap-3">
+          <ContributeDialog />
+        </div>
       </div>
     </header>
   )

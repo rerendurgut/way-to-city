@@ -286,9 +286,32 @@ export type CityGuide = {
   foods: Food[]
 }
 
+import { supabase } from '@/lib/supabase'
+
 /* ------------------------------- getters -------------------------------- */
 
 export async function getCountries(): Promise<Country[]> {
+  try {
+    const { data, error } = await supabase.from('countries').select('*')
+    if (!error && data && data.length > 0) {
+      const countries = data.map((r: any) => ({
+        id: String(r.id),
+        name: r.name,
+        continent: r.continent || '',
+        currency: r.currency || '',
+        currencyShort: r.currency_short || '',
+        euroConversion: r.euro_conversion || '',
+        esimLink: r.esim_link || '',
+      }))
+      countries.sort((a, b) =>
+        a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' }),
+      )
+      return countries
+    }
+  } catch (err) {
+    console.error('Supabase getCountries error, falling back to sheet:', err)
+  }
+
   const rows = await fetchSheet('country')
   const countries = rows
     .map((r) => ({
@@ -349,6 +372,28 @@ export async function getCountry(
 }
 
 export async function getCities(country?: string): Promise<City[]> {
+  try {
+    let query = supabase.from('cities').select('*')
+    if (country) {
+      query = query.ilike('country', country)
+    }
+    const { data, error } = await query
+    if (!error && data && data.length > 0) {
+      const cities = data.map((r: any) => ({
+        id: String(r.id),
+        country: r.country,
+        name: r.name,
+        desc: r.desc || '',
+      }))
+      cities.sort((a, b) =>
+        a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' }),
+      )
+      return cities
+    }
+  } catch (err) {
+    console.error('Supabase getCities error, falling back to sheet:', err)
+  }
+
   const rows = await fetchSheet('city')
   let cities = rows
     .map((r) => ({
@@ -374,6 +419,27 @@ export async function getCity(
 }
 
 async function getArrivals(city: string): Promise<Arrival[]> {
+  try {
+    const { data, error } = await supabase
+      .from('tocity')
+      .select('*')
+      .ilike('city', city)
+      .eq('status', 'approved')
+    if (!error && data && data.length > 0) {
+      return data.map((r: any) => ({
+        id: String(r.id),
+        type: (r.type || '').toLowerCase(),
+        name: r.name || '',
+        desc: r.desc || '',
+        link: r.link || '',
+        note: r.note || '',
+        noteLink: r.note_link || '',
+      }))
+    }
+  } catch (err) {
+    console.error('Supabase getArrivals error:', err)
+  }
+
   const rows = await fetchSheet('tocity')
   return rows
     .filter((r) => eq(r.city, city))
@@ -389,6 +455,35 @@ async function getArrivals(city: string): Promise<Arrival[]> {
 }
 
 async function getTransport(city: string): Promise<Transport | null> {
+  try {
+    const { data, error } = await supabase
+      .from('transport')
+      .select('*')
+      .ilike('city', city)
+      .limit(1)
+    if (!error && data && data.length > 0) {
+      const r = data[0]
+      return {
+        id: String(r.id),
+        cardName: r.card_name || '',
+        cardFee: r.card_fee || '',
+        fare: r.fare || '',
+        exceptions: r.exceptions || '',
+        whereToBuy: r.where_to_buy || '',
+        mobileApp: r.mobile_app || '',
+        taxiApp: r.taxi_app || '',
+        carShareApp: r.car_share_app || '',
+        carRental: r.car_rental || '',
+        contactless: Boolean(r.contactless),
+        qr: Boolean(r.qr),
+        topUp: r.top_up || '',
+        passes: Array.isArray(r.passes) ? r.passes : [],
+      }
+    }
+  } catch (err) {
+    console.error('Supabase getTransport error:', err)
+  }
+
   const rows = await fetchSheet('transport')
   const r = rows.find((row) => eq(row.city, city))
   if (!r) return null
@@ -445,6 +540,26 @@ async function getTransport(city: string): Promise<Transport | null> {
 }
 
 async function getPois(city: string): Promise<Poi[]> {
+  try {
+    const { data, error } = await supabase
+      .from('pois')
+      .select('*')
+      .ilike('city', city)
+      .eq('status', 'approved')
+    if (!error && data && data.length > 0) {
+      return data.map((r: any) => ({
+        id: String(r.id),
+        name: r.name || '',
+        desc: r.desc || '',
+        link: r.link || '',
+        lat: r.lat ?? null,
+        lng: r.lng ?? null,
+      }))
+    }
+  } catch (err) {
+    console.error('Supabase getPois error:', err)
+  }
+
   const rows = await fetchSheet('poi')
   return rows
     .filter((r) => eq(r.city, city))
@@ -462,6 +577,25 @@ async function getPois(city: string): Promise<Poi[]> {
 }
 
 async function getStays(city: string): Promise<Stay[]> {
+  try {
+    const { data, error } = await supabase
+      .from('stays')
+      .select('*')
+      .ilike('city', city)
+      .eq('status', 'approved')
+    if (!error && data && data.length > 0) {
+      return data.map((r: any) => ({
+        id: String(r.id),
+        city: r.city,
+        where: r.where_stay || r.where || '',
+        desc: r.desc || '',
+        link: r.link || '',
+      }))
+    }
+  } catch (err) {
+    console.error('Supabase getStays error:', err)
+  }
+
   const rows = await fetchSheet('stay')
   return rows
     .filter((r) => !r.city || eq(r.city, city))
@@ -476,6 +610,27 @@ async function getStays(city: string): Promise<Stay[]> {
 }
 
 async function getFoods(city: string): Promise<Food[]> {
+  try {
+    const { data, error } = await supabase
+      .from('foods')
+      .select('*')
+      .ilike('city', city)
+      .eq('status', 'approved')
+    if (!error && data && data.length > 0) {
+      return data.map((r: any) => ({
+        id: String(r.id),
+        name: r.name || '',
+        desc: r.desc || '',
+        isMeat: Boolean(r.is_meat),
+        isSpicy: Boolean(r.is_spicy),
+        isVegan: Boolean(r.is_vegan),
+        isVegetarian: Boolean(r.is_vegetarian),
+      }))
+    }
+  } catch (err) {
+    console.error('Supabase getFoods error:', err)
+  }
+
   const rows = await fetchSheet('food')
   return rows
     .filter((r) => eq(r.city, city))

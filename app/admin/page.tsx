@@ -1,0 +1,306 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { CheckCircle2, XCircle, ShieldCheck, Lock, ExternalLink, RefreshCw } from 'lucide-react'
+import { supabase } from '@/lib/supabase'
+
+export default function AdminPage() {
+  const [password, setPassword] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [submissions, setSubmissions] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
+  const [processingId, setProcessingId] = useState<string | null>(null)
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Admin password check (matching .env.local ADMIN_PASSWORD)
+    if (password === 'waytocity2026!') {
+      setIsAuthenticated(true)
+      fetchSubmissions()
+    } else {
+      alert('Invalid admin password')
+    }
+  }
+
+  const fetchSubmissions = async () => {
+    setLoading(true)
+    try {
+      const { data, error } = await supabase
+        .from('submissions')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+      setSubmissions(data || [])
+    } catch (err) {
+      console.error('Error fetching submissions:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleApprove = async (sub: any) => {
+    setProcessingId(sub.id)
+    try {
+      // 1. Insert into target live table based on category
+      const targetTable = sub.category === 'tocity' ? 'tocity' : sub.category + 's' // pois, foods, stays
+      
+      let insertData: any = {
+        id: `user-${Date.now()}`,
+        city: sub.city,
+        name: sub.title,
+        desc: sub.description || '',
+        link: sub.link || '',
+        status: 'approved'
+      }
+
+      if (sub.category === 'food') {
+        insertData = {
+          id: `user-${Date.now()}`,
+          city: sub.city,
+          name: sub.title,
+          desc: sub.description || '',
+          is_meat: true,
+          is_spicy: false,
+          is_vegan: false,
+          is_vegetarian: false,
+          status: 'approved'
+        }
+      } else if (sub.category === 'stay') {
+        insertData = {
+          id: `user-${Date.now()}`,
+          city: sub.city,
+          where_stay: sub.title,
+          desc: sub.description || '',
+          link: sub.link || '',
+          status: 'approved'
+        }
+      } else if (sub.category === 'tocity') {
+        insertData = {
+          id: `user-${Date.now()}`,
+          city: sub.city,
+          type: 'bus',
+          name: sub.title,
+          desc: sub.description || '',
+          link: sub.link || '',
+          note: sub.description || '',
+          note_link: sub.link || '',
+          status: 'approved'
+        }
+      }
+
+      const { error: insertErr } = await supabase.from(targetTable).insert([insertData])
+      if (insertErr) {
+        console.error(`Insert to ${targetTable} error:`, insertErr)
+      }
+
+      // 2. Update submission status to approved
+      const { error: subErr } = await supabase
+        .from('submissions')
+        .update({ status: 'approved' })
+        .eq('id', sub.id)
+
+      if (subErr) throw subErr
+
+      fetchSubmissions()
+    } catch (err) {
+      console.error('Approve error:', err)
+      alert('Failed to approve submission')
+    } finally {
+      setProcessingId(null)
+    }
+  }
+
+  const handleReject = async (id: string) => {
+    setProcessingId(id)
+    try {
+      const { error } = await supabase
+        .from('submissions')
+        .update({ status: 'rejected' })
+        .eq('id', id)
+
+      if (error) throw error
+      fetchSubmissions()
+    } catch (err) {
+      console.error('Reject error:', err)
+      alert('Failed to reject submission')
+    } finally {
+      setProcessingId(null)
+    }
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-svh bg-background flex items-center justify-center p-4">
+        <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-xl space-y-4">
+          <div className="text-center space-y-2">
+            <div className="inline-flex size-12 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
+              <ShieldCheck className="size-6" />
+            </div>
+            <h1 className="text-xl font-bold text-foreground">Admin Portal</h1>
+            <p className="text-xs text-muted-foreground">
+              Enter password to access community moderation queue
+            </p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-3">
+            <div>
+              <div className="relative">
+                <Lock className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                <input
+                  type="password"
+                  placeholder="Admin Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full rounded-lg border border-border bg-background pl-9 pr-3 py-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-emerald-600 py-2 text-xs font-semibold text-white transition-all hover:bg-emerald-700 active:scale-95"
+            >
+              Unlock Dashboard
+            </button>
+          </form>
+        </div>
+      </div>
+    )
+  }
+
+  const pendingSubmissions = submissions.filter((s) => s.status === 'pending')
+  const historySubmissions = submissions.filter((s) => s.status !== 'pending')
+
+  return (
+    <div className="min-h-svh bg-background p-6 max-w-5xl mx-auto space-y-8 animate-fade-in">
+      <header className="flex items-center justify-between border-b border-border pb-5">
+        <div>
+          <span className="font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
+            WayToCity Admin
+          </span>
+          <h1 className="text-3xl font-extrabold text-foreground">
+            Moderation Queue
+          </h1>
+        </div>
+
+        <button
+          onClick={fetchSubmissions}
+          disabled={loading}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground hover:bg-accent"
+        >
+          <RefreshCw className={`size-3.5 ${loading ? 'animate-spin' : ''}`} />
+          Refresh
+        </button>
+      </header>
+
+      {/* Pending Queue */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
+            Pending Submissions
+            <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 font-mono text-xs font-semibold text-amber-600 dark:text-amber-400">
+              {pendingSubmissions.length}
+            </span>
+          </h2>
+        </div>
+
+        {pendingSubmissions.length === 0 ? (
+          <div className="rounded-xl border border-border bg-card p-8 text-center text-xs text-muted-foreground">
+            🎉 No pending submissions right now! Everything is up to date.
+          </div>
+        ) : (
+          <div className="grid gap-3">
+            {pendingSubmissions.map((sub) => (
+              <article
+                key={sub.id}
+                className="rounded-xl border border-border bg-card p-5 space-y-3 shadow-sm"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">
+                        {sub.category}
+                      </span>
+                      <span className="text-xs font-semibold text-foreground">
+                        {sub.city}, {sub.country}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-foreground">
+                      {sub.title}
+                    </h3>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleReject(sub.id)}
+                      disabled={processingId === sub.id}
+                      className="inline-flex items-center gap-1 rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-500/20 active:scale-95"
+                    >
+                      <XCircle className="size-3.5" />
+                      Reject
+                    </button>
+                    <button
+                      onClick={() => handleApprove(sub)}
+                      disabled={processingId === sub.id}
+                      className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 active:scale-95 shadow-sm"
+                    >
+                      <CheckCircle2 className="size-3.5" />
+                      Approve &amp; Publish
+                    </button>
+                  </div>
+                </div>
+
+                {sub.description && (
+                  <p className="text-xs leading-relaxed text-muted-foreground bg-accent/40 p-3 rounded-lg border border-border/40">
+                    {sub.description}
+                  </p>
+                )}
+
+                {sub.link && (
+                  <a
+                    href={sub.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 hover:underline"
+                  >
+                    {sub.link}
+                    <ExternalLink className="size-3" />
+                  </a>
+                )}
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* History */}
+      {historySubmissions.length > 0 && (
+        <section className="space-y-3 pt-6 border-t border-border">
+          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider font-mono">
+            Past Moderation History ({historySubmissions.length})
+          </h2>
+          <div className="divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
+            {historySubmissions.map((sub) => (
+              <div key={sub.id} className="flex items-center justify-between p-4 text-xs">
+                <div>
+                  <span className="font-semibold text-foreground">{sub.title}</span>
+                  <span className="text-muted-foreground ml-2">({sub.city}, {sub.country})</span>
+                </div>
+                <span
+                  className={`font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded ${
+                    sub.status === 'approved'
+                      ? 'bg-emerald-500/10 text-emerald-600'
+                      : 'bg-red-500/10 text-red-600'
+                  }`}
+                >
+                  {sub.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  )
+}

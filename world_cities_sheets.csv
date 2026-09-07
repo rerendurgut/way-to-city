@@ -1,0 +1,889 @@
+id,country,city,desc
+1,Afghanistan,Kabul,"Vibrant capital city of Afghanistan, rich in history and culture."
+2,Afghanistan,Herat,"Cultural heart, iconic architecture, and local flavors."
+3,Afghanistan,Kandahar,Bustling city center with rich heritage and scenic views.
+4,Afghanistan,Molah,"Vibrant urban hub, ancient history, and local markets."
+5,Albania,Tirana,"Vibrant capital city of Albania, rich in history and culture."
+6,Albania,Elbasan,"Cultural heart, iconic architecture, and local flavors."
+7,Albania,Petran,Bustling city center with rich heritage and scenic views.
+8,Albania,Pogradec,"Vibrant urban hub, ancient history, and local markets."
+9,Algeria,Algiers,"Vibrant capital city of Algeria, rich in history and culture."
+10,Algeria,Annaba,"Cultural heart, iconic architecture, and local flavors."
+11,Algeria,Azazga,Bustling city center with rich heritage and scenic views.
+12,Algeria,Batna City,"Vibrant urban hub, ancient history, and local markets."
+13,American Samoa,Pago Pago,"Vibrant capital city of American Samoa, rich in history and culture."
+14,Andorra,Andorra la Vella,"Vibrant capital city of Andorra, rich in history and culture."
+15,Andorra,Canillo,"Cultural heart, iconic architecture, and local flavors."
+16,Andorra,Encamp,Bustling city center with rich heritage and scenic views.
+17,Andorra,Engordany,"Vibrant urban hub, ancient history, and local markets."
+18,Angola,Luanda,"Vibrant capital city of Angola, rich in history and culture."
+19,Angola,Ambriz,"Cultural heart, iconic architecture, and local flavors."
+20,Angola,Benguela,Bustling city center with rich heritage and scenic views.
+21,Angola,Cabinda,"Vibrant urban hub, ancient history, and local markets."
+22,Anguilla,The Valley,"Vibrant capital city of Anguilla, rich in history and culture."
+23,Anguilla,Blowing Point Village,"Cultural heart, iconic architecture, and local flavors."
+24,Anguilla,Sandy Ground Village,Bustling city center with rich heritage and scenic views.
+25,Anguilla,Sandy Hill,"Vibrant urban hub, ancient history, and local markets."
+26,Antigua and Barbuda,Saint John's,"Vibrant capital city of Antigua and Barbuda, rich in history and culture."
+27,Antigua and Barbuda,All Saints,"Cultural heart, iconic architecture, and local flavors."
+28,Antigua and Barbuda,Cassada Gardens,Bustling city center with rich heritage and scenic views.
+29,Antigua and Barbuda,Codrington,"Vibrant urban hub, ancient history, and local markets."
+30,Argentina,Buenos Aires,"Vibrant capital city of Argentina, rich in history and culture."
+31,Argentina,28 de Noviembre,"Cultural heart, iconic architecture, and local flavors."
+32,Argentina,Abasto,Bustling city center with rich heritage and scenic views.
+33,Argentina,Acassuso,"Vibrant urban hub, ancient history, and local markets."
+34,Armenia,Yerevan,"Vibrant capital city of Armenia, rich in history and culture."
+35,Armenia,Abovyan,"Cultural heart, iconic architecture, and local flavors."
+36,Armenia,Agarak,Bustling city center with rich heritage and scenic views.
+37,Armenia,Apaga,"Vibrant urban hub, ancient history, and local markets."
+38,Aruba,Oranjestad,"Vibrant capital city of Aruba, rich in history and culture."
+39,Aruba,Noord,"Cultural heart, iconic architecture, and local flavors."
+40,Aruba,Palm Beach,Bustling city center with rich heritage and scenic views.
+41,Aruba,Paradera,"Vibrant urban hub, ancient history, and local markets."
+42,Australia,Canberra,"Vibrant capital city of Australia, rich in history and culture."
+43,Australia,Abbotsford,"Cultural heart, iconic architecture, and local flavors."
+44,Australia,Abbotsham,Bustling city center with rich heritage and scenic views.
+45,Australia,Aberdeen,"Vibrant urban hub, ancient history, and local markets."
+46,Austria,Vienna,"Vibrant capital city of Austria, rich in history and culture."
+47,Austria,Absam,"Cultural heart, iconic architecture, and local flavors."
+48,Austria,Absdorf,Bustling city center with rich heritage and scenic views.
+49,Austria,Abtenau,"Vibrant urban hub, ancient history, and local markets."
+50,Azerbaijan,Baku,"Vibrant capital city of Azerbaijan, rich in history and culture."
+51,Azerbaijan,Nakhchivan,"Cultural heart, iconic architecture, and local flavors."
+52,Azerbaijan,Quba,Bustling city center with rich heritage and scenic views.
+53,Azerbaijan,Qusar,"Vibrant urban hub, ancient history, and local markets."
+54,Bahamas,Nassau,"Vibrant capital city of Bahamas, rich in history and culture."
+55,Bahamas,Andros Town,"Cultural heart, iconic architecture, and local flavors."
+56,Bahamas,Dunmore Town,Bustling city center with rich heritage and scenic views.
+57,Bahamas,Freeport,"Vibrant urban hub, ancient history, and local markets."
+58,Bahrain,Manama,"Vibrant capital city of Bahrain, rich in history and culture."
+59,Bahrain,Al Budayyi`,"Cultural heart, iconic architecture, and local flavors."
+60,Bahrain,Al Hadd,Bustling city center with rich heritage and scenic views.
+61,Bahrain,Al Hamalah,"Vibrant urban hub, ancient history, and local markets."
+62,Bangladesh,Dhaka,"Vibrant capital city of Bangladesh, rich in history and culture."
+63,Bangladesh,Bagerhat,"Cultural heart, iconic architecture, and local flavors."
+64,Bangladesh,Bandarban,Bustling city center with rich heritage and scenic views.
+65,Bangladesh,Barguna,"Vibrant urban hub, ancient history, and local markets."
+66,Barbados,Bridgetown,"Vibrant capital city of Barbados, rich in history and culture."
+67,Barbados,Atlantic Shores,"Cultural heart, iconic architecture, and local flavors."
+68,Barbados,Bagatelle,Bustling city center with rich heritage and scenic views.
+69,Barbados,Bloomsbury,"Vibrant urban hub, ancient history, and local markets."
+70,Belarus,Minsk,"Vibrant capital city of Belarus, rich in history and culture."
+71,Belarus,Baranovichi,"Cultural heart, iconic architecture, and local flavors."
+72,Belarus,Borisov,Bustling city center with rich heritage and scenic views.
+73,Belarus,Brest,"Vibrant urban hub, ancient history, and local markets."
+74,Belgium,Brussels,"Vibrant capital city of Belgium, rich in history and culture."
+75,Belgium,Aalbeke,"Cultural heart, iconic architecture, and local flavors."
+76,Belgium,Aalst,Bustling city center with rich heritage and scenic views.
+77,Belgium,Aalter,"Vibrant urban hub, ancient history, and local markets."
+78,Belize,Belmopan,"Vibrant capital city of Belize, rich in history and culture."
+79,Belize,Belize City,"Cultural heart, iconic architecture, and local flavors."
+80,Belize,Benque Viejo del Carmen,Bustling city center with rich heritage and scenic views.
+81,Belize,Freetown Sibun,"Vibrant urban hub, ancient history, and local markets."
+82,Benin,Porto-Novo,"Vibrant capital city of Benin, rich in history and culture."
+83,Benin,Alibori,"Cultural heart, iconic architecture, and local flavors."
+84,Benin,Atakora,Bustling city center with rich heritage and scenic views.
+85,Benin,Atlantique,"Vibrant urban hub, ancient history, and local markets."
+86,Bermuda,Hamilton,"Vibrant capital city of Bermuda, rich in history and culture."
+87,Bermuda,Devonshire,"Cultural heart, iconic architecture, and local flavors."
+88,Bermuda,Paget,Bustling city center with rich heritage and scenic views.
+89,Bermuda,Pembroke,"Vibrant urban hub, ancient history, and local markets."
+90,Bhutan,Thimphu,"Vibrant capital city of Bhutan, rich in history and culture."
+91,Bhutan,Bumthang,"Cultural heart, iconic architecture, and local flavors."
+92,Bhutan,Chukha,Bustling city center with rich heritage and scenic views.
+93,Bhutan,Dagana,"Vibrant urban hub, ancient history, and local markets."
+94,Bolivia,Sucre,"Vibrant capital city of Bolivia, rich in history and culture."
+95,Bolivia,Anillo,"Cultural heart, iconic architecture, and local flavors."
+96,Bolivia,Aroma,Bustling city center with rich heritage and scenic views.
+97,Bolivia,Bermejo,"Vibrant urban hub, ancient history, and local markets."
+98,Bosnia and Herzegovina,Sarajevo,"Vibrant capital city of Bosnia and Herzegovina, rich in history and culture."
+99,Bosnia and Herzegovina,Banja,"Cultural heart, iconic architecture, and local flavors."
+100,Bosnia and Herzegovina,Banja Luka,Bustling city center with rich heritage and scenic views.
+101,Bosnia and Herzegovina,Bijeljina,"Vibrant urban hub, ancient history, and local markets."
+102,Botswana,Gaborone,"Vibrant capital city of Botswana, rich in history and culture."
+103,Botswana,Francistown,"Cultural heart, iconic architecture, and local flavors."
+104,Botswana,Orapa,Bustling city center with rich heritage and scenic views.
+105,Botswana,Serowe,"Vibrant urban hub, ancient history, and local markets."
+106,Brazil,Brasília,"Vibrant capital city of Brazil, rich in history and culture."
+107,Brazil,Abadiania,"Cultural heart, iconic architecture, and local flavors."
+108,Brazil,Abaetetuba,Bustling city center with rich heritage and scenic views.
+109,Brazil,Abelardo Luz,"Vibrant urban hub, ancient history, and local markets."
+110,British Indian Ocean Territory,Diego Garcia,"Vibrant capital city of British Indian Ocean Territory, rich in history and culture."
+111,British Indian Ocean Territory,Carcasse,"Cultural heart, iconic architecture, and local flavors."
+112,British Indian Ocean Territory,Downtown,Bustling city center with rich heritage and scenic views.
+113,British Indian Ocean Territory,East Point Settlement,"Vibrant urban hub, ancient history, and local markets."
+114,British Virgin Islands,Road Town,"Vibrant capital city of British Virgin Islands, rich in history and culture."
+115,Brunei,Bandar Seri Begawan,"Vibrant capital city of Brunei, rich in history and culture."
+116,Brunei,Bangar,"Cultural heart, iconic architecture, and local flavors."
+117,Brunei,Kampong Jerudong,Bustling city center with rich heritage and scenic views.
+118,Brunei,Kuala Belait,"Vibrant urban hub, ancient history, and local markets."
+119,Bulgaria,Sofia,"Vibrant capital city of Bulgaria, rich in history and culture."
+120,Bulgaria,Akhtopol,"Cultural heart, iconic architecture, and local flavors."
+121,Bulgaria,Aksakovo,Bustling city center with rich heritage and scenic views.
+122,Bulgaria,Aleksandriya,"Vibrant urban hub, ancient history, and local markets."
+123,Burkina Faso,Ouagadougou,"Vibrant capital city of Burkina Faso, rich in history and culture."
+124,Burkina Faso,Bale,"Cultural heart, iconic architecture, and local flavors."
+125,Burkina Faso,Bam,Bustling city center with rich heritage and scenic views.
+126,Burkina Faso,Banwa,"Vibrant urban hub, ancient history, and local markets."
+127,Burundi,Gitega,"Vibrant capital city of Burundi, rich in history and culture."
+128,Burundi,Bubanza,"Cultural heart, iconic architecture, and local flavors."
+129,Burundi,Bujumbura Mairie,Bustling city center with rich heritage and scenic views.
+130,Burundi,Bujumbura Rural,"Vibrant urban hub, ancient history, and local markets."
+131,Cambodia,Phnom Penh,"Vibrant capital city of Cambodia, rich in history and culture."
+132,Cambodia,Moung Roessei,"Cultural heart, iconic architecture, and local flavors."
+133,Cambodia,Phumi Boeng (1),Bustling city center with rich heritage and scenic views.
+134,Cambodia,Phumi Chhuk,"Vibrant urban hub, ancient history, and local markets."
+135,Cameroon,Yaoundé,"Vibrant capital city of Cameroon, rich in history and culture."
+136,Cameroon,Bafia,"Cultural heart, iconic architecture, and local flavors."
+137,Cameroon,Bafoussam,Bustling city center with rich heritage and scenic views.
+138,Cameroon,Bamenda,"Vibrant urban hub, ancient history, and local markets."
+139,Canada,Ottawa,"Vibrant capital city of Canada, rich in history and culture."
+140,Canada,100 Mile House,"Cultural heart, iconic architecture, and local flavors."
+141,Canada,Abbey,Bustling city center with rich heritage and scenic views.
+142,Canada,Abbotsford,"Vibrant urban hub, ancient history, and local markets."
+143,Cape Verde,Praia,"Vibrant capital city of Cape Verde, rich in history and culture."
+144,Cape Verde,Mindelo,"Cultural heart, iconic architecture, and local flavors."
+145,Cape Verde,Cidade Velha,Bustling city center with rich heritage and scenic views.
+146,Cape Verde,Espargos,"Vibrant urban hub, ancient history, and local markets."
+147,Caribbean Netherlands,Kralendijk,"Vibrant capital city of Caribbean Netherlands, rich in history and culture."
+148,Cayman Islands,George Town,"Vibrant capital city of Cayman Islands, rich in history and culture."
+149,Cayman Islands,Bodden Town,"Cultural heart, iconic architecture, and local flavors."
+150,Cayman Islands,Coral Gables,Bustling city center with rich heritage and scenic views.
+151,Cayman Islands,Newlands,"Vibrant urban hub, ancient history, and local markets."
+152,Central African Republic,Bangui,"Vibrant capital city of Central African Republic, rich in history and culture."
+153,Central African Republic,Bamingui-Bangoran,"Cultural heart, iconic architecture, and local flavors."
+154,Central African Republic,Basse-Kotto,Bustling city center with rich heritage and scenic views.
+155,Central African Republic,Haute-Kotto,"Vibrant urban hub, ancient history, and local markets."
+156,Chad,N'Djamena,"Vibrant capital city of Chad, rich in history and culture."
+157,Chad,Batha,"Cultural heart, iconic architecture, and local flavors."
+158,Chad,Biltine,Bustling city center with rich heritage and scenic views.
+159,Chad,Borkou-Ennedi-Tibesti,"Vibrant urban hub, ancient history, and local markets."
+160,Chile,Santiago,"Vibrant capital city of Chile, rich in history and culture."
+161,Chile,Algarrobo,"Cultural heart, iconic architecture, and local flavors."
+162,Chile,Alto Hospicio,Bustling city center with rich heritage and scenic views.
+163,Chile,Angol,"Vibrant urban hub, ancient history, and local markets."
+164,China,Beijing,"Vibrant capital city of China, rich in history and culture."
+165,China,Aishang,"Cultural heart, iconic architecture, and local flavors."
+166,China,Aizhou,Bustling city center with rich heritage and scenic views.
+167,China,Aksu,"Vibrant urban hub, ancient history, and local markets."
+168,Christmas Island,Flying Fish Cove,"Vibrant capital city of Christmas Island, rich in history and culture."
+169,Christmas Island,Drumsite (settlement),"Cultural heart, iconic architecture, and local flavors."
+170,Christmas Island,Flying Fish Cove (settlement),Bustling city center with rich heritage and scenic views.
+171,Christmas Island,Poon Saan (settlement),"Vibrant urban hub, ancient history, and local markets."
+172,Cocos (Keeling) Islands,West Island,"Vibrant capital city of Cocos (Keeling) Islands, rich in history and culture."
+173,Cocos (Keeling) Islands,Bantam (settlement),"Cultural heart, iconic architecture, and local flavors."
+174,Cocos (Keeling) Islands,West Island (island),Bustling city center with rich heritage and scenic views.
+175,Colombia,Bogotá,"Vibrant capital city of Colombia, rich in history and culture."
+176,Colombia,Acacias,"Cultural heart, iconic architecture, and local flavors."
+177,Colombia,Acevedo,Bustling city center with rich heritage and scenic views.
+178,Colombia,Aguachica,"Vibrant urban hub, ancient history, and local markets."
+179,Comoros,Moroni,"Vibrant capital city of Comoros, rich in history and culture."
+180,Comoros,Grande Comore (Njazidja),"Cultural heart, iconic architecture, and local flavors."
+181,Comoros,Anjouan (Nzwani),Bustling city center with rich heritage and scenic views.
+182,Comoros,Moheli (Mwali),"Vibrant urban hub, ancient history, and local markets."
+183,Congo,Brazzaville,"Vibrant capital city of Congo, rich in history and culture."
+184,Congo,Banana,"Cultural heart, iconic architecture, and local flavors."
+185,Congo,Goma,Bustling city center with rich heritage and scenic views.
+186,Congo,Kinshasa,"Vibrant urban hub, ancient history, and local markets."
+187,Cook Islands,Avarua,"Vibrant capital city of Cook Islands, rich in history and culture."
+188,Cook Islands,Amuri,"Cultural heart, iconic architecture, and local flavors."
+189,Cook Islands,Arutanga,Bustling city center with rich heritage and scenic views.
+190,Cook Islands,Avatiu,"Vibrant urban hub, ancient history, and local markets."
+191,Costa Rica,San José,"Vibrant capital city of Costa Rica, rich in history and culture."
+192,Costa Rica,Alajuela,"Cultural heart, iconic architecture, and local flavors."
+193,Costa Rica,Alajuelita,Bustling city center with rich heritage and scenic views.
+194,Costa Rica,Alfaro,"Vibrant urban hub, ancient history, and local markets."
+195,Croatia,Zagreb,"Vibrant capital city of Croatia, rich in history and culture."
+196,Croatia,Antunovac,"Cultural heart, iconic architecture, and local flavors."
+197,Croatia,Baska,Bustling city center with rich heritage and scenic views.
+198,Croatia,Baska Voda,"Vibrant urban hub, ancient history, and local markets."
+199,Cuba,Havana,"Vibrant capital city of Cuba, rich in history and culture."
+200,Cuba,Bayamo,"Cultural heart, iconic architecture, and local flavors."
+201,Cuba,Cienfuegos,Bustling city center with rich heritage and scenic views.
+202,Cuba,Habana,"Vibrant urban hub, ancient history, and local markets."
+203,Curaçao,Willemstad,"Vibrant capital city of Curaçao, rich in history and culture."
+204,Cyprus,Nicosia,"Vibrant capital city of Cyprus, rich in history and culture."
+205,Cyprus,Agia Anna,"Cultural heart, iconic architecture, and local flavors."
+206,Cyprus,Aradippou,Bustling city center with rich heritage and scenic views.
+207,Cyprus,Ayia Marina,"Vibrant urban hub, ancient history, and local markets."
+208,Czechia,Prague,"Vibrant capital city of Czechia, rich in history and culture."
+209,DR Congo,Kinshasa,"Vibrant capital city of DR Congo, rich in history and culture."
+210,Denmark,Copenhagen,"Vibrant capital city of Denmark, rich in history and culture."
+211,Denmark,Aabenraa,"Cultural heart, iconic architecture, and local flavors."
+212,Denmark,Aabybro,Bustling city center with rich heritage and scenic views.
+213,Denmark,Aalborg,"Vibrant urban hub, ancient history, and local markets."
+214,Djibouti,Djibouti,"Vibrant capital city of Djibouti, rich in history and culture."
+215,Djibouti,Ali Sabih,"Cultural heart, iconic architecture, and local flavors."
+216,Djibouti,Dikhil,Bustling city center with rich heritage and scenic views.
+217,Djibouti,Obock,"Vibrant urban hub, ancient history, and local markets."
+218,Dominica,Roseau,"Vibrant capital city of Dominica, rich in history and culture."
+219,Dominica,Saint Andrew,"Cultural heart, iconic architecture, and local flavors."
+220,Dominica,Saint David,Bustling city center with rich heritage and scenic views.
+221,Dominica,Saint George,"Vibrant urban hub, ancient history, and local markets."
+222,Dominican Republic,Santo Domingo,"Vibrant capital city of Dominican Republic, rich in history and culture."
+223,Dominican Republic,Arenazo,"Cultural heart, iconic architecture, and local flavors."
+224,Dominican Republic,Bavaro,Bustling city center with rich heritage and scenic views.
+225,Dominican Republic,Boca Chica,"Vibrant urban hub, ancient history, and local markets."
+226,Ecuador,Quito,"Vibrant capital city of Ecuador, rich in history and culture."
+227,Ecuador,Ambato,"Cultural heart, iconic architecture, and local flavors."
+228,Ecuador,Atacames,Bustling city center with rich heritage and scenic views.
+229,Ecuador,Atuntaqui,"Vibrant urban hub, ancient history, and local markets."
+230,Egypt,Cairo,"Vibrant capital city of Egypt, rich in history and culture."
+231,Egypt,Alexandria,"Cultural heart, iconic architecture, and local flavors."
+232,Egypt,Luxor,Bustling city center with rich heritage and scenic views.
+233,El Salvador,San Salvador,"Vibrant capital city of El Salvador, rich in history and culture."
+234,El Salvador,Ahuachapan,"Cultural heart, iconic architecture, and local flavors."
+235,El Salvador,Antiguo Cuscatlan,Bustling city center with rich heritage and scenic views.
+236,El Salvador,Apaneca,"Vibrant urban hub, ancient history, and local markets."
+237,Equatorial Guinea,Malabo,"Vibrant capital city of Equatorial Guinea, rich in history and culture."
+238,Equatorial Guinea,Annobon,"Cultural heart, iconic architecture, and local flavors."
+239,Equatorial Guinea,Bioko Norte,Bustling city center with rich heritage and scenic views.
+240,Equatorial Guinea,Bioko Sur,"Vibrant urban hub, ancient history, and local markets."
+241,Eritrea,Asmara,"Vibrant capital city of Eritrea, rich in history and culture."
+242,Eritrea,Anseba,"Cultural heart, iconic architecture, and local flavors."
+243,Eritrea,Debub,Bustling city center with rich heritage and scenic views.
+244,Eritrea,Debubawi K'eyih Bahri,"Vibrant urban hub, ancient history, and local markets."
+245,Estonia,Tallinn,"Vibrant capital city of Estonia, rich in history and culture."
+246,Estonia,Aasmae,"Cultural heart, iconic architecture, and local flavors."
+247,Estonia,Aaviku,Bustling city center with rich heritage and scenic views.
+248,Estonia,Aespa,"Vibrant urban hub, ancient history, and local markets."
+249,Eswatini,Lobamba,"Vibrant capital city of Eswatini, rich in history and culture."
+250,Ethiopia,Addis Ababa,"Vibrant capital city of Ethiopia, rich in history and culture."
+251,Ethiopia,Afar,"Cultural heart, iconic architecture, and local flavors."
+252,Ethiopia,Amhara,Bustling city center with rich heritage and scenic views.
+253,Ethiopia,Binshangul Gumuz,"Vibrant urban hub, ancient history, and local markets."
+254,Falkland Islands,Stanley,"Vibrant capital city of Falkland Islands, rich in history and culture."
+255,Falkland Islands,Ajax Bay,"Cultural heart, iconic architecture, and local flavors."
+256,Falkland Islands,Beaver Settlement,Bustling city center with rich heritage and scenic views.
+257,Falkland Islands,Bluff Cove Settlement,"Vibrant urban hub, ancient history, and local markets."
+258,Faroe Islands,Tórshavn,"Vibrant capital city of Faroe Islands, rich in history and culture."
+259,Faroe Islands,Argir,"Cultural heart, iconic architecture, and local flavors."
+260,Faroe Islands,Glyvrar,Bustling city center with rich heritage and scenic views.
+261,Faroe Islands,Hvalba,"Vibrant urban hub, ancient history, and local markets."
+262,Fiji,Suva,"Vibrant capital city of Fiji, rich in history and culture."
+263,Fiji,Central (Suva),"Cultural heart, iconic architecture, and local flavors."
+264,Fiji,Eastern (Levuka),Bustling city center with rich heritage and scenic views.
+265,Fiji,Northern (Labasa),"Vibrant urban hub, ancient history, and local markets."
+266,Finland,Helsinki,"Vibrant capital city of Finland, rich in history and culture."
+267,Finland,Aapajoki,"Cultural heart, iconic architecture, and local flavors."
+268,Finland,Aavasaksa,Bustling city center with rich heritage and scenic views.
+269,Finland,Aitoo,"Vibrant urban hub, ancient history, and local markets."
+270,France,Paris,"Vibrant capital city of France, rich in history and culture."
+271,France,Nice,"Cultural heart, iconic architecture, and local flavors."
+272,France,Lyon,Bustling city center with rich heritage and scenic views.
+273,France,Marseille,"Vibrant urban hub, ancient history, and local markets."
+274,France,Bordeaux,"Capital city filled with history, art, and charm."
+275,French Guiana,Cayenne,"Vibrant capital city of French Guiana, rich in history and culture."
+276,French Polynesia,Papeetē,"Vibrant capital city of French Polynesia, rich in history and culture."
+277,French Polynesia,Arue,"Cultural heart, iconic architecture, and local flavors."
+278,French Polynesia,Faaa,Bustling city center with rich heritage and scenic views.
+279,French Polynesia,Mahina,"Vibrant urban hub, ancient history, and local markets."
+280,French Southern and Antarctic Lands,Port-aux-Français,"Vibrant capital city of French Southern and Antarctic Lands, rich in history and culture."
+281,Gabon,Libreville,"Vibrant capital city of Gabon, rich in history and culture."
+282,Gabon,Gamba,"Cultural heart, iconic architecture, and local flavors."
+283,Gabon,Mamagnia,Bustling city center with rich heritage and scenic views.
+284,Gabon,Moanda,"Vibrant urban hub, ancient history, and local markets."
+285,Gambia,Banjul,"Vibrant capital city of Gambia, rich in history and culture."
+286,Gambia,Central River,"Cultural heart, iconic architecture, and local flavors."
+287,Gambia,Lower River,Bustling city center with rich heritage and scenic views.
+288,Gambia,North Bank,"Vibrant urban hub, ancient history, and local markets."
+289,Georgia,Tbilisi,"Vibrant capital city of Georgia, rich in history and culture."
+290,Georgia,Gogolesubani,"Cultural heart, iconic architecture, and local flavors."
+291,Georgia,Kutaisi,Bustling city center with rich heritage and scenic views.
+292,Georgia,Lentekhi,"Vibrant urban hub, ancient history, and local markets."
+293,Germany,Berlin,"Vibrant capital city of Germany, rich in history and culture."
+294,Germany,Munich,"Cultural heart, iconic architecture, and local flavors."
+295,Germany,Hamburg,Bustling city center with rich heritage and scenic views.
+296,Germany,Frankfurt,"Vibrant urban hub, ancient history, and local markets."
+297,Germany,Cologne,"Capital city filled with history, art, and charm."
+298,Ghana,Accra,"Vibrant capital city of Ghana, rich in history and culture."
+299,Ghana,Bawku,"Cultural heart, iconic architecture, and local flavors."
+300,Ghana,Berekum,Bustling city center with rich heritage and scenic views.
+301,Ghana,Bolgatanga,"Vibrant urban hub, ancient history, and local markets."
+302,Gibraltar,Gibraltar,"Vibrant capital city of Gibraltar, rich in history and culture."
+303,Gibraltar,Alameda de los Monos,"Cultural heart, iconic architecture, and local flavors."
+304,Gibraltar,Bruce's Farm,Bustling city center with rich heritage and scenic views.
+305,Gibraltar,Buena Vista,"Vibrant urban hub, ancient history, and local markets."
+306,Greece,Athens,"Vibrant capital city of Greece, rich in history and culture."
+307,Greece,Santorini,"Cultural heart, iconic architecture, and local flavors."
+308,Greece,Mykonos,Bustling city center with rich heritage and scenic views.
+309,Greece,Thessaloniki,"Vibrant urban hub, ancient history, and local markets."
+310,Greenland,Nuuk,"Vibrant capital city of Greenland, rich in history and culture."
+311,Greenland,Aasiaat,"Cultural heart, iconic architecture, and local flavors."
+312,Greenland,Ilulissat,Bustling city center with rich heritage and scenic views.
+313,Greenland,Kapisillit,"Vibrant urban hub, ancient history, and local markets."
+314,Grenada,St. George's,"Vibrant capital city of Grenada, rich in history and culture."
+315,Grenada,Carriacou and Petit Martinique,"Cultural heart, iconic architecture, and local flavors."
+316,Grenada,Saint Andrew,Bustling city center with rich heritage and scenic views.
+317,Grenada,Saint David,"Vibrant urban hub, ancient history, and local markets."
+318,Guadeloupe,Basse-Terre,"Vibrant capital city of Guadeloupe, rich in history and culture."
+319,Guadeloupe,Anse-Bertrand,"Cultural heart, iconic architecture, and local flavors."
+320,Guadeloupe,Baie Mahault,Bustling city center with rich heritage and scenic views.
+321,Guadeloupe,Baie-Mahault,"Vibrant urban hub, ancient history, and local markets."
+322,Guam,Hagåtña,"Vibrant capital city of Guam, rich in history and culture."
+323,Guam,Barrigada Village,"Cultural heart, iconic architecture, and local flavors."
+324,Guam,Dededo Village,Bustling city center with rich heritage and scenic views.
+325,Guam,Inarajan Village,"Vibrant urban hub, ancient history, and local markets."
+326,Guatemala,Guatemala City,"Vibrant capital city of Guatemala, rich in history and culture."
+327,Guatemala,Antigua Guatemala,"Cultural heart, iconic architecture, and local flavors."
+328,Guatemala,Cambote,Bustling city center with rich heritage and scenic views.
+329,Guatemala,Catarina,"Vibrant urban hub, ancient history, and local markets."
+330,Guernsey,St. Peter Port,"Vibrant capital city of Guernsey, rich in history and culture."
+331,Guernsey,Saint Peter Port,"Cultural heart, iconic architecture, and local flavors."
+332,Guernsey,St Martin,Bustling city center with rich heritage and scenic views.
+333,Guernsey,St. Andrew`s,"Vibrant urban hub, ancient history, and local markets."
+334,Guinea,Conakry,"Vibrant capital city of Guinea, rich in history and culture."
+335,Guinea,Dabola,"Cultural heart, iconic architecture, and local flavors."
+336,Guinea,Kalia,Bustling city center with rich heritage and scenic views.
+337,Guinea,Kankan,"Vibrant urban hub, ancient history, and local markets."
+338,Guinea-Bissau,Bissau,"Vibrant capital city of Guinea-Bissau, rich in history and culture."
+339,Guinea-Bissau,Bafata,"Cultural heart, iconic architecture, and local flavors."
+340,Guinea-Bissau,Biombo,Bustling city center with rich heritage and scenic views.
+341,Guinea-Bissau,Bolama,"Vibrant urban hub, ancient history, and local markets."
+342,Guyana,Georgetown,"Vibrant capital city of Guyana, rich in history and culture."
+343,Guyana,Barima-Waini,"Cultural heart, iconic architecture, and local flavors."
+344,Guyana,Cuyuni-Mazaruni,Bustling city center with rich heritage and scenic views.
+345,Guyana,Demerara-Mahaica,"Vibrant urban hub, ancient history, and local markets."
+346,Haiti,Port-au-Prince,"Vibrant capital city of Haiti, rich in history and culture."
+347,Haiti,Carrefour,"Cultural heart, iconic architecture, and local flavors."
+348,Haiti,Delmar,Bustling city center with rich heritage and scenic views.
+349,Haiti,Duverger,"Vibrant urban hub, ancient history, and local markets."
+350,Honduras,Tegucigalpa,"Vibrant capital city of Honduras, rich in history and culture."
+351,Honduras,Honduras,"Cultural heart, iconic architecture, and local flavors."
+352,Honduras,Choloma,Bustling city center with rich heritage and scenic views.
+353,Honduras,Comayagua,"Vibrant urban hub, ancient history, and local markets."
+354,Hong Kong,City of Victoria,"Vibrant capital city of Hong Kong, rich in history and culture."
+355,Hong Kong,Aberdeen,"Cultural heart, iconic architecture, and local flavors."
+356,Hong Kong,Causeway Bay,Bustling city center with rich heritage and scenic views.
+357,Hong Kong,Central District,"Vibrant urban hub, ancient history, and local markets."
+358,Hungary,Budapest,"Vibrant capital city of Hungary, rich in history and culture."
+359,Hungary,Debrecen,"Cultural heart, iconic architecture, and local flavors."
+360,Hungary,Szeged,Bustling city center with rich heritage and scenic views.
+361,Iceland,Reykjavik,"Vibrant capital city of Iceland, rich in history and culture."
+362,Iceland,Akranes,"Cultural heart, iconic architecture, and local flavors."
+363,Iceland,Akureyri,Bustling city center with rich heritage and scenic views.
+364,Iceland,Borgarnes,"Vibrant urban hub, ancient history, and local markets."
+365,India,New Delhi,"Vibrant capital city of India, rich in history and culture."
+366,India,Abdul,"Cultural heart, iconic architecture, and local flavors."
+367,India,Adilabad,Bustling city center with rich heritage and scenic views.
+368,India,Adwani,"Vibrant urban hub, ancient history, and local markets."
+369,Indonesia,Jakarta,"Vibrant capital city of Indonesia, rich in history and culture."
+370,Indonesia,Abadi,"Cultural heart, iconic architecture, and local flavors."
+371,Indonesia,Adiantorop,Bustling city center with rich heritage and scenic views.
+372,Indonesia,Airmadidi,"Vibrant urban hub, ancient history, and local markets."
+373,Iran,Tehran,"Vibrant capital city of Iran, rich in history and culture."
+374,Iran,`Aliabad,"Cultural heart, iconic architecture, and local flavors."
+375,Iran,`Aliabad-e Aq Hesar,Bustling city center with rich heritage and scenic views.
+376,Iran,`Oryan,"Vibrant urban hub, ancient history, and local markets."
+377,Iraq,Baghdad,"Vibrant capital city of Iraq, rich in history and culture."
+378,Iraq,Al `Amarah,"Cultural heart, iconic architecture, and local flavors."
+379,Iraq,Al Hillah,Bustling city center with rich heritage and scenic views.
+380,Iraq,Bahr,"Vibrant urban hub, ancient history, and local markets."
+381,Ireland,Dublin,"Vibrant capital city of Ireland, rich in history and culture."
+382,Ireland,Abbeyfeale,"Cultural heart, iconic architecture, and local flavors."
+383,Ireland,Abbeyleix,Bustling city center with rich heritage and scenic views.
+384,Ireland,Ardee,"Vibrant urban hub, ancient history, and local markets."
+385,Isle of Man,Douglas,"Vibrant capital city of Isle of Man, rich in history and culture."
+386,Isle of Man,Ballasalla,"Cultural heart, iconic architecture, and local flavors."
+387,Isle of Man,Castletown,Bustling city center with rich heritage and scenic views.
+388,Isle of Man,Crosby,"Vibrant urban hub, ancient history, and local markets."
+389,Israel,Jerusalem,"Vibrant capital city of Israel, rich in history and culture."
+390,Israel,`Alma,"Cultural heart, iconic architecture, and local flavors."
+391,Israel,`Amir,Bustling city center with rich heritage and scenic views.
+392,Israel,`Arugot,"Vibrant urban hub, ancient history, and local markets."
+393,Italy,Rome,"Vibrant capital city of Italy, rich in history and culture."
+394,Italy,Florence,"Cultural heart, iconic architecture, and local flavors."
+395,Italy,Venice,Bustling city center with rich heritage and scenic views.
+396,Italy,Milan,"Vibrant urban hub, ancient history, and local markets."
+397,Italy,Naples,"Capital city filled with history, art, and charm."
+398,Ivory Coast,Yamoussoukro,"Vibrant capital city of Ivory Coast, rich in history and culture."
+399,Ivory Coast,Abidjan,"Cultural heart, iconic architecture, and local flavors."
+400,Ivory Coast,Abobo,Bustling city center with rich heritage and scenic views.
+401,Ivory Coast,Anyama,"Vibrant urban hub, ancient history, and local markets."
+402,Jamaica,Kingston,"Vibrant capital city of Jamaica, rich in history and culture."
+403,Jamaica,Black River,"Cultural heart, iconic architecture, and local flavors."
+404,Jamaica,Browns Town,Bustling city center with rich heritage and scenic views.
+405,Jamaica,Gordon Town,"Vibrant urban hub, ancient history, and local markets."
+406,Japan,Tokyo,"Vibrant capital city of Japan, rich in history and culture."
+407,Japan,Kyoto,"Cultural heart, iconic architecture, and local flavors."
+408,Japan,Osaka,Bustling city center with rich heritage and scenic views.
+409,Japan,Sapporo,"Vibrant urban hub, ancient history, and local markets."
+410,Japan,Fukuoka,"Capital city filled with history, art, and charm."
+411,Jersey,Saint Helier,"Vibrant capital city of Jersey, rich in history and culture."
+412,Jersey,St. Helier (settlement),"Cultural heart, iconic architecture, and local flavors."
+413,Jordan,Amman,"Vibrant capital city of Jordan, rich in history and culture."
+414,Jordan,Ar Ramtha,"Cultural heart, iconic architecture, and local flavors."
+415,Jordan,Al 'Aqabah,Bustling city center with rich heritage and scenic views.
+416,Jordan,Ajlun,"Vibrant urban hub, ancient history, and local markets."
+417,Kazakhstan,Astana,"Vibrant capital city of Kazakhstan, rich in history and culture."
+418,Kazakhstan,Aksay,"Cultural heart, iconic architecture, and local flavors."
+419,Kazakhstan,Aksoran,Bustling city center with rich heritage and scenic views.
+420,Kazakhstan,Almaty,"Vibrant urban hub, ancient history, and local markets."
+421,Kenya,Nairobi,"Vibrant capital city of Kenya, rich in history and culture."
+422,Kenya,Bondo,"Cultural heart, iconic architecture, and local flavors."
+423,Kenya,Chuka,Bustling city center with rich heritage and scenic views.
+424,Kenya,Eldoret,"Vibrant urban hub, ancient history, and local markets."
+425,Kiribati,South Tarawa,"Vibrant capital city of Kiribati, rich in history and culture."
+426,Kosovo,Pristina,"Vibrant capital city of Kosovo, rich in history and culture."
+427,Kosovo,Dunavo,"Cultural heart, iconic architecture, and local flavors."
+428,Kosovo,Ferizaj,Bustling city center with rich heritage and scenic views.
+429,Kosovo,Mitrovica,"Vibrant urban hub, ancient history, and local markets."
+430,Kuwait,Kuwait City,"Vibrant capital city of Kuwait, rich in history and culture."
+431,Kuwait,Abraq Khaytan,"Cultural heart, iconic architecture, and local flavors."
+432,Kuwait,Ad Dasmah,Bustling city center with rich heritage and scenic views.
+433,Kuwait,Ad Dawhah,"Vibrant urban hub, ancient history, and local markets."
+434,Kyrgyzstan,Bishkek,"Vibrant capital city of Kyrgyzstan, rich in history and culture."
+435,Kyrgyzstan,Batken Oblasty,"Cultural heart, iconic architecture, and local flavors."
+436,Kyrgyzstan,Bishkek Shaary,Bustling city center with rich heritage and scenic views.
+437,Kyrgyzstan,Chuy Oblasty,"Vibrant urban hub, ancient history, and local markets."
+438,Laos,Vientiane,"Vibrant capital city of Laos, rich in history and culture."
+439,Laos,Attapu,"Cultural heart, iconic architecture, and local flavors."
+440,Laos,Bokeo,Bustling city center with rich heritage and scenic views.
+441,Laos,Bolikhamxai,"Vibrant urban hub, ancient history, and local markets."
+442,Latvia,Riga,"Vibrant capital city of Latvia, rich in history and culture."
+443,Latvia,Adazi,"Cultural heart, iconic architecture, and local flavors."
+444,Latvia,Agenskalns,Bustling city center with rich heritage and scenic views.
+445,Latvia,Aizkraukle,"Vibrant urban hub, ancient history, and local markets."
+446,Lebanon,Beirut,"Vibrant capital city of Lebanon, rich in history and culture."
+447,Lebanon,Aaley,"Cultural heart, iconic architecture, and local flavors."
+448,Lebanon,Adma,Bustling city center with rich heritage and scenic views.
+449,Lebanon,Ashrafiye,"Vibrant urban hub, ancient history, and local markets."
+450,Lesotho,Maseru,"Vibrant capital city of Lesotho, rich in history and culture."
+451,Lesotho,Berea,"Cultural heart, iconic architecture, and local flavors."
+452,Lesotho,Butha-Buthe,Bustling city center with rich heritage and scenic views.
+453,Lesotho,Leribe,"Vibrant urban hub, ancient history, and local markets."
+454,Liberia,Monrovia,"Vibrant capital city of Liberia, rich in history and culture."
+455,Liberia,Bomi,"Cultural heart, iconic architecture, and local flavors."
+456,Liberia,Bong,Bustling city center with rich heritage and scenic views.
+457,Liberia,Gbarpolu,"Vibrant urban hub, ancient history, and local markets."
+458,Libya,Tripoli,"Vibrant capital city of Libya, rich in history and culture."
+459,Libya,Benghazi,"Cultural heart, iconic architecture, and local flavors."
+460,Libya,Misratah,Bustling city center with rich heritage and scenic views.
+461,Libya,Sabha,"Vibrant urban hub, ancient history, and local markets."
+462,Liechtenstein,Vaduz,"Vibrant capital city of Liechtenstein, rich in history and culture."
+463,Liechtenstein,Balzers,"Cultural heart, iconic architecture, and local flavors."
+464,Liechtenstein,Bendern,Bustling city center with rich heritage and scenic views.
+465,Liechtenstein,Eschen,"Vibrant urban hub, ancient history, and local markets."
+466,Lithuania,Vilnius,"Vibrant capital city of Lithuania, rich in history and culture."
+467,Lithuania,Alytus,"Cultural heart, iconic architecture, and local flavors."
+468,Lithuania,Anciskiai,Bustling city center with rich heritage and scenic views.
+469,Lithuania,Antakalnis,"Vibrant urban hub, ancient history, and local markets."
+470,Luxembourg,Luxembourg,"Vibrant capital city of Luxembourg, rich in history and culture."
+471,Luxembourg,Ahn,"Cultural heart, iconic architecture, and local flavors."
+472,Luxembourg,Alzingen,Bustling city center with rich heritage and scenic views.
+473,Luxembourg,Bascharage,"Vibrant urban hub, ancient history, and local markets."
+474,Macau,Aomen,"Historic landmarks, rich culture, and vibrant urban life."
+475,Macau,Aumwnz,"Cultural heart, iconic architecture, and local flavors."
+476,Macau,Bán đảo Ma Cao,Bustling city center with rich heritage and scenic views.
+477,Macau,Cheoc Ca Chün,"Vibrant urban hub, ancient history, and local markets."
+478,Madagascar,Antananarivo,"Vibrant capital city of Madagascar, rich in history and culture."
+479,Madagascar,Ambanja,"Cultural heart, iconic architecture, and local flavors."
+480,Madagascar,Antsirabe,Bustling city center with rich heritage and scenic views.
+481,Madagascar,Antsiranana,"Vibrant urban hub, ancient history, and local markets."
+482,Malawi,Lilongwe,"Vibrant capital city of Malawi, rich in history and culture."
+483,Malawi,Balaka,"Cultural heart, iconic architecture, and local flavors."
+484,Malawi,Blantyre,Bustling city center with rich heritage and scenic views.
+485,Malawi,Chikwawa,"Vibrant urban hub, ancient history, and local markets."
+486,Malaysia,Kuala Lumpur,"Vibrant capital city of Malaysia, rich in history and culture."
+487,Malaysia,Alor Gajah,"Cultural heart, iconic architecture, and local flavors."
+488,Malaysia,Alor Star,Bustling city center with rich heritage and scenic views.
+489,Malaysia,Ampang,"Vibrant urban hub, ancient history, and local markets."
+490,Maldives,Malé,"Vibrant capital city of Maldives, rich in history and culture."
+491,Maldives,Alifu,"Cultural heart, iconic architecture, and local flavors."
+492,Maldives,Baa,Bustling city center with rich heritage and scenic views.
+493,Maldives,Dhaalu,"Vibrant urban hub, ancient history, and local markets."
+494,Mali,Bamako,"Vibrant capital city of Mali, rich in history and culture."
+495,Mali,Bamako (Capital),"Cultural heart, iconic architecture, and local flavors."
+496,Mali,Gao,Bustling city center with rich heritage and scenic views.
+497,Mali,Kayes,"Vibrant urban hub, ancient history, and local markets."
+498,Malta,Valletta,"Vibrant capital city of Malta, rich in history and culture."
+499,Malta,Attard,"Cultural heart, iconic architecture, and local flavors."
+500,Malta,Balzan,Bustling city center with rich heritage and scenic views.
+501,Malta,Bingemma,"Vibrant urban hub, ancient history, and local markets."
+502,Marshall Islands,Majuro,"Vibrant capital city of Marshall Islands, rich in history and culture."
+503,Marshall Islands,Ebaye,"Cultural heart, iconic architecture, and local flavors."
+504,Marshall Islands,Arno,Bustling city center with rich heritage and scenic views.
+505,Marshall Islands,Jabor,"Vibrant urban hub, ancient history, and local markets."
+506,Martinique,Fort-de-France,"Vibrant capital city of Martinique, rich in history and culture."
+507,Martinique,Case-Pilote,"Cultural heart, iconic architecture, and local flavors."
+508,Martinique,Ducos,Bustling city center with rich heritage and scenic views.
+509,Martinique,Le Carbet,"Vibrant urban hub, ancient history, and local markets."
+510,Mauritania,Nouakchott,"Vibrant capital city of Mauritania, rich in history and culture."
+511,Mauritania,Adrar,"Cultural heart, iconic architecture, and local flavors."
+512,Mauritania,Assaba,Bustling city center with rich heritage and scenic views.
+513,Mauritania,Brakna,"Vibrant urban hub, ancient history, and local markets."
+514,Mauritius,Port Louis,"Vibrant capital city of Mauritius, rich in history and culture."
+515,Mauritius,Beau Bassin,"Cultural heart, iconic architecture, and local flavors."
+516,Mauritius,Chemin Grenier,Bustling city center with rich heritage and scenic views.
+517,Mauritius,Ebene CyberCity,"Vibrant urban hub, ancient history, and local markets."
+518,Mayotte,Mamoudzou,"Vibrant capital city of Mayotte, rich in history and culture."
+519,Mayotte,Bandaboa,"Cultural heart, iconic architecture, and local flavors."
+520,Mayotte,Chiconi,Bustling city center with rich heritage and scenic views.
+521,Mayotte,Combani,"Vibrant urban hub, ancient history, and local markets."
+522,Mexico,Mexico City,"Vibrant capital city of Mexico, rich in history and culture."
+523,Mexico,Abasolo,"Cultural heart, iconic architecture, and local flavors."
+524,Mexico,Acambaro,Bustling city center with rich heritage and scenic views.
+525,Mexico,Acambay,"Vibrant urban hub, ancient history, and local markets."
+526,Micronesia,Palikir,"Vibrant capital city of Micronesia, rich in history and culture."
+527,Moldova,Chișinău,"Vibrant capital city of Moldova, rich in history and culture."
+528,Moldova,Anenii Noi,"Cultural heart, iconic architecture, and local flavors."
+529,Moldova,Briceni,Bustling city center with rich heritage and scenic views.
+530,Moldova,Cahul,"Vibrant urban hub, ancient history, and local markets."
+531,Monaco,Monaco,"Vibrant capital city of Monaco, rich in history and culture."
+532,Mongolia,Ulan Bator,"Vibrant capital city of Mongolia, rich in history and culture."
+533,Mongolia,Altai,"Cultural heart, iconic architecture, and local flavors."
+534,Mongolia,Arvayheer,Bustling city center with rich heritage and scenic views.
+535,Mongolia,Baruun-Urt,"Vibrant urban hub, ancient history, and local markets."
+536,Montenegro,Podgorica,"Vibrant capital city of Montenegro, rich in history and culture."
+537,Montenegro,Budva,"Cultural heart, iconic architecture, and local flavors."
+538,Montenegro,Crna Gora,Bustling city center with rich heritage and scenic views.
+539,Montenegro,Herceg Novi,"Vibrant urban hub, ancient history, and local markets."
+540,Montserrat,Plymouth,"Vibrant capital city of Montserrat, rich in history and culture."
+541,Montserrat,Amersham,"Cultural heart, iconic architecture, and local flavors."
+542,Montserrat,Baker Hill,Bustling city center with rich heritage and scenic views.
+543,Montserrat,Bank Level,"Vibrant urban hub, ancient history, and local markets."
+544,Morocco,Rabat,"Vibrant capital city of Morocco, rich in history and culture."
+545,Morocco,Afourer,"Cultural heart, iconic architecture, and local flavors."
+546,Morocco,Agadir,Bustling city center with rich heritage and scenic views.
+547,Morocco,Ait Melloul,"Vibrant urban hub, ancient history, and local markets."
+548,Mozambique,Maputo,"Vibrant capital city of Mozambique, rich in history and culture."
+549,Mozambique,Beira,"Cultural heart, iconic architecture, and local flavors."
+550,Mozambique,Matola,Bustling city center with rich heritage and scenic views.
+551,Mozambique,Mozambique,"Vibrant urban hub, ancient history, and local markets."
+552,Myanmar,Naypyidaw,"Vibrant capital city of Myanmar, rich in history and culture."
+553,Myanmar,Ayeyarwady,"Cultural heart, iconic architecture, and local flavors."
+554,Myanmar,Bago,Bustling city center with rich heritage and scenic views.
+555,Myanmar,Magway,"Vibrant urban hub, ancient history, and local markets."
+556,Namibia,Windhoek,"Vibrant capital city of Namibia, rich in history and culture."
+557,Namibia,Etunda,"Cultural heart, iconic architecture, and local flavors."
+558,Namibia,Grootfontein,Bustling city center with rich heritage and scenic views.
+559,Namibia,Katima Mulilo,"Vibrant urban hub, ancient history, and local markets."
+560,Nauru,Yaren,"Vibrant capital city of Nauru, rich in history and culture."
+561,Nauru,Arijejen,"Cultural heart, iconic architecture, and local flavors."
+562,Nauru,Denigomodu,Bustling city center with rich heritage and scenic views.
+563,Nauru,Menen,"Vibrant urban hub, ancient history, and local markets."
+564,Nepal,Kathmandu,"Vibrant capital city of Nepal, rich in history and culture."
+565,Nepal,Bharatpur,"Cultural heart, iconic architecture, and local flavors."
+566,Nepal,Jawlakhel,Bustling city center with rich heritage and scenic views.
+567,Nepal,Lumbini,"Vibrant urban hub, ancient history, and local markets."
+568,Netherlands,Amsterdam,"Vibrant capital city of Netherlands, rich in history and culture."
+569,Netherlands,Rotterdam,"Cultural heart, iconic architecture, and local flavors."
+570,Netherlands,The Hague,Bustling city center with rich heritage and scenic views.
+571,Netherlands,Utrecht,"Vibrant urban hub, ancient history, and local markets."
+572,New Caledonia,Nouméa,"Vibrant capital city of New Caledonia, rich in history and culture."
+573,New Caledonia,Dumbea,"Cultural heart, iconic architecture, and local flavors."
+574,New Caledonia,Mont-Dore,Bustling city center with rich heritage and scenic views.
+575,New Caledonia,Noumea,"Vibrant urban hub, ancient history, and local markets."
+576,New Zealand,Wellington,"Vibrant capital city of New Zealand, rich in history and culture."
+577,New Zealand,Ahaura,"Cultural heart, iconic architecture, and local flavors."
+578,New Zealand,Albany,Bustling city center with rich heritage and scenic views.
+579,New Zealand,Amberley,"Vibrant urban hub, ancient history, and local markets."
+580,Nicaragua,Managua,"Vibrant capital city of Nicaragua, rich in history and culture."
+581,Nicaragua,Bluefields,"Cultural heart, iconic architecture, and local flavors."
+582,Nicaragua,Chinandega,Bustling city center with rich heritage and scenic views.
+583,Nicaragua,El Panama,"Vibrant urban hub, ancient history, and local markets."
+584,Niger,Niamey,"Vibrant capital city of Niger, rich in history and culture."
+585,Niger,Abala,"Cultural heart, iconic architecture, and local flavors."
+586,Niger,Abalak,Bustling city center with rich heritage and scenic views.
+587,Niger,Agadez,"Vibrant urban hub, ancient history, and local markets."
+588,Nigeria,Abuja,"Vibrant capital city of Nigeria, rich in history and culture."
+589,Nigeria,Aba North,"Cultural heart, iconic architecture, and local flavors."
+590,Nigeria,Aba South,Bustling city center with rich heritage and scenic views.
+591,Nigeria,Abadam,"Vibrant urban hub, ancient history, and local markets."
+592,Niue,Alofi,"Vibrant capital city of Niue, rich in history and culture."
+593,Niue,Makefu,"Cultural heart, iconic architecture, and local flavors."
+594,Niue,Tuapa,Bustling city center with rich heritage and scenic views.
+595,Niue,Namukulu,"Vibrant urban hub, ancient history, and local markets."
+596,Norfolk Island,Kingston,"Vibrant capital city of Norfolk Island, rich in history and culture."
+597,Norfolk Island,Anson Bay,"Cultural heart, iconic architecture, and local flavors."
+598,Norfolk Island,Bumboras,Bustling city center with rich heritage and scenic views.
+599,Norfolk Island,Burnt Pine,"Vibrant urban hub, ancient history, and local markets."
+600,North Korea,Pyongyang,"Vibrant capital city of North Korea, rich in history and culture."
+601,North Korea,Chagang,"Cultural heart, iconic architecture, and local flavors."
+602,North Korea,North Hamgyong,Bustling city center with rich heritage and scenic views.
+603,North Korea,South Hamgyong,"Vibrant urban hub, ancient history, and local markets."
+604,North Macedonia,Skopje,"Vibrant capital city of North Macedonia, rich in history and culture."
+605,Northern Mariana Islands,Saipan,"Vibrant capital city of Northern Mariana Islands, rich in history and culture."
+606,Norway,Oslo,"Vibrant capital city of Norway, rich in history and culture."
+607,Norway,Abelvaer,"Cultural heart, iconic architecture, and local flavors."
+608,Norway,Adalsbruk,Bustling city center with rich heritage and scenic views.
+609,Norway,Adland,"Vibrant urban hub, ancient history, and local markets."
+610,Oman,Muscat,"Vibrant capital city of Oman, rich in history and culture."
+611,Oman,Al Sohar,"Cultural heart, iconic architecture, and local flavors."
+612,Oman,Nizwa,Bustling city center with rich heritage and scenic views.
+613,Oman,Ruwi,"Vibrant urban hub, ancient history, and local markets."
+614,Pakistan,Islamabad,"Vibrant capital city of Pakistan, rich in history and culture."
+615,Pakistan,Lahore,"Cultural heart, iconic architecture, and local flavors."
+616,Pakistan,Karachi,Bustling city center with rich heritage and scenic views.
+617,Pakistan,Faisalabad,"Vibrant urban hub, ancient history, and local markets."
+618,Palau,Ngerulmud,"Vibrant capital city of Palau, rich in history and culture."
+619,Palau,Airai,"Cultural heart, iconic architecture, and local flavors."
+620,Palau,Kloulklubed,Bustling city center with rich heritage and scenic views.
+621,Palau,Meyungs,"Vibrant urban hub, ancient history, and local markets."
+622,Palestine,Ramallah,"Vibrant capital city of Palestine, rich in history and culture."
+623,Panama,Panama City,"Vibrant capital city of Panama, rich in history and culture."
+624,Panama,Aguadulce,"Cultural heart, iconic architecture, and local flavors."
+625,Panama,Albrook,Bustling city center with rich heritage and scenic views.
+626,Panama,Ancon,"Vibrant urban hub, ancient history, and local markets."
+627,Papua New Guinea,Port Moresby,"Vibrant capital city of Papua New Guinea, rich in history and culture."
+628,Papua New Guinea,Aitape,"Cultural heart, iconic architecture, and local flavors."
+629,Papua New Guinea,Arawa,Bustling city center with rich heritage and scenic views.
+630,Papua New Guinea,Daru,"Vibrant urban hub, ancient history, and local markets."
+631,Paraguay,Asunción,"Vibrant capital city of Paraguay, rich in history and culture."
+632,Paraguay,Ayolas,"Cultural heart, iconic architecture, and local flavors."
+633,Paraguay,Boqueron,Bustling city center with rich heritage and scenic views.
+634,Paraguay,Chore,"Vibrant urban hub, ancient history, and local markets."
+635,Peru,Lima,"Vibrant capital city of Peru, rich in history and culture."
+636,Peru,Abancay,"Cultural heart, iconic architecture, and local flavors."
+637,Peru,Arequipa,Bustling city center with rich heritage and scenic views.
+638,Peru,Ate,"Vibrant urban hub, ancient history, and local markets."
+639,Philippines,Manila,"Vibrant capital city of Philippines, rich in history and culture."
+640,Philippines,Abucay,"Cultural heart, iconic architecture, and local flavors."
+641,Philippines,Acacia,Bustling city center with rich heritage and scenic views.
+642,Philippines,Aguilar,"Vibrant urban hub, ancient history, and local markets."
+643,Pitcairn Islands,Adamstown,"Vibrant capital city of Pitcairn Islands, rich in history and culture."
+644,Poland,Warsaw,"Vibrant capital city of Poland, rich in history and culture."
+645,Poland,Adama,"Cultural heart, iconic architecture, and local flavors."
+646,Poland,Alwernia,Bustling city center with rich heritage and scenic views.
+647,Poland,Andrespol,"Vibrant urban hub, ancient history, and local markets."
+648,Portugal,Lisbon,"Vibrant capital city of Portugal, rich in history and culture."
+649,Portugal,Porto,"Cultural heart, iconic architecture, and local flavors."
+650,Portugal,Faro,Bustling city center with rich heritage and scenic views.
+651,Puerto Rico,San Juan,"Vibrant capital city of Puerto Rico, rich in history and culture."
+652,Puerto Rico,Adjuntas,"Cultural heart, iconic architecture, and local flavors."
+653,Puerto Rico,Aguada,Bustling city center with rich heritage and scenic views.
+654,Puerto Rico,Aguadilla,"Vibrant urban hub, ancient history, and local markets."
+655,Qatar,Doha,"Vibrant capital city of Qatar, rich in history and culture."
+656,Qatar,Ad Dawhah,"Cultural heart, iconic architecture, and local flavors."
+657,Qatar,Al Ghuwayriyah,Bustling city center with rich heritage and scenic views.
+658,Qatar,Al Jumayliyah,"Vibrant urban hub, ancient history, and local markets."
+659,Romania,Bucharest,"Vibrant capital city of Romania, rich in history and culture."
+660,Romania,Adjud,"Cultural heart, iconic architecture, and local flavors."
+661,Romania,Afumati,Bustling city center with rich heritage and scenic views.
+662,Romania,Agnita,"Vibrant urban hub, ancient history, and local markets."
+663,Russia,Moscow,"Vibrant capital city of Russia, rich in history and culture."
+664,Russia,Abakan,"Cultural heart, iconic architecture, and local flavors."
+665,Russia,Abinsk,Bustling city center with rich heritage and scenic views.
+666,Russia,Achinsk,"Vibrant urban hub, ancient history, and local markets."
+667,Rwanda,Kigali,"Vibrant capital city of Rwanda, rich in history and culture."
+668,Rwanda,Butare,"Cultural heart, iconic architecture, and local flavors."
+669,Rwanda,Byumba,Bustling city center with rich heritage and scenic views.
+670,Rwanda,Cyangugu,"Vibrant urban hub, ancient history, and local markets."
+671,Réunion,Saint-Denis,"Vibrant capital city of Réunion, rich in history and culture."
+672,Réunion,Saint-Paul,"Cultural heart, iconic architecture, and local flavors."
+673,Réunion,Saint-Pierre,Bustling city center with rich heritage and scenic views.
+674,Réunion,Le Tampon,"Vibrant urban hub, ancient history, and local markets."
+675,Saint Barthélemy,Gustavia,"Vibrant capital city of Saint Barthélemy, rich in history and culture."
+676,"Saint Helena, Ascension and Tristan da Cunha",Jamestown,"Vibrant capital city of Saint Helena, Ascension and Tristan da Cunha, rich in history and culture."
+677,Saint Kitts and Nevis,Basseterre,"Vibrant capital city of Saint Kitts and Nevis, rich in history and culture."
+678,Saint Kitts and Nevis,Cayon,"Cultural heart, iconic architecture, and local flavors."
+679,Saint Kitts and Nevis,Charlestown,Bustling city center with rich heritage and scenic views.
+680,Saint Kitts and Nevis,Dieppe Bay Town,"Vibrant urban hub, ancient history, and local markets."
+681,Saint Lucia,Castries,"Vibrant capital city of Saint Lucia, rich in history and culture."
+682,Saint Lucia,Anse La Raye,"Cultural heart, iconic architecture, and local flavors."
+683,Saint Lucia,Au Tabor,Bustling city center with rich heritage and scenic views.
+684,Saint Lucia,Babonneau,"Vibrant urban hub, ancient history, and local markets."
+685,Saint Martin,Marigot,"Vibrant capital city of Saint Martin, rich in history and culture."
+686,Saint Pierre and Miquelon,Saint-Pierre,"Vibrant capital city of Saint Pierre and Miquelon, rich in history and culture."
+687,Saint Pierre and Miquelon,Miquelon-Langlade,"Cultural heart, iconic architecture, and local flavors."
+688,Saint Vincent and the Grenadines,Kingstown,"Vibrant capital city of Saint Vincent and the Grenadines, rich in history and culture."
+689,Saint Vincent and the Grenadines,Adelphi,"Cultural heart, iconic architecture, and local flavors."
+690,Saint Vincent and the Grenadines,Arnos Vale,Bustling city center with rich heritage and scenic views.
+691,Saint Vincent and the Grenadines,Ashton,"Vibrant urban hub, ancient history, and local markets."
+692,Samoa,Apia,"Vibrant capital city of Samoa, rich in history and culture."
+693,Samoa,A'ana,"Cultural heart, iconic architecture, and local flavors."
+694,Samoa,Aiga-i-le-Tai,Bustling city center with rich heritage and scenic views.
+695,Samoa,Atua,"Vibrant urban hub, ancient history, and local markets."
+696,San Marino,City of San Marino,"Vibrant capital city of San Marino, rich in history and culture."
+697,San Marino,Acquaviva,"Cultural heart, iconic architecture, and local flavors."
+698,San Marino,Falciano,Bustling city center with rich heritage and scenic views.
+699,San Marino,Fiorentino,"Vibrant urban hub, ancient history, and local markets."
+700,Saudi Arabia,Riyadh,"Vibrant capital city of Saudi Arabia, rich in history and culture."
+701,Saudi Arabia,Abha,"Cultural heart, iconic architecture, and local flavors."
+702,Saudi Arabia,Abqaiq,Bustling city center with rich heritage and scenic views.
+703,Saudi Arabia,Al Bahah,"Vibrant urban hub, ancient history, and local markets."
+704,Senegal,Dakar,"Vibrant capital city of Senegal, rich in history and culture."
+705,Senegal,Boussinki,"Cultural heart, iconic architecture, and local flavors."
+706,Senegal,Camberene,Bustling city center with rich heritage and scenic views.
+707,Senegal,Dodji,"Vibrant urban hub, ancient history, and local markets."
+708,Serbia,Belgrade,"Vibrant capital city of Serbia, rich in history and culture."
+709,Serbia,Ada,"Cultural heart, iconic architecture, and local flavors."
+710,Serbia,Aleksinac,Bustling city center with rich heritage and scenic views.
+711,Serbia,Apatin,"Vibrant urban hub, ancient history, and local markets."
+712,Seychelles,Victoria,"Vibrant capital city of Seychelles, rich in history and culture."
+713,Seychelles,Anse aux Pins,"Cultural heart, iconic architecture, and local flavors."
+714,Seychelles,Anse Boileau,Bustling city center with rich heritage and scenic views.
+715,Seychelles,Anse Etoile,"Vibrant urban hub, ancient history, and local markets."
+716,Sierra Leone,Freetown,"Vibrant capital city of Sierra Leone, rich in history and culture."
+717,Sierra Leone,Port Loko,"Cultural heart, iconic architecture, and local flavors."
+718,Sierra Leone,Wangechi,Bustling city center with rich heritage and scenic views.
+719,Sierra Leone,Kalewa,"Vibrant urban hub, ancient history, and local markets."
+720,Singapore,Singapore,"Vibrant capital city of Singapore, rich in history and culture."
+721,Singapore,Ang Mo Kio New Town,"Cultural heart, iconic architecture, and local flavors."
+722,Singapore,Ayer Raja New Town,Bustling city center with rich heritage and scenic views.
+723,Singapore,Bedok New Town,"Vibrant urban hub, ancient history, and local markets."
+724,Sint Maarten,Philipsburg,"Vibrant capital city of Sint Maarten, rich in history and culture."
+725,Slovakia,Bratislava,"Vibrant capital city of Slovakia, rich in history and culture."
+726,Slovakia,Bahon,"Cultural heart, iconic architecture, and local flavors."
+727,Slovakia,Baka,Bustling city center with rich heritage and scenic views.
+728,Slovakia,Banovce nad Bebravou,"Vibrant urban hub, ancient history, and local markets."
+729,Slovenia,Ljubljana,"Vibrant capital city of Slovenia, rich in history and culture."
+730,Slovenia,Ankaran,"Cultural heart, iconic architecture, and local flavors."
+731,Slovenia,Begunje na Gorenjskem,Bustling city center with rich heritage and scenic views.
+732,Slovenia,Beltinci,"Vibrant urban hub, ancient history, and local markets."
+733,Solomon Islands,Honiara,"Vibrant capital city of Solomon Islands, rich in history and culture."
+734,Solomon Islands,Central,"Cultural heart, iconic architecture, and local flavors."
+735,Solomon Islands,Choiseul,Bustling city center with rich heritage and scenic views.
+736,Solomon Islands,Guadalcanal,"Vibrant urban hub, ancient history, and local markets."
+737,Somalia,Mogadishu,"Vibrant capital city of Somalia, rich in history and culture."
+738,Somalia,Awdal,"Cultural heart, iconic architecture, and local flavors."
+739,Somalia,Bakool,Bustling city center with rich heritage and scenic views.
+740,Somalia,Banaadir,"Vibrant urban hub, ancient history, and local markets."
+741,South Africa,Pretoria,"Vibrant capital city of South Africa, rich in history and culture."
+742,South Africa,Alberton,"Cultural heart, iconic architecture, and local flavors."
+743,South Africa,Alice,Bustling city center with rich heritage and scenic views.
+744,South Africa,Alrode,"Vibrant urban hub, ancient history, and local markets."
+745,South Georgia,King Edward Point,"Vibrant capital city of South Georgia, rich in history and culture."
+746,South Korea,Seoul,"Vibrant capital city of South Korea, rich in history and culture."
+747,South Korea,Andong,"Cultural heart, iconic architecture, and local flavors."
+748,South Korea,Ansan-si,Bustling city center with rich heritage and scenic views.
+749,South Korea,Anseong,"Vibrant urban hub, ancient history, and local markets."
+750,South Sudan,Juba,"Vibrant capital city of South Sudan, rich in history and culture."
+751,Spain,Barcelona,"Historic landmarks, rich culture, and vibrant urban life."
+752,Spain,Madrid,"Vibrant capital city of Spain, rich in history and culture."
+753,Spain,Seville,Bustling city center with rich heritage and scenic views.
+754,Spain,Valencia,"Vibrant urban hub, ancient history, and local markets."
+755,Spain,Granada,"Capital city filled with history, art, and charm."
+756,Sri Lanka,Colombo,"Vibrant capital city of Sri Lanka, rich in history and culture."
+757,Sri Lanka,Badulla,"Cultural heart, iconic architecture, and local flavors."
+758,Sri Lanka,Battaramulla South,Bustling city center with rich heritage and scenic views.
+759,Sri Lanka,Biyagama,"Vibrant urban hub, ancient history, and local markets."
+760,Sudan,Khartoum,"Vibrant capital city of Sudan, rich in history and culture."
+761,Sudan,Kassala,"Cultural heart, iconic architecture, and local flavors."
+762,Sudan,Nyala,Bustling city center with rich heritage and scenic views.
+763,Sudan,Shendi,"Vibrant urban hub, ancient history, and local markets."
+764,Suriname,Paramaribo,"Vibrant capital city of Suriname, rich in history and culture."
+765,Suriname,Botopasi,"Cultural heart, iconic architecture, and local flavors."
+766,Suriname,Brownsweg,Bustling city center with rich heritage and scenic views.
+767,Suriname,Friendship,"Vibrant urban hub, ancient history, and local markets."
+768,Svalbard and Jan Mayen,Longyearbyen,"Vibrant capital city of Svalbard and Jan Mayen, rich in history and culture."
+769,Sweden,Stockholm,"Vibrant capital city of Sweden, rich in history and culture."
+770,Sweden,Aby,"Cultural heart, iconic architecture, and local flavors."
+771,Sweden,AElmhult,Bustling city center with rich heritage and scenic views.
+772,Sweden,AElvdalen,"Vibrant urban hub, ancient history, and local markets."
+773,Switzerland,Bern,"Vibrant capital city of Switzerland, rich in history and culture."
+774,Switzerland,Aadorf,"Cultural heart, iconic architecture, and local flavors."
+775,Switzerland,Aarau,Bustling city center with rich heritage and scenic views.
+776,Switzerland,Aarberg,"Vibrant urban hub, ancient history, and local markets."
+777,Syria,Damascus,"Vibrant capital city of Syria, rich in history and culture."
+778,Syria,Al Hasakah,"Cultural heart, iconic architecture, and local flavors."
+779,Syria,Al Ladhiqiyah,Bustling city center with rich heritage and scenic views.
+780,Syria,Al Qunaytirah,"Vibrant urban hub, ancient history, and local markets."
+781,São Tomé and Príncipe,São Tomé,"Vibrant capital city of São Tomé and Príncipe, rich in history and culture."
+782,Taiwan,Taipei,"Vibrant capital city of Taiwan, rich in history and culture."
+783,Taiwan,Budai,"Cultural heart, iconic architecture, and local flavors."
+784,Taiwan,Caogang,Bustling city center with rich heritage and scenic views.
+785,Taiwan,Chang-hua,"Vibrant urban hub, ancient history, and local markets."
+786,Tajikistan,Dushanbe,"Vibrant capital city of Tajikistan, rich in history and culture."
+787,Tanzania,Dodoma,"Vibrant capital city of Tanzania, rich in history and culture."
+788,Tanzania,Arusha,"Cultural heart, iconic architecture, and local flavors."
+789,Tanzania,Bukoba,Bustling city center with rich heritage and scenic views.
+790,Tanzania,Dar es Salaam,"Vibrant urban hub, ancient history, and local markets."
+791,Thailand,Bangkok,"Vibrant capital city of Thailand, rich in history and culture."
+792,Thailand,Phuket,"Cultural heart, iconic architecture, and local flavors."
+793,Thailand,Chiang Mai,Bustling city center with rich heritage and scenic views.
+794,Timor-Leste,Dili,"Vibrant capital city of Timor-Leste, rich in history and culture."
+795,Timor-Leste,Aileu,"Cultural heart, iconic architecture, and local flavors."
+796,Timor-Leste,Ainaro,Bustling city center with rich heritage and scenic views.
+797,Timor-Leste,Baucau,"Vibrant urban hub, ancient history, and local markets."
+798,Togo,Lomé,"Vibrant capital city of Togo, rich in history and culture."
+799,Togo,Kara,"Cultural heart, iconic architecture, and local flavors."
+800,Togo,Plateaux,Bustling city center with rich heritage and scenic views.
+801,Togo,Savanes,"Vibrant urban hub, ancient history, and local markets."
+802,Tokelau,Fakaofo,"Vibrant capital city of Tokelau, rich in history and culture."
+803,Tokelau,Atafu Village (village),"Cultural heart, iconic architecture, and local flavors."
+804,Tokelau,Nukunonu (village),Bustling city center with rich heritage and scenic views.
+805,Tokelau,Fakaofo (village),"Vibrant urban hub, ancient history, and local markets."
+806,Tonga,Nuku'alofa,"Vibrant capital city of Tonga, rich in history and culture."
+807,Trinidad and Tobago,Port of Spain,"Vibrant capital city of Trinidad and Tobago, rich in history and culture."
+808,Trinidad and Tobago,Arima,"Cultural heart, iconic architecture, and local flavors."
+809,Trinidad and Tobago,Arouca,Bustling city center with rich heritage and scenic views.
+810,Trinidad and Tobago,Barataria,"Vibrant urban hub, ancient history, and local markets."
+811,Tunisia,Tunis,"Vibrant capital city of Tunisia, rich in history and culture."
+812,Tunisia,Ariana,"Cultural heart, iconic architecture, and local flavors."
+813,Tunisia,Beja,Bustling city center with rich heritage and scenic views.
+814,Tunisia,Gafsa,"Vibrant urban hub, ancient history, and local markets."
+815,Turkey,Istanbul,"Historic landmarks, rich culture, and vibrant urban life."
+816,Turkey,Bursa,"Cultural heart, iconic architecture, and local flavors."
+817,Turkey,Antalya,Bustling city center with rich heritage and scenic views.
+818,Turkey,Ankara,"Vibrant capital city of Turkey, rich in history and culture."
+819,Turkey,Izmir,"Capital city filled with history, art, and charm."
+820,Turkey,Cappadocia,"Historic landmarks, rich culture, and vibrant urban life."
+821,Turkmenistan,Ashgabat,"Vibrant capital city of Turkmenistan, rich in history and culture."
+822,Turkmenistan,Ahal Welayaty (Ashgabat),"Cultural heart, iconic architecture, and local flavors."
+823,Turkmenistan,Balkan Welayaty (Balkanabat),Bustling city center with rich heritage and scenic views.
+824,Turkmenistan,Dashoguz Welayaty,"Vibrant urban hub, ancient history, and local markets."
+825,Turks and Caicos Islands,Cockburn Town,"Vibrant capital city of Turks and Caicos Islands, rich in history and culture."
+826,Turks and Caicos Islands,Back Salina,"Cultural heart, iconic architecture, and local flavors."
+827,Turks and Caicos Islands,Blue Hills,Bustling city center with rich heritage and scenic views.
+828,Turks and Caicos Islands,Blue Mountain,"Vibrant urban hub, ancient history, and local markets."
+829,Tuvalu,Funafuti,"Vibrant capital city of Tuvalu, rich in history and culture."
+830,Uganda,Kampala,"Vibrant capital city of Uganda, rich in history and culture."
+831,Uganda,Adjumani,"Cultural heart, iconic architecture, and local flavors."
+832,Uganda,Apac,Bustling city center with rich heritage and scenic views.
+833,Uganda,Arua,"Vibrant urban hub, ancient history, and local markets."
+834,Ukraine,Kyiv,"Vibrant capital city of Ukraine, rich in history and culture."
+835,Ukraine,Aleksandriya,"Cultural heart, iconic architecture, and local flavors."
+836,Ukraine,Aleksandrovka,Bustling city center with rich heritage and scenic views.
+837,Ukraine,Alekseyevo-Druzhkovka,"Vibrant urban hub, ancient history, and local markets."
+838,United Arab Emirates,Dubai,"Historic landmarks, rich culture, and vibrant urban life."
+839,United Arab Emirates,Abu Dhabi,"Vibrant capital city of United Arab Emirates, rich in history and culture."
+840,United Kingdom,London,"Vibrant capital city of United Kingdom, rich in history and culture."
+841,United Kingdom,Edinburgh,"Cultural heart, iconic architecture, and local flavors."
+842,United Kingdom,Manchester,Bustling city center with rich heritage and scenic views.
+843,United Kingdom,Liverpool,"Vibrant urban hub, ancient history, and local markets."
+844,United States,New York City,"Historic landmarks, rich culture, and vibrant urban life."
+845,United States,Los Angeles,"Cultural heart, iconic architecture, and local flavors."
+846,United States,Chicago,Bustling city center with rich heritage and scenic views.
+847,United States,Miami,"Vibrant urban hub, ancient history, and local markets."
+848,United States,San Francisco,"Capital city filled with history, art, and charm."
+849,United States Virgin Islands,Charlotte Amalie,"Vibrant capital city of United States Virgin Islands, rich in history and culture."
+850,Uruguay,Montevideo,"Vibrant capital city of Uruguay, rich in history and culture."
+851,Uruguay,Barra de Carrasco,"Cultural heart, iconic architecture, and local flavors."
+852,Uruguay,Canelones,Bustling city center with rich heritage and scenic views.
+853,Uruguay,Colonia del Sacramento,"Vibrant urban hub, ancient history, and local markets."
+854,Uzbekistan,Tashkent,"Vibrant capital city of Uzbekistan, rich in history and culture."
+855,Uzbekistan,Andijon Viloyati,"Cultural heart, iconic architecture, and local flavors."
+856,Uzbekistan,Buxoro Viloyati,Bustling city center with rich heritage and scenic views.
+857,Uzbekistan,Farg'ona Viloyati,"Vibrant urban hub, ancient history, and local markets."
+858,Vanuatu,Port Vila,"Vibrant capital city of Vanuatu, rich in history and culture."
+859,Vanuatu,Malampa,"Cultural heart, iconic architecture, and local flavors."
+860,Vanuatu,Penama,Bustling city center with rich heritage and scenic views.
+861,Vanuatu,Sanma,"Vibrant urban hub, ancient history, and local markets."
+862,Vatican City,Vatican City,"Vibrant capital city of Vatican City, rich in history and culture."
+863,Venezuela,Caracas,"Vibrant capital city of Venezuela, rich in history and culture."
+864,Venezuela,Acarigua,"Cultural heart, iconic architecture, and local flavors."
+865,Venezuela,Anaco,Bustling city center with rich heritage and scenic views.
+866,Venezuela,Araure,"Vibrant urban hub, ancient history, and local markets."
+867,Vietnam,Hanoi,"Vibrant capital city of Vietnam, rich in history and culture."
+868,Vietnam,An Dinh,"Cultural heart, iconic architecture, and local flavors."
+869,Vietnam,An Giang,Bustling city center with rich heritage and scenic views.
+870,Vietnam,An Nhon,"Vibrant urban hub, ancient history, and local markets."
+871,Wallis and Futuna,Mata-Utu,"Vibrant capital city of Wallis and Futuna, rich in history and culture."
+872,Wallis and Futuna,Alele,"Cultural heart, iconic architecture, and local flavors."
+873,Wallis and Futuna,Vaitupu,Bustling city center with rich heritage and scenic views.
+874,Wallis and Futuna,Mala'e,"Vibrant urban hub, ancient history, and local markets."
+875,Western Sahara,El Aaiún,"Vibrant capital city of Western Sahara, rich in history and culture."
+876,Yemen,Sana'a,"Vibrant capital city of Yemen, rich in history and culture."
+877,Yemen,Abyan,"Cultural heart, iconic architecture, and local flavors."
+878,Yemen,'Adan,Bustling city center with rich heritage and scenic views.
+879,Yemen,Ad Dali',"Vibrant urban hub, ancient history, and local markets."
+880,Zambia,Lusaka,"Vibrant capital city of Zambia, rich in history and culture."
+881,Zambia,Kalomo,"Cultural heart, iconic architecture, and local flavors."
+882,Zambia,Kitwe,Bustling city center with rich heritage and scenic views.
+883,Zambia,Livingstone,"Vibrant urban hub, ancient history, and local markets."
+884,Zimbabwe,Harare,"Vibrant capital city of Zimbabwe, rich in history and culture."
+885,Zimbabwe,Bulawayo,"Cultural heart, iconic architecture, and local flavors."
+886,Zimbabwe,Chinhoyi,Bustling city center with rich heritage and scenic views.
+887,Zimbabwe,Greendale,"Vibrant urban hub, ancient history, and local markets."
+888,Åland Islands,Mariehamn,"Vibrant capital city of Åland Islands, rich in history and culture."
