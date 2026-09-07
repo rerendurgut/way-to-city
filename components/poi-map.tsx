@@ -9,7 +9,6 @@ import {
   useMap,
 } from 'react-leaflet'
 import { LatLngBounds } from 'leaflet'
-import 'leaflet/dist/leaflet.css'
 
 export type MapPoi = {
   id: string

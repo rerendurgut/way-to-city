@@ -2,9 +2,11 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { PlusCircle, Send, CheckCircle2, X, Edit3, Loader2 } from 'lucide-react'
+import { PlusCircle, Send, CheckCircle2, X, Edit3, Loader2, Trash2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { getPois, getFoods, getStays, getArrivals, getTransport } from '@/lib/sheets'
+
+export type PassItem = { name: string; desc: string; price: string }
 
 export type ContributeModalOptions = {
   mode?: 'new' | 'correction'
@@ -62,7 +64,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
   // Transport fields
   const [fare, setFare] = useState('')
   const [cardFee, setCardFee] = useState('')
-  const [passesInfo, setPassesInfo] = useState('')
+  const [passes, setPasses] = useState<PassItem[]>([])
   const [taxiApp, setTaxiApp] = useState('')
   const [carShareApp, setCarShareApp] = useState('')
   const [carRental, setCarRental] = useState('')
@@ -82,6 +84,20 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setMounted(true)
   }, [])
 
+  const addPassRow = () => {
+    setPasses((prev) => [...prev, { name: '', desc: '', price: '' }])
+  }
+
+  const removePassRow = (index: number) => {
+    setPasses((prev) => prev.filter((_, i) => i !== index))
+  }
+
+  const updatePassRow = (index: number, field: keyof PassItem, value: string) => {
+    setPasses((prev) =>
+      prev.map((p, i) => (i === index ? { ...p, [field]: value } : p))
+    )
+  }
+
   const resetFields = () => {
     setTitle('')
     setDescription('')
@@ -94,7 +110,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setIsVegetarian(false)
     setFare('')
     setCardFee('')
-    setPassesInfo('')
+    setPasses([])
     setTaxiApp('')
     setCarShareApp('')
     setCarRental('')
@@ -213,7 +229,9 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
       setContactless(Boolean(item.contactless))
       setQr(Boolean(item.qr))
       if (Array.isArray(item.passes)) {
-        setPassesInfo(item.passes.map((p: any) => `${p.name}: ${p.desc || p.price}`).join(', '))
+        setPasses(item.passes.map((p: any) => ({ name: p.name || '', desc: p.desc || '', price: p.price || '' })))
+      } else {
+        setPasses([])
       }
     } else if (category === 'poi') {
       setTitle(item.name || '')
@@ -249,13 +267,18 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
 
     setFare(extra.fare || '')
     setCardFee(extra.cardFee || '')
-    setPassesInfo(extra.passesInfo || '')
     setTaxiApp(extra.taxiApp || '')
     setCarShareApp(extra.carShareApp || '')
     setCarRental(extra.carRental || '')
     setMobileApp(extra.mobileApp || '')
     setContactless(Boolean(extra.contactless))
     setQr(Boolean(extra.qr))
+
+    if (Array.isArray(extra.passes)) {
+      setPasses(extra.passes)
+    } else {
+      setPasses([])
+    }
 
     setIsOpen(true)
   }
@@ -299,7 +322,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
         extra_info.cardName = title
         extra_info.fare = fare
         extra_info.cardFee = cardFee
-        extra_info.passesInfo = passesInfo
+        extra_info.passes = passes.filter((p) => p.name.trim() !== '')
         extra_info.taxiApp = taxiApp
         extra_info.carShareApp = carShareApp
         extra_info.carRental = carRental
@@ -568,17 +591,74 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1">
-                    Pass Options (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. 24h Pass: $10, 7-Day Pass: $30"
-                    value={passesInfo}
-                    onChange={(e) => setPassesInfo(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
-                  />
+                {/* Structured Dynamic Passes Editor */}
+                <div className="space-y-2 border-t border-border/60 pt-2.5">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-xs font-semibold text-foreground">
+                      🎟️ Transit Passes (e.g. 24h Pass, 7-Day Pass)
+                    </label>
+                    <button
+                      type="button"
+                      onClick={addPassRow}
+                      className="inline-flex items-center gap-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 px-2 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 active:scale-95 transition-all"
+                    >
+                      <PlusCircle className="size-3" />
+                      Add Pass
+                    </button>
+                  </div>
+
+                  {passes.length === 0 ? (
+                    <p className="text-[11px] text-muted-foreground italic bg-accent/30 p-2 rounded-lg border border-border/40">
+                      No passes added yet. Click &quot;+ Add Pass&quot; to add daily, weekly, or tourist pass rates.
+                    </p>
+                  ) : (
+                    <div className="space-y-2">
+                      {passes.map((pass, idx) => (
+                        <div
+                          key={idx}
+                          className="grid grid-cols-12 gap-2 bg-accent/40 p-2 rounded-lg border border-border/60 text-xs items-center"
+                        >
+                          <div className="col-span-4">
+                            <input
+                              type="text"
+                              placeholder="Name (e.g. 24h Pass)"
+                              value={pass.name}
+                              onChange={(e) => updatePassRow(idx, 'name', e.target.value)}
+                              className="w-full rounded border border-border bg-background px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                            />
+                          </div>
+                          <div className="col-span-4">
+                            <input
+                              type="text"
+                              placeholder="Details (e.g. All lines)"
+                              value={pass.desc}
+                              onChange={(e) => updatePassRow(idx, 'desc', e.target.value)}
+                              className="w-full rounded border border-border bg-background px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                            />
+                          </div>
+                          <div className="col-span-3">
+                            <input
+                              type="text"
+                              placeholder="Price (€8 / 100 ₺)"
+                              value={pass.price}
+                              onChange={(e) => updatePassRow(idx, 'price', e.target.value)}
+                              className="w-full rounded border border-border bg-background px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                            />
+                          </div>
+                          <div className="col-span-1 text-right">
+                            <button
+                              type="button"
+                              onClick={() => removePassRow(idx)}
+                              className="text-red-500 hover:text-red-700 p-0.5 rounded hover:bg-red-500/10"
+                              title="Remove Pass"
+                            >
+                              <X className="size-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-3 gap-2">
