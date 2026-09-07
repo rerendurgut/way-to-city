@@ -295,6 +295,10 @@ export async function getCountries(): Promise<Country[]> {
       euroConversion:
         r.euro_conversion || r.euro_rate || r.eur_conversion || '',
       esimLink:
+        r.e_sim ||
+        r.e_sim_link ||
+        r['e-sim'] ||
+        r['e-sim-link'] ||
         r.esim_link ||
         r.esim ||
         r.esim_url ||
