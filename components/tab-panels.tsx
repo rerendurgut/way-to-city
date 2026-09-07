@@ -17,6 +17,9 @@ import {
   Smartphone,
   TrainFront,
   Bus,
+  Car,
+  KeyRound,
+  Navigation,
   Ticket,
   Utensils,
   Beef,
@@ -299,6 +302,52 @@ export function TransitPanel({
           ))}
         </div>
       </div>
+
+      {(transport.taxiApp || transport.carShareApp || transport.carRental) && (
+        <div className="overflow-hidden rounded-xl border border-border bg-card">
+          <div className="border-b border-border px-5 py-3">
+            <h3 className="inline-flex items-center gap-2 text-sm font-medium text-foreground">
+              <Car className="size-4 text-primary" />
+              Taxi, Car Sharing &amp; Rentals
+            </h3>
+          </div>
+          <div className="p-5 grid gap-4 sm:grid-cols-3">
+            {transport.taxiApp && (
+              <div>
+                <dt className="text-xs text-muted-foreground font-medium mb-1.5 flex items-center gap-1.5">
+                  <Car className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+                  Taxi app
+                </dt>
+                <dd className="text-sm text-foreground">
+                  <SmartAppLink rawInput={transport.taxiApp} />
+                </dd>
+              </div>
+            )}
+            {transport.carShareApp && (
+              <div>
+                <dt className="text-xs text-muted-foreground font-medium mb-1.5 flex items-center gap-1.5">
+                  <Navigation className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+                  Car sharing
+                </dt>
+                <dd className="text-sm text-foreground">
+                  <SmartAppLink rawInput={transport.carShareApp} />
+                </dd>
+              </div>
+            )}
+            {transport.carRental && (
+              <div>
+                <dt className="text-xs text-muted-foreground font-medium mb-1.5 flex items-center gap-1.5">
+                  <KeyRound className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+                  Car rental
+                </dt>
+                <dd className="text-sm text-foreground">
+                  <SmartAppLink rawInput={transport.carRental} />
+                </dd>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

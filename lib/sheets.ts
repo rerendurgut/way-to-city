@@ -239,6 +239,9 @@ export type Transport = {
   exceptions: string
   whereToBuy: string
   mobileApp: string
+  taxiApp?: string
+  carShareApp?: string
+  carRental?: string
   contactless: boolean
   qr: boolean
   topUp: string
@@ -391,6 +394,27 @@ async function getTransport(city: string): Promise<Transport | null> {
       r.app_link ||
       r.app ||
       r.mobil_uygulama ||
+      '',
+    taxiApp:
+      r.taxi_app ||
+      r.taxi ||
+      r.taksi ||
+      r.taxi_app_link ||
+      r.taksi_uygulamasi ||
+      '',
+    carShareApp:
+      r.car_share_app ||
+      r.car_share ||
+      r.carshare ||
+      r.car_sharing ||
+      r.arac_paylasim ||
+      '',
+    carRental:
+      r.car_rental ||
+      r.car_rental_app ||
+      r.car_rental_link ||
+      r.arac_kiralama ||
+      r.rent_a_car ||
       '',
     contactless: yes(r.contactless),
     qr: yes(r.qr),
