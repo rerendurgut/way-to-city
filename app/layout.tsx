@@ -11,15 +11,50 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://waytocity.com'
+
 export const metadata: Metadata = {
-  title: 'WayToCity — Urban Transit & Travel Guide',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'WayToCity — Urban Transit & Travel Guide',
+    template: '%s | WayToCity',
+  },
   description:
     'An ultra-minimalist urban transit and travel guide. Navigate the city with transit routes, 24-hour itineraries, food spots, and curated tours.',
   generator: 'WayToCity',
+  applicationName: 'WayToCity',
+  keywords: ['travel guide', 'urban transit', 'city guide', 'public transport', 'bursa', 'turkey', 'waytocity'],
   icons: {
     icon: '/icon.svg',
     shortcut: '/icon.svg',
     apple: '/icon.svg',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: siteUrl,
+    title: 'WayToCity — Urban Transit & Travel Guide',
+    description:
+      'An ultra-minimalist urban transit and travel guide. Navigate the city with transit routes, 24-hour itineraries, food spots, and curated tours.',
+    siteName: 'WayToCity',
+    images: [
+      {
+        url: `${siteUrl}/api/og?title=WayToCity&subtitle=Urban+Transit+%26+Travel+Guide`,
+        width: 1200,
+        height: 630,
+        alt: 'WayToCity Travel Guide',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'WayToCity — Urban Transit & Travel Guide',
+    description:
+      'An ultra-minimalist urban transit and travel guide. Navigate the city with transit routes, 24-hour itineraries, food spots, and curated tours.',
+    images: [`${siteUrl}/api/og?title=WayToCity&subtitle=Urban+Transit+%26+Travel+Guide`],
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
   },
 }
 

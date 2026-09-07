@@ -12,11 +12,39 @@ export async function generateMetadata({
 }: {
   params: Promise<{ country: string }>
 }) {
-  const { country } = await params
-  const name = decodeURIComponent(country)
+  const { country: rawCountry } = await params
+  const countryName = decodeURIComponent(rawCountry)
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://waytocity.com'
+  const title = `${countryName} Cities & Transit Guides | WayToCity`
+  const description = `Explore cities in ${countryName}: public transit cards, arrival routes, points of interest, food, and stays.`
+  const pageUrl = `${siteUrl}/${encodeURIComponent(rawCountry)}`
+  const ogImageUrl = `${siteUrl}/api/og?title=${encodeURIComponent(countryName)}&subtitle=${encodeURIComponent('Cities & Urban Transit Guides')}`
+
   return {
-    title: `${name} — WayToCity`,
-    description: `Explore cities in ${name}: transit guides, points of interest, food and stays.`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: pageUrl,
+      type: 'website',
+      siteName: 'WayToCity',
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${countryName} Travel Guide`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImageUrl],
+    },
   }
 }
 
