@@ -109,6 +109,20 @@ CREATE TABLE IF NOT EXISTS submissions (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- 9. Events Table
+CREATE TABLE IF NOT EXISTS events (
+  id TEXT PRIMARY KEY,
+  city TEXT NOT NULL,
+  name TEXT NOT NULL,
+  "desc" TEXT,
+  event_date TEXT,
+  location TEXT,
+  price TEXT,
+  link TEXT,
+  status TEXT DEFAULT 'approved',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- Enable RLS and public policies
 ALTER TABLE countries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cities ENABLE ROW LEVEL SECURITY;
@@ -118,6 +132,7 @@ ALTER TABLE pois ENABLE ROW LEVEL SECURITY;
 ALTER TABLE stays ENABLE ROW LEVEL SECURITY;
 ALTER TABLE foods ENABLE ROW LEVEL SECURITY;
 ALTER TABLE submissions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Allow public read countries" ON countries;
 CREATE POLICY "Allow public read countries" ON countries FOR SELECT USING (true);
@@ -139,6 +154,9 @@ CREATE POLICY "Allow public read stays" ON stays FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Allow public read foods" ON foods;
 CREATE POLICY "Allow public read foods" ON foods FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Allow public read events" ON events;
+CREATE POLICY "Allow public read events" ON events FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Allow public insert submissions" ON submissions;
 CREATE POLICY "Allow public insert submissions" ON submissions FOR INSERT WITH CHECK (true);
