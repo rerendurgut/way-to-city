@@ -26,6 +26,8 @@ export async function approveSubmissionServer(sub: any) {
           ? 'tocity'
           : sub.category === 'transport'
           ? 'transport'
+          : sub.category === 'events'
+          ? 'events'
           : sub.category + 's'
 
       let recordData: any = {
