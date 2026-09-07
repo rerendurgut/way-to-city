@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Banknote, ChevronLeft } from 'lucide-react'
+import { ArrowUpRight, Banknote, ChevronLeft, Smartphone } from 'lucide-react'
 import type { City, Country } from '@/lib/sheets'
 
 export type HeroStat = { label: string; value: string }
@@ -57,6 +57,21 @@ export function CityHero({
         <p className="mt-3 max-w-xl text-base text-pretty leading-relaxed text-muted-foreground/90">
           {city.desc}
         </p>
+      )}
+
+      {countryData?.esimLink && (
+        <div className="mt-4">
+          <a
+            href={countryData.esimLink}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-[0.98]"
+          >
+            <Smartphone className="size-4" />
+            Get {city.country} eSIM
+            <ArrowUpRight className="size-3.5" />
+          </a>
+        </div>
       )}
 
       {stats.length > 0 && (

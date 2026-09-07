@@ -294,6 +294,14 @@ export async function getCountries(): Promise<Country[]> {
       currencyShort: r.currency_short || r.currency_code || r.currency_symbol || '',
       euroConversion:
         r.euro_conversion || r.euro_rate || r.eur_conversion || '',
+      esimLink:
+        r.esim_link ||
+        r.esim ||
+        r.esim_url ||
+        r.esim_linki ||
+        r.esim_button ||
+        r.esim_href ||
+        '',
     }))
     .filter((c) => c.name)
   countries.sort((a, b) =>
