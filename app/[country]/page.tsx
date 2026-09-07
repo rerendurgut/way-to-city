@@ -93,6 +93,7 @@ export default async function CountryPage({
             <SlidingMenu
               items={cityItems}
               variant="card"
+              searchPlaceholder={`Search cities in ${country}...`}
               emptyText={`No cities listed for ${country} yet.`}
             />
           </section>

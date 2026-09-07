@@ -58,6 +58,7 @@ export default async function HomePage() {
             <SlidingMenu
               items={countryItems}
               variant="card"
+              searchPlaceholder="Search countries..."
               emptyText="No countries available in the database right now."
             />
           </section>
