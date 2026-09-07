@@ -33,7 +33,6 @@ export async function approveSubmissionServer(sub: any) {
         name: sub.title,
         desc: sub.description || '',
         link: sub.link || '',
-        status: 'approved',
       }
 
       if (sub.category === 'food') {
@@ -45,7 +44,6 @@ export async function approveSubmissionServer(sub: any) {
           is_spicy: Boolean(extra.isSpicy),
           is_vegan: Boolean(extra.isVegan),
           is_vegetarian: Boolean(extra.isVegetarian),
-          status: 'approved',
         }
       } else if (sub.category === 'stay') {
         recordData = {
@@ -53,7 +51,6 @@ export async function approveSubmissionServer(sub: any) {
           where_stay: sub.title,
           desc: sub.description || '',
           link: sub.link || '',
-          status: 'approved',
         }
       } else if (sub.category === 'tocity') {
         recordData = {
@@ -64,7 +61,6 @@ export async function approveSubmissionServer(sub: any) {
           link: sub.link || '',
           note: sub.description || '',
           note_link: extra.noteLink || '',
-          status: 'approved',
         }
       } else if (sub.category === 'transport') {
         recordData = {
@@ -80,7 +76,6 @@ export async function approveSubmissionServer(sub: any) {
           passes: Array.isArray(extra.passes) ? extra.passes : [],
           contactless: Boolean(extra.contactless),
           qr: Boolean(extra.qr),
-          status: 'approved',
         }
       } else if (sub.category === 'poi') {
         recordData = {
@@ -88,7 +83,6 @@ export async function approveSubmissionServer(sub: any) {
           name: sub.title,
           desc: sub.description || '',
           link: sub.link || '',
-          status: 'approved',
         }
       }
 
