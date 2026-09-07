@@ -35,6 +35,8 @@ import {
 } from '@/lib/sheets'
 import type { MapPoi } from '@/components/poi-map'
 
+import { SmartAppLink } from '@/components/smart-app-link'
+
 const PoiMap = dynamic(() => import('@/components/poi-map'), {
   ssr: false,
   loading: () => (
@@ -227,23 +229,10 @@ export function TransitPanel({
             </div>
           )}
           {transport.mobileApp && (
-            <div>
-              <dt className="text-xs text-muted-foreground">Mobile app</dt>
-              <dd className="mt-0.5 text-sm text-foreground flex items-center gap-1.5">
-                <Smartphone className="size-3.5 text-primary shrink-0" />
-                {transport.mobileApp.startsWith('http') ? (
-                  <a
-                    href={transport.mobileApp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
-                  >
-                    {linkLabel(transport.mobileApp)}
-                    <ArrowUpRight className="size-3" />
-                  </a>
-                ) : (
-                  <span>{transport.mobileApp}</span>
-                )}
+            <div className="sm:col-span-2">
+              <dt className="text-xs text-muted-foreground mb-1">Mobile app</dt>
+              <dd className="mt-0.5 text-sm text-foreground">
+                <SmartAppLink rawInput={transport.mobileApp} />
               </dd>
             </div>
           )}

@@ -122,6 +122,45 @@ export function formatEuroRate(rate?: string, currencyShort?: string): string {
   return r
 }
 
+export type AppLinkInfo = {
+  iosUrl?: string
+  androidUrl?: string
+  fallbackUrl?: string
+  text?: string
+}
+
+export function parseAppLinks(input?: string): AppLinkInfo {
+  const str = (input ?? '').trim()
+  if (!str) return {}
+
+  const parts = str.split(/[,;\n]+/).map((s) => s.trim()).filter(Boolean)
+
+  let iosUrl: string | undefined
+  let androidUrl: string | undefined
+  let fallbackUrl: string | undefined
+  let text: string | undefined
+
+  for (const part of parts) {
+    if (part.startsWith('http://') || part.startsWith('https://')) {
+      if (part.includes('apple.com') || part.includes('itunes')) {
+        iosUrl = part
+      } else if (
+        part.includes('play.google.com') ||
+        part.includes('google') ||
+        part.includes('android')
+      ) {
+        androidUrl = part
+      } else {
+        if (!fallbackUrl) fallbackUrl = part
+      }
+    } else {
+      if (!text) text = part
+    }
+  }
+
+  return { iosUrl, androidUrl, fallbackUrl, text }
+}
+
 // Convert a DMS coordinate string such as "40°11′02″K 29°03′43″D" to decimal
 // degrees. Supports both Turkish (K/G/D/B) and English (N/S/E/W) hemispheres.
 export function parseDms(input?: string): { lat: number; lng: number } | null {
