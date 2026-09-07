@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { createPortal } from 'react-dom'
 import { PlusCircle, Send, CheckCircle2, X, Edit3, Loader2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import { getPois, getFoods, getStays, getArrivals, getTransport } from '@/lib/sheets'
 
 export type ContributeModalOptions = {
   mode?: 'new' | 'correction'
@@ -81,7 +82,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setMounted(true)
   }, [])
 
-  // Auto-fetch existing items from Supabase when in Correction mode
+  // Auto-fetch existing items using lib/sheets (Supabase + Google Sheets fallback)
   useEffect(() => {
     if (!isOpen || mode !== 'correction' || !city.trim()) {
       setExistingItems([])
@@ -93,26 +94,24 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     const fetchExisting = async () => {
       setLoadingExisting(true)
       try {
-        const table =
-          category === 'tocity'
-            ? 'tocity'
-            : category === 'transport'
-            ? 'transport'
-            : category === 'city'
-            ? 'cities'
-            : category + 's'
+        let items: any[] = []
+        const c = city.trim()
 
-        const { data, error } = await supabase
-          .from(table)
-          .select('*')
-          .ilike('city', city.trim())
+        if (category === 'poi') {
+          items = await getPois(c)
+        } else if (category === 'food') {
+          items = await getFoods(c)
+        } else if (category === 'stay') {
+          items = await getStays(c)
+        } else if (category === 'tocity') {
+          items = await getArrivals(c)
+        } else if (category === 'transport') {
+          const t = await getTransport(c)
+          items = t ? [t] : []
+        }
 
         if (isMounted) {
-          if (!error && data) {
-            setExistingItems(data)
-          } else {
-            setExistingItems([])
-          }
+          setExistingItems(items)
         }
       } catch (err) {
         console.error('Error fetching existing items for correction:', err)
@@ -139,12 +138,12 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     if (category === 'food') {
       setTitle(item.name || '')
       setDescription(item.desc || '')
-      setIsMeat(Boolean(item.is_meat))
-      setIsSpicy(Boolean(item.is_spicy))
-      setIsVegan(Boolean(item.is_vegan))
-      setIsVegetarian(Boolean(item.is_vegetarian))
+      setIsMeat(Boolean(item.isMeat))
+      setIsSpicy(Boolean(item.isSpicy))
+      setIsVegan(Boolean(item.isVegan))
+      setIsVegetarian(Boolean(item.isVegetarian))
     } else if (category === 'stay') {
-      setTitle(item.where || item.where_stay || item.name || '')
+      setTitle(item.where || item.name || '')
       setDescription(item.desc || '')
       setLink(item.link || '')
     } else if (category === 'tocity') {
@@ -152,16 +151,16 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
       setDescription(item.desc || item.note || '')
       setLink(item.link || '')
       setArrivalType(item.type || 'plane')
-      setNoteLink(item.note_link || '')
+      setNoteLink(item.noteLink || '')
     } else if (category === 'transport') {
-      setTitle(item.card_name || 'Transit Card')
-      setDescription(item.where_to_buy || item.desc || '')
+      setTitle(item.cardName || 'Transit Card')
+      setDescription(item.whereToBuy || item.desc || '')
       setFare(item.fare || '')
-      setCardFee(item.card_fee || '')
-      setTaxiApp(item.taxi_app || '')
-      setCarShareApp(item.car_share_app || '')
-      setCarRental(item.car_rental || '')
-      setMobileApp(item.mobile_app || '')
+      setCardFee(item.cardFee || '')
+      setTaxiApp(item.taxiApp || '')
+      setCarShareApp(item.carShareApp || '')
+      setCarRental(item.carRental || '')
+      setMobileApp(item.mobileApp || '')
       setContactless(Boolean(item.contactless))
       setQr(Boolean(item.qr))
       if (Array.isArray(item.passes)) {
@@ -447,7 +446,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
                   </option>
                   {existingItems.map((item) => {
                     const itemName =
-                      item.name || item.card_name || item.where || item.where_stay || item.city
+                      item.name || item.cardName || item.where || item.city
                     return (
                       <option key={item.id} value={item.id}>
                         {itemName}

@@ -420,7 +420,7 @@ export async function getCity(
   return cities.find((c) => eq(c.name, city)) ?? null
 }
 
-async function getArrivals(city: string): Promise<Arrival[]> {
+export async function getArrivals(city: string): Promise<Arrival[]> {
   try {
     const { data, error } = await supabase
       .from('tocity')
@@ -456,7 +456,7 @@ async function getArrivals(city: string): Promise<Arrival[]> {
     }))
 }
 
-async function getTransport(city: string): Promise<Transport | null> {
+export async function getTransport(city: string): Promise<Transport | null> {
   try {
     const { data, error } = await supabase
       .from('transport')
@@ -541,7 +541,7 @@ async function getTransport(city: string): Promise<Transport | null> {
   }
 }
 
-async function getPois(city: string): Promise<Poi[]> {
+export async function getPois(city: string): Promise<Poi[]> {
   try {
     const { data, error } = await supabase
       .from('pois')
@@ -578,7 +578,7 @@ async function getPois(city: string): Promise<Poi[]> {
     })
 }
 
-async function getStays(city: string): Promise<Stay[]> {
+export async function getStays(city: string): Promise<Stay[]> {
   try {
     const { data, error } = await supabase
       .from('stays')
@@ -611,7 +611,7 @@ async function getStays(city: string): Promise<Stay[]> {
     .filter((s) => s.where)
 }
 
-async function getFoods(city: string): Promise<Food[]> {
+export async function getFoods(city: string): Promise<Food[]> {
   try {
     const { data, error } = await supabase
       .from('foods')
