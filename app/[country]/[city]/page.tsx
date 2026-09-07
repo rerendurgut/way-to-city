@@ -73,7 +73,7 @@ export default async function CityDetailPage({
   return (
     <div className="min-h-svh bg-background flex flex-col justify-between animate-fade-in">
       <div>
-        <SiteHeader />
+        <SiteHeader country={country} city={guide.city.name} />
 
         <main className="mx-auto max-w-5xl px-6 py-8 sm:py-12">
           {allCities.length > 1 && (

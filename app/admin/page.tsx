@@ -43,9 +43,9 @@ export default function AdminPage() {
     setProcessingId(sub.id)
     try {
       const extra = sub.extra_info || {}
-      
+      const targetId = extra.target_id
+
       if (sub.category === 'city') {
-        // Insert new city
         await supabase.from('cities').insert([{
           id: `city-${Date.now()}`,
           country: sub.country,
@@ -58,9 +58,9 @@ export default function AdminPage() {
             ? 'tocity'
             : sub.category === 'transport'
             ? 'transport'
-            : sub.category + 's' // pois, foods, stays
-        let insertData: any = {
-          id: `user-${Date.now()}`,
+            : sub.category + 's'
+
+        let recordData: any = {
           city: sub.city,
           name: sub.title,
           desc: sub.description || '',
@@ -69,8 +69,7 @@ export default function AdminPage() {
         }
 
         if (sub.category === 'food') {
-          insertData = {
-            id: `user-${Date.now()}`,
+          recordData = {
             city: sub.city,
             name: sub.title,
             desc: sub.description || '',
@@ -81,8 +80,7 @@ export default function AdminPage() {
             status: 'approved'
           }
         } else if (sub.category === 'stay') {
-          insertData = {
-            id: `user-${Date.now()}`,
+          recordData = {
             city: sub.city,
             where_stay: sub.title,
             desc: sub.description || '',
@@ -90,8 +88,7 @@ export default function AdminPage() {
             status: 'approved'
           }
         } else if (sub.category === 'tocity') {
-          insertData = {
-            id: `user-${Date.now()}`,
+          recordData = {
             city: sub.city,
             type: extra.arrivalType || 'plane',
             name: sub.title,
@@ -102,21 +99,22 @@ export default function AdminPage() {
             status: 'approved'
           }
         } else if (sub.category === 'transport') {
-          insertData = {
-            id: `user-${Date.now()}`,
+          recordData = {
             city: sub.city,
             card_name: extra.cardName || sub.title,
             card_fee: extra.cardFee || '',
             fare: extra.fare || '',
             where_to_buy: sub.description || '',
             taxi_app: extra.taxiApp || '',
+            car_share_app: extra.carShareApp || '',
+            car_rental: extra.carRental || '',
+            mobile_app: extra.mobileApp || '',
             contactless: Boolean(extra.contactless),
             qr: Boolean(extra.qr),
             status: 'approved'
           }
         } else if (sub.category === 'poi') {
-          insertData = {
-            id: `user-${Date.now()}`,
+          recordData = {
             city: sub.city,
             name: sub.title,
             desc: sub.description || '',
@@ -125,13 +123,38 @@ export default function AdminPage() {
           }
         }
 
-        const { error: insertErr } = await supabase.from(targetTable).insert([insertData])
-        if (insertErr) {
-          console.error(`Insert to ${targetTable} error:`, insertErr)
+        let updated = false
+        if (targetId) {
+          const { error: updateErr } = await supabase
+            .from(targetTable)
+            .update(recordData)
+            .eq('id', targetId)
+
+          if (!updateErr) updated = true
+        } else if (sub.category === 'transport') {
+          const { data: existing } = await supabase
+            .from('transport')
+            .select('id')
+            .ilike('city', sub.city)
+            .limit(1)
+
+          if (existing && existing.length > 0) {
+            await supabase.from('transport').update(recordData).eq('id', existing[0].id)
+            updated = true
+          }
+        }
+
+        if (!updated) {
+          const { error: insertErr } = await supabase.from(targetTable).insert([
+            { id: `user-${Date.now()}`, ...recordData }
+          ])
+          if (insertErr) {
+            console.error(`Insert to ${targetTable} error:`, insertErr)
+          }
         }
       }
 
-      // 2. Update submission status to approved
+      // Update submission status to approved
       const { error: subErr } = await supabase
         .from('submissions')
         .update({ status: 'approved' })
@@ -255,10 +278,19 @@ export default function AdminPage() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">
                         {sub.category}
                       </span>
+                      {sub.extra_info?.submission_type === 'correction' ? (
+                        <span className="rounded-md bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase">
+                          ✏️ Correction / Edit
+                        </span>
+                      ) : (
+                        <span className="rounded-md bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase">
+                          ➕ New Entry
+                        </span>
+                      )}
                       <span className="text-xs font-semibold text-foreground">
                         {sub.city}, {sub.country}
                       </span>

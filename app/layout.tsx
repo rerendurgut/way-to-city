@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
+import { ContributeProvider } from '@/components/contribute-provider'
 import Script from 'next/script'
 import './globals.css'
 
@@ -41,7 +42,7 @@ export default function RootLayout({
       className={`light ${inter.variable} ${jetbrainsMono.variable} bg-background`}
     >
       <body className="font-sans antialiased">
-        {children}
+        <ContributeProvider>{children}</ContributeProvider>
         <Script
           id="tp-drive"
           strategy="afterInteractive"

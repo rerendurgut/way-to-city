@@ -23,8 +23,10 @@ import {
   Ticket,
   Utensils,
   Beef,
+  Edit3,
   type LucideIcon,
 } from 'lucide-react'
+import { useContributeModal } from '@/components/contribute-provider'
 import {
   formatEuroRate,
   formatPrice,
@@ -103,6 +105,8 @@ function titleForArrival(a: Arrival) {
 }
 
 export function ArrivalPanel({ arrivals }: { arrivals: Arrival[] }) {
+  const { openContribute } = useContributeModal()
+
   if (arrivals.length === 0)
     return <EmptyState>No arrival information for this city yet.</EmptyState>
 
@@ -116,18 +120,43 @@ export function ArrivalPanel({ arrivals }: { arrivals: Arrival[] }) {
             className="rounded-xl border border-border bg-card p-5"
           >
             {/* 1. Header & Main Transport Title */}
-            <div className="flex items-center gap-3">
-              <span className="flex size-9 items-center justify-center rounded-md bg-emerald-soft text-primary">
-                <Icon className="size-4" />
-              </span>
-              <div>
-                <h3 className="text-sm font-semibold text-foreground">
-                  {method.name || titleForArrival(method)}
-                </h3>
-                {method.name && (
-                  <p className="text-xs text-muted-foreground">{titleForArrival(method)}</p>
-                )}
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="flex size-9 items-center justify-center rounded-md bg-emerald-soft text-primary">
+                  <Icon className="size-4" />
+                </span>
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground">
+                    {method.name || titleForArrival(method)}
+                  </h3>
+                  {method.name && (
+                    <p className="text-xs text-muted-foreground">{titleForArrival(method)}</p>
+                  )}
+                </div>
               </div>
+
+              <button
+                type="button"
+                onClick={() =>
+                  openContribute({
+                    mode: 'correction',
+                    category: 'tocity',
+                    title: method.name || titleForArrival(method),
+                    description: method.desc || method.note,
+                    link: method.link,
+                    targetId: method.id,
+                    extra_info: {
+                      arrivalType: method.type,
+                      noteLink: method.noteLink,
+                    },
+                  })
+                }
+                className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                title="Suggest Correction / Edit"
+              >
+                <Edit3 className="size-3" />
+                <span>Suggest correction</span>
+              </button>
             </div>
 
             {/* 2. Description */}
@@ -211,6 +240,8 @@ export function TransitPanel({
   transport: Transport | null
   countryData?: Country | null
 }) {
+  const { openContribute } = useContributeModal()
+
   if (!transport)
     return <EmptyState>No transit card details for this city yet.</EmptyState>
 
@@ -219,16 +250,47 @@ export function TransitPanel({
   return (
     <div className="grid gap-3">
       <article className="rounded-xl border border-border bg-card p-5">
-        <div className="flex items-center gap-3">
-          <span className="flex size-9 items-center justify-center rounded-md bg-emerald-soft text-primary">
-            <CreditCard className="size-4" />
-          </span>
-          <div>
-            <h3 className="text-sm font-medium text-foreground">
-              {transport.cardName || 'Transit card'}
-            </h3>
-            <p className="text-xs text-muted-foreground">Local travel card</p>
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="flex size-9 items-center justify-center rounded-md bg-emerald-soft text-primary">
+              <CreditCard className="size-4" />
+            </span>
+            <div>
+              <h3 className="text-sm font-medium text-foreground">
+                {transport.cardName || 'Transit card'}
+              </h3>
+              <p className="text-xs text-muted-foreground">Local travel card</p>
+            </div>
           </div>
+
+          <button
+            type="button"
+            onClick={() =>
+              openContribute({
+                mode: 'correction',
+                category: 'transport',
+                title: transport.cardName,
+                description: transport.whereToBuy,
+                targetId: transport.id,
+                extra_info: {
+                  fare: transport.fare,
+                  cardFee: transport.cardFee,
+                  passesInfo: transport.passes?.map((p) => `${p.name}: ${p.desc || p.price}`).join(', '),
+                  taxiApp: transport.taxiApp,
+                  carShareApp: transport.carShareApp,
+                  carRental: transport.carRental,
+                  mobileApp: transport.mobileApp,
+                  contactless: transport.contactless,
+                  qr: transport.qr,
+                },
+              })
+            }
+            className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+            title="Suggest Correction / Edit"
+          >
+            <Edit3 className="size-3" />
+            <span>Suggest correction</span>
+          </button>
         </div>
 
         <dl className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -372,6 +434,8 @@ export function TransitPanel({
 /* ------------------------------ 3. POIs ----------------------------- */
 
 export function PoisPanel({ pois }: { pois: Poi[] }) {
+  const { openContribute } = useContributeModal()
+
   if (pois.length === 0)
     return <EmptyState>No places listed for this city yet.</EmptyState>
 
@@ -397,12 +461,34 @@ export function PoisPanel({ pois }: { pois: Poi[] }) {
               <h3 className="text-sm font-medium text-foreground">
                 {poi.name}
               </h3>
-              {poi.lat !== null && poi.lng !== null && (
-                <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-emerald-soft px-2 py-1 font-mono text-xs text-primary">
-                  <MapPin className="size-3" />
-                  On map
-                </span>
-              )}
+              <div className="flex items-center gap-2">
+                {poi.lat !== null && poi.lng !== null && (
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-md bg-emerald-soft px-2 py-1 font-mono text-xs text-primary">
+                    <MapPin className="size-3" />
+                    On map
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() =>
+                    openContribute({
+                      mode: 'correction',
+                      category: 'poi',
+                      title: poi.name,
+                      description: poi.desc,
+                      link: poi.link,
+                      targetId: poi.id,
+                      extra_info: {
+                        coordinates: poi.lat && poi.lng ? `${poi.lat}, ${poi.lng}` : '',
+                      },
+                    })
+                  }
+                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                  title="Suggest Correction / Edit"
+                >
+                  <Edit3 className="size-3" />
+                </button>
+              </div>
             </div>
             {poi.desc && (
               <p className="text-sm leading-relaxed text-muted-foreground">
@@ -438,6 +524,8 @@ function stayIcon(where: string): LucideIcon {
 }
 
 export function StayPanel({ stays }: { stays: Stay[] }) {
+  const { openContribute } = useContributeModal()
+
   if (stays.length === 0)
     return <EmptyState>No stay options listed yet.</EmptyState>
 
@@ -450,10 +538,29 @@ export function StayPanel({ stays }: { stays: Stay[] }) {
             key={stay.id}
             className="flex flex-col gap-3 rounded-xl border border-border bg-card p-5"
           >
-            <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground">
-              <Icon className="size-4 text-primary" />
-              {stay.where}
-            </span>
+            <div className="flex items-center justify-between gap-2">
+              <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                <Icon className="size-4 text-primary" />
+                {stay.where}
+              </span>
+              <button
+                type="button"
+                onClick={() =>
+                  openContribute({
+                    mode: 'correction',
+                    category: 'stay',
+                    title: stay.where,
+                    description: stay.desc,
+                    link: stay.link,
+                    targetId: stay.id,
+                  })
+                }
+                className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                title="Suggest Correction / Edit"
+              >
+                <Edit3 className="size-3" />
+              </button>
+            </div>
             {stay.desc && (
               <p className="text-sm leading-relaxed text-muted-foreground">
                 {stay.desc}
@@ -513,6 +620,8 @@ const dietBadges: {
 ]
 
 export function FoodPanel({ foods }: { foods: Food[] }) {
+  const { openContribute } = useContributeModal()
+
   if (foods.length === 0)
     return <EmptyState>No local dishes listed for this city yet.</EmptyState>
 
@@ -531,9 +640,34 @@ export function FoodPanel({ foods }: { foods: Food[] }) {
               <Utensils className="size-4" />
             </span>
             <div className="flex-1">
-              <h3 className="text-sm font-medium text-foreground">
-                {item.name}
-              </h3>
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="text-sm font-medium text-foreground">
+                  {item.name}
+                </h3>
+                <button
+                  type="button"
+                  onClick={() =>
+                    openContribute({
+                      mode: 'correction',
+                      category: 'food',
+                      title: item.name,
+                      description: item.desc,
+                      targetId: item.id,
+                      extra_info: {
+                        isMeat: item.isMeat,
+                        isSpicy: item.isSpicy,
+                        isVegan: item.isVegan,
+                        isVegetarian: item.isVegetarian,
+                      },
+                    })
+                  }
+                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                  title="Suggest Correction / Edit"
+                >
+                  <Edit3 className="size-3" />
+                  <span>Edit</span>
+                </button>
+              </div>
               {item.desc && (
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {item.desc}
