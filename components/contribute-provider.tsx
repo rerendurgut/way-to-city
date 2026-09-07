@@ -82,6 +82,49 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setMounted(true)
   }, [])
 
+  const resetFields = () => {
+    setTitle('')
+    setDescription('')
+    setLink('')
+    setCoordinates('')
+    setNoteLink('')
+    setIsMeat(false)
+    setIsSpicy(false)
+    setIsVegan(false)
+    setIsVegetarian(false)
+    setFare('')
+    setCardFee('')
+    setPassesInfo('')
+    setTaxiApp('')
+    setCarShareApp('')
+    setCarRental('')
+    setMobileApp('')
+    setContactless(false)
+    setQr(false)
+    setTargetId(undefined)
+    setSelectedItemId('')
+  }
+
+  const handleCategoryChange = (newCategory: string) => {
+    setCategory(newCategory)
+    resetFields()
+  }
+
+  const handleModeChange = (newMode: 'new' | 'correction') => {
+    setMode(newMode)
+    resetFields()
+  }
+
+  const handleCityChange = (newCity: string) => {
+    setCity(newCity)
+    resetFields()
+  }
+
+  const handleCountryChange = (newCountry: string) => {
+    setCountry(newCountry)
+    resetFields()
+  }
+
   // Auto-fetch existing items using lib/sheets (Supabase + Google Sheets fallback)
   useEffect(() => {
     if (!isOpen || mode !== 'correction' || !city.trim()) {
@@ -128,10 +171,16 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
 
   const handleSelectItemToCorrect = (itemId: string) => {
     setSelectedItemId(itemId)
-    if (!itemId) return
+    if (!itemId) {
+      resetFields()
+      return
+    }
 
     const item = existingItems.find((i) => String(i.id) === String(itemId))
-    if (!item) return
+    if (!item) {
+      resetFields()
+      return
+    }
 
     setTargetId(String(item.id))
 
@@ -216,26 +265,10 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
   }
 
   const resetForm = () => {
-    setTitle('')
-    setDescription('')
-    setLink('')
-    setCoordinates('')
-    setNoteLink('')
-    setIsMeat(false)
-    setIsSpicy(false)
-    setIsVegan(false)
-    setIsVegetarian(false)
-    setFare('')
-    setCardFee('')
-    setPassesInfo('')
-    setTaxiApp('')
-    setCarShareApp('')
-    setCarRental('')
-    setMobileApp('')
-    setContactless(false)
-    setQr(false)
-    setTargetId(undefined)
-    setSelectedItemId('')
+    resetFields()
+    setCountry('')
+    setCity('')
+    setCategory('poi')
     setExistingItems([])
   }
 
@@ -318,7 +351,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
         <div className="flex items-center gap-2 border-b border-border pb-3">
           <button
             type="button"
-            onClick={() => setMode('new')}
+            onClick={() => handleModeChange('new')}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${
               mode === 'new'
                 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
@@ -330,7 +363,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
           </button>
           <button
             type="button"
-            onClick={() => setMode('correction')}
+            onClick={() => handleModeChange('correction')}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${
               mode === 'correction'
                 ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
@@ -381,7 +414,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
               </label>
               <select
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => handleCategoryChange(e.target.value)}
                 className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
               >
                 <option value="poi">📍 Place to See (POI)</option>
@@ -403,7 +436,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
                   required
                   placeholder="e.g. Turkey, France"
                   value={country}
-                  onChange={(e) => setCountry(e.target.value)}
+                  onChange={(e) => handleCountryChange(e.target.value)}
                   className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
                 />
               </div>
@@ -416,7 +449,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
                   required
                   placeholder="e.g. Bursa, Paris"
                   value={city}
-                  onChange={(e) => setCity(e.target.value)}
+                  onChange={(e) => handleCityChange(e.target.value)}
                   className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
                 />
               </div>
