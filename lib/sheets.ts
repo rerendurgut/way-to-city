@@ -212,70 +212,16 @@ export function linkLabel(url?: string): string {
 
 /* -------------------------------- types --------------------------------- */
 
-export type TabId = 'arrival' | 'transit' | 'pois' | 'stay' | 'food'
+export type TabId = 'arrival' | 'transit' | 'pois' | 'stay' | 'food' | 'events'
 
-export type Country = {
+export type EventItem = {
   id: string
-  name: string
-  currency?: string
-  currencyShort?: string
-  euroConversion?: string
-}
-export type City = { id: string; country: string; name: string; desc: string }
-
-export type Arrival = {
-  id: string
-  type: string // air | bus | train
   name: string
   desc: string
+  eventDate: string
   link: string
-  note: string
-  noteLink?: string
-}
-
-export type Pass = { name: string; desc: string; price: string }
-export type Transport = {
-  id: string
-  cardName: string
-  cardFee: string
-  fare: string
-  exceptions: string
-  whereToBuy: string
-  mobileApp: string
-  taxiApp?: string
-  carShareApp?: string
-  carRental?: string
-  contactless: boolean
-  qr: boolean
-  topUp: string
-  passes: Pass[]
-}
-
-export type Poi = {
-  id: string
-  name: string
-  desc: string
-  link: string
-  lat: number | null
-  lng: number | null
-}
-
-export type Stay = {
-  id: string
-  city?: string
-  where: string
-  desc: string
-  link: string
-}
-
-export type Food = {
-  id: string
-  name: string
-  desc: string
-  isMeat: boolean
-  isSpicy: boolean
-  isVegan: boolean
-  isVegetarian: boolean
+  location?: string
+  price?: string
 }
 
 export type CityGuide = {
@@ -286,6 +232,7 @@ export type CityGuide = {
   pois: Poi[]
   stays: Stay[]
   foods: Food[]
+  events: EventItem[]
 }
 
 import { supabase } from '@/lib/supabase'
@@ -647,13 +594,59 @@ export async function getFoods(city: string): Promise<Food[]> {
     }))
 }
 
+export async function getEvents(city: string): Promise<EventItem[]> {
+  const todayStr = new Date().toISOString().split('T')[0]
+
+  try {
+    const { data, error } = await supabase
+      .from('events')
+      .select('*')
+      .ilike('city', city)
+      .gte('event_date', todayStr)
+      .order('event_date', { ascending: true })
+
+    if (!error && data && data.length > 0) {
+      return data.map((r: any) => ({
+        id: String(r.id),
+        name: r.name || '',
+        desc: r.desc || '',
+        eventDate: r.event_date || '',
+        link: r.link || '',
+        location: r.location || '',
+        price: r.price || '',
+      }))
+    }
+  } catch (err) {
+    console.error('Supabase getEvents error:', err)
+  }
+
+  try {
+    const rows = await fetchSheet('events' as any)
+    return rows
+      .filter((r) => eq(r.city, city))
+      .map((r) => ({
+        id: r.id,
+        name: r.event_name || r.name || '',
+        desc: r.event_desc || r.desc || '',
+        eventDate: r.event_date || r.date || '',
+        link: r.link || '',
+        location: r.location || '',
+        price: r.price || '',
+      }))
+      .filter((e) => !e.eventDate || e.eventDate >= todayStr)
+      .sort((a, b) => (a.eventDate || '').localeCompare(b.eventDate || ''))
+  } catch {
+    return []
+  }
+}
+
 export async function getCityGuide(
   country: string,
   city: string,
 ): Promise<CityGuide | null> {
   const cityRow = await getCity(country, city)
   if (!cityRow) return null
-  const [countryData, arrivals, transport, pois, stays, foods] =
+  const [countryData, arrivals, transport, pois, stays, foods, events] =
     await Promise.all([
       getCountry(country),
       getArrivals(city),
@@ -661,6 +654,7 @@ export async function getCityGuide(
       getPois(city),
       getStays(city),
       getFoods(city),
+      getEvents(city),
     ])
   return {
     city: cityRow,
@@ -670,5 +664,6 @@ export async function getCityGuide(
     pois,
     stays,
     foods,
+    events,
   }
 }

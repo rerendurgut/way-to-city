@@ -84,6 +84,16 @@ export async function approveSubmissionServer(sub: any) {
           desc: sub.description || '',
           link: sub.link || '',
         }
+      } else if (sub.category === 'events') {
+        recordData = {
+          city: sub.city,
+          name: sub.title,
+          desc: sub.description || '',
+          event_date: extra.eventDate || '',
+          location: extra.location || '',
+          price: extra.price || '',
+          link: sub.link || '',
+        }
       }
 
       let updated = false

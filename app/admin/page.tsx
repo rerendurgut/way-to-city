@@ -20,6 +20,7 @@ import {
   getStays,
   getArrivals,
   getTransport,
+  getEvents,
 } from '@/lib/sheets'
 import { approveSubmissionServer, rejectSubmissionServer } from '@/app/admin/actions'
 
@@ -133,6 +134,8 @@ export default function AdminPage() {
       } else if (sub.category === 'transport') {
         const t = await getTransport(city)
         items = t ? [t] : []
+      } else if (sub.category === 'events') {
+        items = await getEvents(city)
       }
 
       let found = null
@@ -553,6 +556,20 @@ export default function AdminPage() {
                     origValue: `Type: ${origType || 'N/A'}, Link: ${origNoteLink || 'None'}`,
                     newValue: `Type: ${newType || 'N/A'}, Link: ${newNoteLink || 'None'}`,
                     isChanged: origType !== newType || origNoteLink !== newNoteLink,
+                  })
+                } else if (sub.category === 'events') {
+                  const origDate = (orig.eventDate || orig.event_date || '').trim()
+                  const newDate = (extra.eventDate || '').trim()
+                  const origLoc = (orig.location || '').trim()
+                  const newLoc = (extra.location || '').trim()
+                  const origPrice = (orig.price || '').trim()
+                  const newPrice = (extra.price || '').trim()
+
+                  diffs.push({
+                    label: '📅 Event Date & Details',
+                    origValue: `Date: ${origDate || 'N/A'}, Location: ${origLoc || 'N/A'}, Price: ${origPrice || 'N/A'}`,
+                    newValue: `Date: ${newDate || 'N/A'}, Location: ${newLoc || 'N/A'}, Price: ${newPrice || 'N/A'}`,
+                    isChanged: origDate !== newDate || origLoc !== newLoc || origPrice !== newPrice,
                   })
                 }
               }

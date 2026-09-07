@@ -24,6 +24,8 @@ import {
   Utensils,
   Beef,
   Edit3,
+  Calendar,
+  PlusCircle,
   type LucideIcon,
 } from 'lucide-react'
 import { useContributeModal } from '@/components/contribute-provider'
@@ -37,6 +39,7 @@ import {
   type Poi,
   type Stay,
   type Transport,
+  type EventItem,
 } from '@/lib/sheets'
 import type { MapPoi } from '@/components/poi-map'
 
@@ -693,6 +696,115 @@ export function FoodPanel({ foods }: { foods: Food[] }) {
           </article>
         ))}
       </div>
+    </div>
+  )
+}
+
+/* ---------------------------- 6. Events ---------------------------- */
+
+export function EventsPanel({ events }: { events: EventItem[] }) {
+  const { openContribute } = useContributeModal()
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <p className="text-xs text-muted-foreground">
+          Upcoming concerts, festivals, and cultural events in this city.
+        </p>
+        <button
+          type="button"
+          onClick={() =>
+            openContribute({
+              mode: 'new',
+              category: 'events',
+            })
+          }
+          className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 active:scale-95 transition-all"
+        >
+          <PlusCircle className="size-3.5" />
+          <span>Suggest new event</span>
+        </button>
+      </div>
+
+      {events.length === 0 ? (
+        <EmptyState>No upcoming events listed for this city right now. Be the first to suggest one!</EmptyState>
+      ) : (
+        <div className="grid gap-3 sm:grid-cols-2">
+          {events.map((evt) => (
+            <article
+              key={evt.id}
+              className="flex flex-col justify-between rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:border-emerald-500/40"
+            >
+              <div className="space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  {evt.eventDate && (
+                    <span className="inline-flex items-center gap-1 rounded-md bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 font-mono text-xs font-bold text-amber-700 dark:text-amber-300">
+                      <Calendar className="size-3" />
+                      {evt.eventDate}
+                    </span>
+                  )}
+                  {evt.price && (
+                    <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                      {evt.price}
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="text-base font-bold text-foreground">
+                    {evt.name}
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      openContribute({
+                        mode: 'correction',
+                        category: 'events',
+                        title: evt.name,
+                        description: evt.desc,
+                        link: evt.link,
+                        targetId: evt.id,
+                        extra_info: {
+                          eventDate: evt.eventDate,
+                          location: evt.location,
+                          price: evt.price,
+                        },
+                      })
+                    }
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                    title="Suggest Correction / Edit"
+                  >
+                    <Edit3 className="size-3" />
+                    <span>Edit</span>
+                  </button>
+                </div>
+
+                {evt.location && (
+                  <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                    <MapPin className="size-3 shrink-0" />
+                    {evt.location}
+                  </p>
+                )}
+
+                {evt.desc && (
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {evt.desc}
+                  </p>
+                )}
+              </div>
+
+              {evt.link && (
+                <div className="mt-4 pt-3 border-t border-border/40">
+                  <AffiliateButton
+                    href={evt.link}
+                    label="Get Tickets / Info"
+                  />
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

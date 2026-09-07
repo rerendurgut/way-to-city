@@ -7,6 +7,7 @@ import {
   Map,
   PlaneLanding,
   Utensils,
+  Calendar,
   type LucideIcon,
 } from 'lucide-react'
 import type { CityGuide, TabId } from '@/lib/sheets'
@@ -16,6 +17,7 @@ import {
   PoisPanel,
   StayPanel,
   TransitPanel,
+  EventsPanel,
 } from '@/components/tab-panels'
 
 type Tab = {
@@ -30,6 +32,7 @@ const tabs: Tab[] = [
   { id: 'pois', label: 'POIs & Map', icon: Map },
   { id: 'stay', label: 'Where to Stay', icon: BedDouble },
   { id: 'food', label: 'Local Food', icon: Utensils },
+  { id: 'events', label: 'Upcoming Events', icon: Calendar },
 ]
 
 export function GuideTabs({ guide }: { guide: CityGuide }) {
@@ -85,6 +88,7 @@ export function GuideTabs({ guide }: { guide: CityGuide }) {
         {active === 'pois' && <PoisPanel pois={guide.pois} />}
         {active === 'stay' && <StayPanel stays={guide.stays} />}
         {active === 'food' && <FoodPanel foods={guide.foods} />}
+        {active === 'events' && <EventsPanel events={guide.events} />}
       </div>
     </section>
   )

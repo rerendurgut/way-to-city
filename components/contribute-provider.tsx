@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { createPortal } from 'react-dom'
 import { PlusCircle, Send, CheckCircle2, X, Edit3, Loader2, Trash2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
-import { getPois, getFoods, getStays, getArrivals, getTransport } from '@/lib/sheets'
+import { getPois, getFoods, getStays, getArrivals, getTransport, getEvents } from '@/lib/sheets'
 
 export type PassItem = { name: string; desc: string; price: string }
 
@@ -72,6 +72,11 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
   const [contactless, setContactless] = useState(false)
   const [qr, setQr] = useState(false)
 
+  // Event fields
+  const [eventDate, setEventDate] = useState('')
+  const [eventLocation, setEventLocation] = useState('')
+  const [eventPrice, setEventPrice] = useState('')
+
   // Correction selection list states
   const [existingItems, setExistingItems] = useState<any[]>([])
   const [selectedItemId, setSelectedItemId] = useState<string>('')
@@ -117,6 +122,9 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setMobileApp('')
     setContactless(false)
     setQr(false)
+    setEventDate('')
+    setEventLocation('')
+    setEventPrice('')
     setTargetId(undefined)
     setSelectedItemId('')
   }
@@ -167,6 +175,8 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
         } else if (category === 'transport') {
           const t = await getTransport(c)
           items = t ? [t] : []
+        } else if (category === 'events') {
+          items = await getEvents(c)
         }
 
         if (isMounted) {
@@ -238,6 +248,13 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
       setDescription(item.desc || '')
       setLink(item.link || '')
       setCoordinates(item.lat && item.lng ? `${item.lat}, ${item.lng}` : '')
+    } else if (category === 'events') {
+      setTitle(item.name || '')
+      setDescription(item.desc || '')
+      setLink(item.link || '')
+      setEventDate(item.eventDate || '')
+      setEventLocation(item.location || '')
+      setEventPrice(item.price || '')
     } else if (category === 'city') {
       setTitle(item.name || item.city || '')
       setDescription(item.desc || '')
@@ -273,6 +290,9 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setMobileApp(extra.mobileApp || '')
     setContactless(Boolean(extra.contactless))
     setQr(Boolean(extra.qr))
+    setEventDate(extra.eventDate || '')
+    setEventLocation(extra.location || '')
+    setEventPrice(extra.price || '')
 
     if (Array.isArray(extra.passes)) {
       setPasses(extra.passes)
@@ -318,6 +338,10 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
         extra_info.isSpicy = isSpicy
         extra_info.isVegan = isVegan
         extra_info.isVegetarian = isVegetarian
+      } else if (category === 'events') {
+        extra_info.eventDate = eventDate
+        extra_info.location = eventLocation
+        extra_info.price = eventPrice
       } else if (category === 'transport') {
         extra_info.cardName = title
         extra_info.fare = fare
@@ -441,6 +465,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
                 className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
               >
                 <option value="poi">📍 Place to See (POI)</option>
+                <option value="events">📅 Upcoming Event (Concert, Fest, etc.)</option>
                 <option value="transport">🚆 Transit Guide / Urban Transport</option>
                 <option value="tocity">✈️ Arrival / Airport &amp; Intercity</option>
                 <option value="food">🍱 Local Food / Dish</option>
@@ -545,19 +570,48 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
               />
             </div>
 
-            {/* Category: POI Specific (Coordinates) */}
-            {category === 'poi' && (
-              <div>
-                <label className="block text-xs font-medium text-muted-foreground mb-1">
-                  Map Coordinates / Location (Optional)
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. 41°00'30 N 28°58'47 E or Google Maps link"
-                  value={coordinates}
-                  onChange={(e) => setCoordinates(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
-                />
+            {/* Category: Event Specific (Date, Venue, Ticket Price) */}
+            {category === 'events' && (
+              <div className="space-y-3 bg-accent/30 p-3 rounded-xl border border-border/60">
+                <div>
+                  <label className="block text-xs font-semibold text-foreground mb-1">
+                    📅 Event Date *
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={eventDate}
+                    onChange={(e) => setEventDate(e.target.value)}
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      📍 Venue / Location (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Merinos AKKM, Open Air"
+                      value={eventLocation}
+                      onChange={(e) => setEventLocation(e.target.value)}
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      🎟️ Ticket Cost (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Free, 150 ₺, €20"
+                      value={eventPrice}
+                      onChange={(e) => setEventPrice(e.target.value)}
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                    />
+                  </div>
+                </div>
               </div>
             )}
 
