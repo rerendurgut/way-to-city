@@ -667,3 +667,73 @@ export async function getCityGuide(
     events,
   }
 }
+
+export type GlobalEventItem = EventItem & {
+  city: string
+  country: string
+  continent: string
+}
+
+export async function getAllUpcomingEvents(): Promise<GlobalEventItem[]> {
+  const todayStr = new Date().toISOString().split('T')[0]
+  const [countries, cities] = await Promise.all([getCountries(), getCities()])
+
+  const cityMetaMap = new Map<string, { country: string; continent: string }>()
+  for (const c of cities) {
+    const countryObj = countries.find(
+      (cnt) => cnt.name.toLocaleLowerCase() === c.country.toLocaleLowerCase(),
+    )
+    cityMetaMap.set(c.name.toLocaleLowerCase(), {
+      country: c.country,
+      continent: countryObj?.continent || '',
+    })
+  }
+
+  let eventsData: any[] = []
+
+  try {
+    const { data, error } = await supabase
+      .from('events')
+      .select('*')
+      .gte('event_date', todayStr)
+      .order('event_date', { ascending: true })
+
+    if (!error && data && data.length > 0) {
+      eventsData = data
+    }
+  } catch (err) {
+    console.error('Supabase getAllUpcomingEvents error:', err)
+  }
+
+  if (eventsData.length === 0) {
+    try {
+      const rows = await fetchSheet('events' as any)
+      eventsData = rows
+    } catch {
+      eventsData = []
+    }
+  }
+
+  return eventsData
+    .map((r: any) => {
+      const cityName = r.city || ''
+      const meta = cityMetaMap.get(cityName.toLocaleLowerCase()) || {
+        country: r.country || '',
+        continent: r.continent || '',
+      }
+      return {
+        id: String(r.id),
+        name: r.event_name || r.name || '',
+        desc: r.event_desc || r.desc || '',
+        eventDate: r.event_date || r.date || '',
+        link: r.link || '',
+        location: r.location || '',
+        price: r.price || '',
+        city: cityName,
+        country: meta.country,
+        continent: meta.continent,
+      }
+    })
+    .filter((e) => e.name && (!e.eventDate || e.eventDate >= todayStr))
+    .sort((a, b) => (a.eventDate || '').localeCompare(b.eventDate || ''))
+}

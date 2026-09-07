@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import {
   BedDouble,
   CreditCard,
@@ -35,8 +36,18 @@ const tabs: Tab[] = [
   { id: 'events', label: 'Upcoming Events', icon: Calendar },
 ]
 
-export function GuideTabs({ guide }: { guide: CityGuide }) {
-  const [active, setActive] = useState<TabId>('arrival')
+function GuideTabsContent({ guide }: { guide: CityGuide }) {
+  const searchParams = useSearchParams()
+  const tabParam = searchParams.get('tab') as TabId | null
+  const validTab = tabParam && tabs.some((t) => t.id === tabParam) ? tabParam : 'arrival'
+
+  const [active, setActive] = useState<TabId>(validTab)
+
+  useEffect(() => {
+    if (tabParam && tabs.some((t) => t.id === tabParam)) {
+      setActive(tabParam)
+    }
+  }, [tabParam])
 
   return (
     <section className="mt-10">
@@ -93,3 +104,12 @@ export function GuideTabs({ guide }: { guide: CityGuide }) {
     </section>
   )
 }
+
+export function GuideTabs({ guide }: { guide: CityGuide }) {
+  return (
+    <Suspense fallback={<div className="mt-10 min-h-[300px]" />}>
+      <GuideTabsContent guide={guide} />
+    </Suspense>
+  )
+}
+

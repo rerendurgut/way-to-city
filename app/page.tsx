@@ -1,12 +1,15 @@
 import { Compass } from 'lucide-react'
 import { ContinentSelector } from '@/components/continent-selector'
 import { SiteHeader } from '@/components/site-header'
-import { getCountries } from '@/lib/sheets'
+import { getCountries, getAllUpcomingEvents } from '@/lib/sheets'
 
 export const revalidate = 60
 
 export default async function HomePage() {
-  const countries = await getCountries()
+  const [countries, events] = await Promise.all([
+    getCountries(),
+    getAllUpcomingEvents(),
+  ])
 
   return (
     <div className="min-h-svh bg-background flex flex-col justify-between animate-fade-in">
@@ -46,7 +49,7 @@ export default async function HomePage() {
               </span>
             </div>
 
-            <ContinentSelector countries={countries} />
+            <ContinentSelector countries={countries} events={events} />
           </section>
         </main>
       </div>
