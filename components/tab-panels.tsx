@@ -115,59 +115,55 @@ export function ArrivalPanel({ arrivals }: { arrivals: Arrival[] }) {
             key={method.id}
             className="rounded-xl border border-border bg-card p-5"
           >
+            {/* 1. Header & Main Transport Title */}
             <div className="flex items-center gap-3">
               <span className="flex size-9 items-center justify-center rounded-md bg-emerald-soft text-primary">
                 <Icon className="size-4" />
               </span>
               <div>
-                <h3 className="text-sm font-medium text-foreground">
-                  {titleForArrival(method)}
+                <h3 className="text-sm font-semibold text-foreground">
+                  {method.name || titleForArrival(method)}
                 </h3>
                 {method.name && (
-                  <p className="text-xs text-muted-foreground">{method.name}</p>
+                  <p className="text-xs text-muted-foreground">{titleForArrival(method)}</p>
                 )}
               </div>
             </div>
 
+            {/* 2. Description */}
             {method.desc && (
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {method.desc}
               </p>
             )}
 
-            {method.note && (
-              method.noteLink ? (
-                <a
-                  href={method.noteLink}
-                  target="_blank"
-                  rel="noopener noreferrer sponsored"
-                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
-                >
-                  <MapPin className="size-3.5" />
-                  {method.note}
-                  <ArrowUpRight className="size-3.5" />
-                </a>
-              ) : (
-                <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-primary">
-                  <MapPin className="size-3.5" />
-                  {method.note}
-                </p>
-              )
+            {/* 3. Main Transport Link (e.g. Skyscanner, Obilet) */}
+            {method.link && (
+              <div className="mt-3">
+                <AffiliateButton
+                  href={method.link}
+                  label={linkLabel(method.link)}
+                />
+              </div>
             )}
 
-            {(method.link || method.noteLink) && (
-              <div className="mt-4 flex flex-wrap gap-2 border-t border-border pt-4">
-                {method.link && (
-                  <AffiliateButton
-                    href={method.link}
-                    label={linkLabel(method.link)}
-                  />
+            {/* 4. Divider Line & City Transfer Details (put & put_link) */}
+            {(method.note || method.noteLink) && (
+              <div className="mt-4 border-t border-border pt-4 space-y-2.5">
+                {method.note && (
+                  <p className="flex items-start gap-1.5 text-xs text-foreground/90 font-medium leading-relaxed">
+                    <MapPin className="size-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                    <span>{method.note}</span>
+                  </p>
                 )}
+
                 {method.noteLink && (
-                  <AffiliateButton
-                    href={method.noteLink}
-                    label={linkLabel(method.noteLink)}
-                  />
+                  <div>
+                    <AffiliateButton
+                      href={method.noteLink}
+                      label={linkLabel(method.noteLink)}
+                    />
+                  </div>
                 )}
               </div>
             )}
