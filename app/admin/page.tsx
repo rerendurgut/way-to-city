@@ -33,6 +33,7 @@ export default function AdminPage() {
   const [inspectingSub, setInspectingSub] = useState<any | null>(null)
   const [originalRecord, setOriginalRecord] = useState<any | null>(null)
   const [loadingOriginal, setLoadingOriginal] = useState<boolean>(false)
+  const [showOnlyDiffs, setShowOnlyDiffs] = useState<boolean>(false)
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
@@ -529,148 +530,257 @@ export default function AdminPage() {
                 <RefreshCw className="size-4 animate-spin text-emerald-500" />
                 Loading original record for comparison...
               </div>
-            ) : (
-              <div className="space-y-4 text-xs">
-                <p className="text-muted-foreground">
-                  Below is the side-by-side comparison between the original
-                  existing record in {inspectingSub.city} and the proposed
-                  suggestion:
-                </p>
+            ) : (() => {
+              const sub = inspectingSub
+              const orig = originalRecord || {}
+              const extra = sub.extra_info || {}
+              const isNew = !originalRecord || extra.submission_type === 'new'
 
-                <div className="rounded-xl border border-border overflow-hidden divide-y divide-border">
-                  {/* Row: Title / Name */}
-                  <div className="grid grid-cols-12 p-3 bg-accent/20">
-                    <div className="col-span-3 font-semibold text-muted-foreground">
-                      Title / Name
-                    </div>
-                    <div className="col-span-4 text-red-600 dark:text-red-400 font-mono">
-                      🔴 Neydi: {originalRecord?.name || originalRecord?.cardName || originalRecord?.where || '(New / None)'}
-                    </div>
-                    <div className="col-span-5 text-emerald-600 dark:text-emerald-400 font-semibold font-mono flex items-center gap-1">
-                      <ArrowRight className="size-3 shrink-0" />
-                      🟢 Ne Oldu: {inspectingSub.title}
-                    </div>
+              const diffs: {
+                label: string
+                origValue: string
+                newValue: string
+                isChanged: boolean
+              }[] = []
+
+              if (isNew) {
+                diffs.push({
+                  label: '🆕 New Entry',
+                  origValue: '(No existing record)',
+                  newValue: `${sub.title} - ${sub.description || 'No description'}`,
+                  isChanged: true,
+                })
+              } else {
+                // 1. Title / Name
+                const origTitle = (orig.name || orig.cardName || orig.where || '').trim()
+                const newTitle = (sub.title || '').trim()
+                const titleDiff = origTitle.toLowerCase() !== newTitle.toLowerCase() && Boolean(origTitle)
+                diffs.push({
+                  label: 'Title / Name',
+                  origValue: origTitle || '(None)',
+                  newValue: newTitle || '(None)',
+                  isChanged: titleDiff,
+                })
+
+                // 2. Description / Tips
+                const origDesc = (orig.desc || orig.whereToBuy || orig.note || '').trim()
+                const newDesc = (sub.description || '').trim()
+                diffs.push({
+                  label: 'Description / Tips',
+                  origValue: origDesc || '(None)',
+                  newValue: newDesc || '(None)',
+                  isChanged: origDesc !== newDesc,
+                })
+
+                // 3. Link
+                const origLink = (orig.link || '').trim()
+                const newLink = (sub.link || '').trim()
+                if (origLink || newLink) {
+                  diffs.push({
+                    label: 'Website / Link',
+                    origValue: origLink || '(None)',
+                    newValue: newLink || '(None)',
+                    isChanged: origLink !== newLink,
+                  })
+                }
+
+                // Category-specific fields
+                if (sub.category === 'transport') {
+                  const origFare = (orig.fare || '').trim()
+                  const newFare = (extra.fare || '').trim()
+                  const origFee = (orig.cardFee || '').trim()
+                  const newFee = (extra.cardFee || '').trim()
+                  diffs.push({
+                    label: 'Single Fare / Card Cost',
+                    origValue: `Fare: ${origFare || 'N/A'}, Fee: ${origFee || 'N/A'}`,
+                    newValue: `Fare: ${newFare || 'N/A'}, Fee: ${newFee || 'N/A'}`,
+                    isChanged: origFare !== newFare || origFee !== newFee,
+                  })
+
+                  const origPasses = Array.isArray(orig.passes) ? orig.passes : []
+                  const newPasses = Array.isArray(extra.passes) ? extra.passes : []
+                  const origPassStr = origPasses
+                    .map((p: any) => `${p.name}: ${p.price || p.desc}`)
+                    .join(' | ')
+                  const newPassStr = newPasses
+                    .map((p: any) => `${p.name}: ${p.price || ''}${p.desc ? ` (${p.desc})` : ''}`)
+                    .join(' | ')
+
+                  diffs.push({
+                    label: '🎟️ Transit Passes',
+                    origValue: origPassStr || '(None)',
+                    newValue: newPassStr || '(None)',
+                    isChanged: origPassStr !== newPassStr,
+                  })
+
+                  const origTaxi = (orig.taxiApp || '').trim()
+                  const newTaxi = (extra.taxiApp || '').trim()
+                  const origCarShare = (orig.carShareApp || '').trim()
+                  const newCarShare = (extra.carShareApp || '').trim()
+                  const origRental = (orig.carRental || '').trim()
+                  const newRental = (extra.carRental || '').trim()
+                  const origMobile = (orig.mobileApp || '').trim()
+                  const newMobile = (extra.mobileApp || '').trim()
+
+                  diffs.push({
+                    label: '🚖 Apps & Rental',
+                    origValue: `Taxi: ${origTaxi || 'N/A'}, CarShare: ${origCarShare || 'N/A'}, Rental: ${origRental || 'N/A'}, Mobile: ${origMobile || 'N/A'}`,
+                    newValue: `Taxi: ${newTaxi || 'N/A'}, CarShare: ${newCarShare || 'N/A'}, Rental: ${newRental || 'N/A'}, Mobile: ${newMobile || 'N/A'}`,
+                    isChanged:
+                      origTaxi !== newTaxi ||
+                      origCarShare !== newCarShare ||
+                      origRental !== newRental ||
+                      origMobile !== newMobile,
+                  })
+
+                  const origContactless = Boolean(orig.contactless)
+                  const newContactless = Boolean(extra.contactless)
+                  const origQr = Boolean(orig.qr)
+                  const newQr = Boolean(extra.qr)
+
+                  diffs.push({
+                    label: '💳 Payment Methods',
+                    origValue: `Contactless: ${origContactless ? 'Yes' : 'No'}, QR: ${origQr ? 'Yes' : 'No'}`,
+                    newValue: `Contactless: ${newContactless ? 'Yes' : 'No'}, QR: ${newQr ? 'Yes' : 'No'}`,
+                    isChanged: origContactless !== newContactless || origQr !== newQr,
+                  })
+                } else if (sub.category === 'food') {
+                  const origMeat = Boolean(orig.isMeat)
+                  const newMeat = Boolean(extra.isMeat)
+                  const origSpicy = Boolean(orig.isSpicy)
+                  const newSpicy = Boolean(extra.isSpicy)
+                  const origVegan = Boolean(orig.isVegan)
+                  const newVegan = Boolean(extra.isVegan)
+                  const origVeg = Boolean(orig.isVegetarian)
+                  const newVeg = Boolean(extra.isVegetarian)
+
+                  diffs.push({
+                    label: '🥗 Dietary Badges',
+                    origValue: `Meat: ${origMeat ? 'Yes 🥩' : 'No'}, Spicy: ${origSpicy ? 'Yes 🌶️' : 'No'}, Vegan: ${origVegan ? 'Yes 🌱' : 'No'}, Veg: ${origVeg ? 'Yes' : 'No'}`,
+                    newValue: `Meat: ${newMeat ? 'Yes 🥩' : 'No'}, Spicy: ${newSpicy ? 'Yes 🌶️' : 'No'}, Vegan: ${newVegan ? 'Yes 🌱' : 'No'}, Veg: ${newVeg ? 'Yes' : 'No'}`,
+                    isChanged:
+                      origMeat !== newMeat ||
+                      origSpicy !== newSpicy ||
+                      origVegan !== newVegan ||
+                      origVeg !== newVeg,
+                  })
+                } else if (sub.category === 'tocity') {
+                  const origType = (orig.type || '').trim()
+                  const newType = (extra.arrivalType || '').trim()
+                  const origNoteLink = (orig.note_link || orig.noteLink || '').trim()
+                  const newNoteLink = (extra.noteLink || '').trim()
+
+                  diffs.push({
+                    label: '✈️ Arrival Details',
+                    origValue: `Type: ${origType || 'N/A'}, Link: ${origNoteLink || 'None'}`,
+                    newValue: `Type: ${newType || 'N/A'}, Link: ${newNoteLink || 'None'}`,
+                    isChanged: origType !== newType || origNoteLink !== newNoteLink,
+                  })
+                }
+              }
+
+              const changedCount = diffs.filter((d) => d.isChanged).length
+              const displayed = showOnlyDiffs ? diffs.filter((d) => d.isChanged) : diffs
+
+              return (
+                <div className="space-y-4 text-xs">
+                  <div className="flex items-center justify-between gap-2 bg-accent/30 p-2.5 rounded-lg border border-border/50">
+                    <span className="text-muted-foreground text-[11px]">
+                      {changedCount > 0 ? (
+                        <>⚡ <strong>{changedCount}</strong> alan değiştirildi / eklendi</>
+                      ) : (
+                        <>Eski kayıt ile öneri arasında fark bulunamadı (Aynı).</>
+                      )}
+                    </span>
+
+                    {changedCount > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setShowOnlyDiffs(!showOnlyDiffs)}
+                        className="inline-flex items-center gap-1.5 rounded-md bg-amber-500/10 border border-amber-500/30 px-2.5 py-1 text-[11px] font-bold text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 active:scale-95 transition-all"
+                      >
+                        {showOnlyDiffs
+                          ? 'Tüm Alanları Göster'
+                          : `⚡ Sadece Değişenleri Göster (${changedCount})`}
+                      </button>
+                    )}
                   </div>
 
-                  {/* Row: Description */}
-                  <div className="grid grid-cols-12 p-3">
-                    <div className="col-span-3 font-semibold text-muted-foreground">
-                      Description / Tips
-                    </div>
-                    <div className="col-span-4 text-muted-foreground leading-relaxed">
-                      🔴 {originalRecord?.desc || originalRecord?.whereToBuy || originalRecord?.note || '(None)'}
-                    </div>
-                    <div className="col-span-5 text-foreground font-medium leading-relaxed bg-emerald-500/5 p-2 rounded border border-emerald-500/20">
-                      🟢 {inspectingSub.description || '(None)'}
-                    </div>
+                  <div className="rounded-xl border border-border overflow-hidden divide-y divide-border">
+                    {displayed.length === 0 ? (
+                      <div className="p-4 text-center text-muted-foreground italic">
+                        Gösterilecek değiştirilmiş alan bulunmuyor.
+                      </div>
+                    ) : (
+                      displayed.map((d, idx) => (
+                        <div
+                          key={idx}
+                          className={`grid grid-cols-12 p-3.5 transition-colors ${
+                            d.isChanged
+                              ? 'bg-amber-500/10 dark:bg-amber-500/15 border-l-4 border-l-amber-500'
+                              : 'bg-card/40 opacity-60'
+                          }`}
+                        >
+                          <div className="col-span-3 font-semibold text-foreground flex items-center gap-1.5 flex-wrap">
+                            <span>{d.label}</span>
+                            {d.isChanged ? (
+                              <span className="rounded bg-amber-500/20 px-1.5 py-0.5 text-[9px] font-bold text-amber-700 dark:text-amber-300 font-mono">
+                                ⚡ DEĞİŞTİ
+                              </span>
+                            ) : (
+                              <span className="rounded bg-accent px-1.5 py-0.5 text-[9px] font-medium text-muted-foreground font-mono">
+                                DEĞİŞMEDİ
+                              </span>
+                            )}
+                          </div>
+
+                          {d.isChanged ? (
+                            <>
+                              <div className="col-span-4 text-red-600 dark:text-red-400 font-mono text-[11px] break-words">
+                                🔴 Neydi: {d.origValue}
+                              </div>
+                              <div className="col-span-5 text-emerald-600 dark:text-emerald-400 font-semibold font-mono text-[11px] flex items-start gap-1 break-words">
+                                <ArrowRight className="size-3 shrink-0 mt-0.5" />
+                                <span>🟢 Ne Oldu: {d.newValue}</span>
+                              </div>
+                            </>
+                          ) : (
+                            <div className="col-span-9 text-muted-foreground font-mono text-[11px]">
+                              Aynı: {d.newValue}
+                            </div>
+                          )}
+                        </div>
+                      ))
+                    )}
                   </div>
 
-                  {/* Row: Link */}
-                  {(originalRecord?.link || inspectingSub.link) && (
-                    <div className="grid grid-cols-12 p-3 bg-accent/20">
-                      <div className="col-span-3 font-semibold text-muted-foreground">
-                        Website / Link
-                      </div>
-                      <div className="col-span-4 text-muted-foreground break-all">
-                        🔴 {originalRecord?.link || '(None)'}
-                      </div>
-                      <div className="col-span-5 text-emerald-600 break-all">
-                        🟢 {inspectingSub.link || '(None)'}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Category Specific Diffs */}
-                  {inspectingSub.category === 'transport' && (
-                    <>
-                      <div className="grid grid-cols-12 p-3">
-                        <div className="col-span-3 font-semibold text-muted-foreground">
-                          Single Fare / Card Fee
-                        </div>
-                        <div className="col-span-4 text-muted-foreground">
-                          🔴 Fare: {originalRecord?.fare || 'N/A'}, Fee:{' '}
-                          {originalRecord?.cardFee || 'N/A'}
-                        </div>
-                        <div className="col-span-5 text-emerald-600 font-mono font-semibold">
-                          🟢 Fare: {inspectingSub.extra_info?.fare || 'N/A'},
-                          Fee: {inspectingSub.extra_info?.cardFee || 'N/A'}
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-12 p-3 bg-accent/20">
-                        <div className="col-span-3 font-semibold text-muted-foreground">
-                          Passes
-                        </div>
-                        <div className="col-span-4 text-muted-foreground">
-                          🔴{' '}
-                          {Array.isArray(originalRecord?.passes) &&
-                          originalRecord.passes.length > 0
-                            ? originalRecord.passes
-                                .map((p: any) => `${p.name}: ${p.price}`)
-                                .join(', ')
-                            : '(None)'}
-                        </div>
-                        <div className="col-span-5 text-emerald-600 font-mono">
-                          🟢{' '}
-                          {Array.isArray(inspectingSub.extra_info?.passes) &&
-                          inspectingSub.extra_info.passes.length > 0
-                            ? inspectingSub.extra_info.passes
-                                .map((p: any) => `${p.name}: ${p.price}`)
-                                .join(', ')
-                            : '(None)'}
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {inspectingSub.category === 'food' && (
-                    <div className="grid grid-cols-12 p-3">
-                      <div className="col-span-3 font-semibold text-muted-foreground">
-                        Dietary Badges
-                      </div>
-                      <div className="col-span-4 text-muted-foreground">
-                        🔴 Meat:{' '}
-                        {originalRecord?.isMeat ? 'Yes 🥩' : 'No'}, Spicy:{' '}
-                        {originalRecord?.isSpicy ? 'Yes 🌶️' : 'No'}
-                      </div>
-                      <div className="col-span-5 text-emerald-600 font-medium">
-                        🟢 Meat:{' '}
-                        {inspectingSub.extra_info?.isMeat ? 'Yes 🥩' : 'No'},
-                        Spicy:{' '}
-                        {inspectingSub.extra_info?.isSpicy ? 'Yes 🌶️' : 'No'},
-                        Vegan:{' '}
-                        {inspectingSub.extra_info?.isVegan ? 'Yes 🌱' : 'No'}
-                      </div>
-                    </div>
-                  )}
+                  <div className="pt-3 flex items-center justify-end gap-3 border-t border-border">
+                    <button
+                      onClick={() => setInspectingSub(null)}
+                      className="rounded-lg border border-border px-4 py-2 text-xs font-semibold text-muted-foreground hover:bg-accent"
+                    >
+                      Close
+                    </button>
+                    <button
+                      onClick={() => handleReject(inspectingSub.id)}
+                      disabled={processingId === inspectingSub.id}
+                      className="inline-flex items-center gap-1 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-500/20 active:scale-95"
+                    >
+                      <XCircle className="size-3.5" />
+                      Reject
+                    </button>
+                    <button
+                      onClick={() => handleApprove(inspectingSub)}
+                      disabled={processingId === inspectingSub.id}
+                      className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-700 active:scale-95 shadow-sm"
+                    >
+                      <CheckCircle2 className="size-3.5" />
+                      Approve &amp; Publish
+                    </button>
+                  </div>
                 </div>
-
-                <div className="pt-3 flex items-center justify-end gap-3 border-t border-border">
-                  <button
-                    onClick={() => setInspectingSub(null)}
-                    className="rounded-lg border border-border px-4 py-2 text-xs font-semibold text-muted-foreground hover:bg-accent"
-                  >
-                    Close
-                  </button>
-                  <button
-                    onClick={() => handleReject(inspectingSub.id)}
-                    disabled={processingId === inspectingSub.id}
-                    className="inline-flex items-center gap-1 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-500/20 active:scale-95"
-                  >
-                    <XCircle className="size-3.5" />
-                    Reject
-                  </button>
-                  <button
-                    onClick={() => handleApprove(inspectingSub)}
-                    disabled={processingId === inspectingSub.id}
-                    className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-700 active:scale-95 shadow-sm"
-                  >
-                    <CheckCircle2 className="size-3.5" />
-                    Approve &amp; Publish
-                  </button>
-                </div>
-              </div>
-            )}
+              )
+            })()}
           </div>
         </div>
       )}

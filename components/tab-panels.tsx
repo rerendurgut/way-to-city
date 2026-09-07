@@ -275,7 +275,7 @@ export function TransitPanel({
                 extra_info: {
                   fare: transport.fare,
                   cardFee: transport.cardFee,
-                  passesInfo: transport.passes?.map((p) => `${p.name}: ${p.desc || p.price}`).join(', '),
+                  passes: transport.passes || [],
                   taxiApp: transport.taxiApp,
                   carShareApp: transport.carShareApp,
                   carRental: transport.carRental,
