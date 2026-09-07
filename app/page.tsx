@@ -1,21 +1,12 @@
-import { Compass, Globe } from 'lucide-react'
+import { Compass } from 'lucide-react'
+import { ContinentSelector } from '@/components/continent-selector'
 import { SiteHeader } from '@/components/site-header'
-import { SlidingMenu, type SlidingMenuItem } from '@/components/sliding-menu'
 import { getCountries } from '@/lib/sheets'
 
 export const revalidate = 60
 
 export default async function HomePage() {
   const countries = await getCountries()
-
-  // Countries are sorted by ID in getCountries(), but ID is strictly hidden from the UI items
-  const countryItems: SlidingMenuItem[] = countries.map((country) => ({
-    id: country.id,
-    title: country.name,
-    subtitle: `Explore transit routes, attractions & local tips in ${country.name}`,
-    href: `/${encodeURIComponent(country.name)}`,
-    icon: <Globe className="size-5" />,
-  }))
 
   return (
     <div className="min-h-svh bg-background flex flex-col justify-between animate-fade-in">
@@ -35,11 +26,11 @@ export default async function HomePage() {
             </h1>
 
             <p className="mt-4 max-w-2xl text-base sm:text-lg text-pretty leading-relaxed text-muted-foreground/90">
-              Pick a country to explore its cities — from airport arrivals and local transit cards to top landmarks, authentic dishes, and curated stays.
+              Filter by continent or pick a country to explore its cities — from airport arrivals and local transit cards to top landmarks, authentic dishes, and curated stays.
             </p>
           </section>
 
-          {/* Interactive Country Selection Slider */}
+          {/* Interactive Continent & Country Selection */}
           <section className="mt-14 sm:mt-16">
             <div className="flex items-center justify-between mb-6">
               <div>
@@ -47,7 +38,7 @@ export default async function HomePage() {
                   Choose a Destination
                 </h2>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Select a country from the interactive slider below
+                  Select a continent tab or search countries below
                 </p>
               </div>
               <span className="font-mono text-xs text-muted-foreground bg-accent px-3 py-1 rounded-full border border-border/60">
@@ -55,12 +46,7 @@ export default async function HomePage() {
               </span>
             </div>
 
-            <SlidingMenu
-              items={countryItems}
-              variant="card"
-              searchPlaceholder="Search countries..."
-              emptyText="No countries available in the database right now."
-            />
+            <ContinentSelector countries={countries} />
           </section>
         </main>
       </div>

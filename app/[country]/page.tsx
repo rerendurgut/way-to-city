@@ -33,10 +33,10 @@ export default async function CountryPage({
     getCities(country),
   ])
 
-  const known = countries.some(
+  const countryObj = countries.find(
     (c) => c.name.toLocaleLowerCase() === country.toLocaleLowerCase(),
   )
-  if (!known) notFound()
+  if (!countryObj) notFound()
 
   // Cities are sorted by ID in getCities(), but ID is strictly hidden from the UI items
   const cityItems: SlidingMenuItem[] = cities.map((city) => ({
@@ -53,13 +53,24 @@ export default async function CountryPage({
         <SiteHeader />
 
         <main className="mx-auto max-w-5xl px-6 py-10 sm:py-16">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-accent/50 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all hover:bg-accent hover:text-foreground"
-          >
-            <ChevronLeft className="size-3.5" />
-            All destinations
-          </Link>
+          <div className="flex items-center gap-2 flex-wrap">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-accent/50 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all hover:bg-accent hover:text-foreground"
+            >
+              <ChevronLeft className="size-3.5" />
+              All destinations
+            </Link>
+
+            {countryObj.continent && (
+              <Link
+                href={`/continent/${encodeURIComponent(countryObj.continent)}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 transition-all hover:bg-emerald-500/20"
+              >
+                {countryObj.continent}
+              </Link>
+            )}
+          </div>
 
           {/* Country Hero Header */}
           <section className="mt-6">

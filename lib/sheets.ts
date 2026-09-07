@@ -293,6 +293,7 @@ export async function getCountries(): Promise<Country[]> {
     .map((r) => ({
       id: r.id,
       name: r.country,
+      continent: r.continent || r.kita || '',
       currency: r.currency || '',
       currencyShort: r.currency_short || r.currency_code || r.currency_symbol || '',
       euroConversion:
@@ -315,6 +316,24 @@ export async function getCountries(): Promise<Country[]> {
     a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' }),
   )
   return countries
+}
+
+export async function getContinents(): Promise<string[]> {
+  const countries = await getCountries()
+  const set = new Set<string>()
+  for (const c of countries) {
+    if (c.continent) set.add(c.continent)
+  }
+  return Array.from(set).sort()
+}
+
+export async function getCountriesByContinent(
+  continentName: string,
+): Promise<Country[]> {
+  const countries = await getCountries()
+  return countries.filter(
+    (c) => (c.continent || '').toLocaleLowerCase() === continentName.toLocaleLowerCase(),
+  )
 }
 
 export async function getCountry(
