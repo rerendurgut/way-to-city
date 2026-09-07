@@ -42,50 +42,74 @@ export default function AdminPage() {
   const handleApprove = async (sub: any) => {
     setProcessingId(sub.id)
     try {
-      // 1. Insert into target live table based on category
-      const targetTable = sub.category === 'tocity' ? 'tocity' : sub.category + 's' // pois, foods, stays
+      const extra = sub.extra_info || {}
       
-      let insertData: any = {
-        id: `user-${Date.now()}`,
-        city: sub.city,
-        name: sub.title,
-        desc: sub.description || '',
-        link: sub.link || '',
-        status: 'approved'
-      }
+      if (sub.category === 'city') {
+        // Insert new city
+        await supabase.from('cities').insert([{
+          id: `city-${Date.now()}`,
+          country: sub.country,
+          name: sub.title,
+          desc: sub.description || ''
+        }])
+      } else {
+        const targetTable = sub.category === 'tocity' ? 'tocity' : sub.category + 's' // pois, foods, stays
+        let insertData: any = {
+          id: `user-${Date.now()}`,
+          city: sub.city,
+          name: sub.title,
+          desc: sub.description || '',
+          link: sub.link || '',
+          status: 'approved'
+        }
 
-      if (sub.category === 'food') {
-        insertData = {
-          id: `user-${Date.now()}`,
-          city: sub.city,
-          name: sub.title,
-          desc: sub.description || '',
-          is_meat: true,
-          is_spicy: false,
-          is_vegan: false,
-          is_vegetarian: false,
-          status: 'approved'
+        if (sub.category === 'food') {
+          insertData = {
+            id: `user-${Date.now()}`,
+            city: sub.city,
+            name: sub.title,
+            desc: sub.description || '',
+            is_meat: Boolean(extra.isMeat),
+            is_spicy: Boolean(extra.isSpicy),
+            is_vegan: Boolean(extra.isVegan),
+            is_vegetarian: Boolean(extra.isVegetarian),
+            status: 'approved'
+          }
+        } else if (sub.category === 'stay') {
+          insertData = {
+            id: `user-${Date.now()}`,
+            city: sub.city,
+            where_stay: sub.title,
+            desc: sub.description || '',
+            link: sub.link || '',
+            status: 'approved'
+          }
+        } else if (sub.category === 'tocity') {
+          insertData = {
+            id: `user-${Date.now()}`,
+            city: sub.city,
+            type: extra.arrivalType || 'plane',
+            name: sub.title,
+            desc: sub.description || '',
+            link: sub.link || '',
+            note: sub.description || '',
+            note_link: extra.noteLink || '',
+            status: 'approved'
+          }
+        } else if (sub.category === 'poi') {
+          insertData = {
+            id: `user-${Date.now()}`,
+            city: sub.city,
+            name: sub.title,
+            desc: sub.description || '',
+            link: sub.link || '',
+            status: 'approved'
+          }
         }
-      } else if (sub.category === 'stay') {
-        insertData = {
-          id: `user-${Date.now()}`,
-          city: sub.city,
-          where_stay: sub.title,
-          desc: sub.description || '',
-          link: sub.link || '',
-          status: 'approved'
-        }
-      } else if (sub.category === 'tocity') {
-        insertData = {
-          id: `user-${Date.now()}`,
-          city: sub.city,
-          type: 'bus',
-          name: sub.title,
-          desc: sub.description || '',
-          link: sub.link || '',
-          note: sub.description || '',
-          note_link: sub.link || '',
-          status: 'approved'
+
+        const { error: insertErr } = await supabase.from(targetTable).insert([insertData])
+        if (insertErr) {
+          console.error(`Insert to ${targetTable} error:`, insertErr)
         }
       }
 
