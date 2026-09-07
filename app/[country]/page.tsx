@@ -102,9 +102,6 @@ export default async function CountryPage({
       <footer className="border-t border-border/60 bg-card/30 backdrop-blur-sm">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6 text-xs text-muted-foreground">
           <span>WayToCity — {country}</span>
-          <span className="font-mono text-emerald-600 dark:text-emerald-400 font-medium">
-            Live from Google Sheets
-          </span>
         </div>
       </footer>
     </div>

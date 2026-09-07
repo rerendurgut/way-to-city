@@ -102,9 +102,6 @@ export default async function CityDetailPage({
           <span>
             WayToCity — {guide.city.name}, {guide.city.country}
           </span>
-          <span className="font-mono text-emerald-600 dark:text-emerald-400 font-medium">
-            Live from Google Sheets
-          </span>
         </div>
       </footer>
     </div>
