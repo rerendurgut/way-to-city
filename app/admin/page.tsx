@@ -21,6 +21,7 @@ import {
   getArrivals,
   getTransport,
 } from '@/lib/sheets'
+import { approveSubmissionServer, rejectSubmissionServer } from '@/app/admin/actions'
 
 export default function AdminPage() {
   const [password, setPassword] = useState('')
@@ -65,131 +66,10 @@ export default function AdminPage() {
   const handleApprove = async (sub: any) => {
     setProcessingId(sub.id)
     try {
-      const extra = sub.extra_info || {}
-      const targetId = extra.target_id
-
-      if (sub.category === 'city') {
-        await supabase.from('cities').insert([
-          {
-            id: `city-${Date.now()}`,
-            country: sub.country,
-            name: sub.title,
-            desc: sub.description || '',
-          },
-        ])
-      } else {
-        const targetTable =
-          sub.category === 'tocity'
-            ? 'tocity'
-            : sub.category === 'transport'
-            ? 'transport'
-            : sub.category + 's'
-
-        let recordData: any = {
-          city: sub.city,
-          name: sub.title,
-          desc: sub.description || '',
-          link: sub.link || '',
-          status: 'approved',
-        }
-
-        if (sub.category === 'food') {
-          recordData = {
-            city: sub.city,
-            name: sub.title,
-            desc: sub.description || '',
-            is_meat: Boolean(extra.isMeat),
-            is_spicy: Boolean(extra.isSpicy),
-            is_vegan: Boolean(extra.isVegan),
-            is_vegetarian: Boolean(extra.isVegetarian),
-            status: 'approved',
-          }
-        } else if (sub.category === 'stay') {
-          recordData = {
-            city: sub.city,
-            where_stay: sub.title,
-            desc: sub.description || '',
-            link: sub.link || '',
-            status: 'approved',
-          }
-        } else if (sub.category === 'tocity') {
-          recordData = {
-            city: sub.city,
-            type: extra.arrivalType || 'plane',
-            name: sub.title,
-            desc: sub.description || '',
-            link: sub.link || '',
-            note: sub.description || '',
-            note_link: extra.noteLink || '',
-            status: 'approved',
-          }
-        } else if (sub.category === 'transport') {
-          recordData = {
-            city: sub.city,
-            card_name: extra.cardName || sub.title,
-            card_fee: extra.cardFee || '',
-            fare: extra.fare || '',
-            where_to_buy: sub.description || '',
-            taxi_app: extra.taxiApp || '',
-            car_share_app: extra.carShareApp || '',
-            car_rental: extra.carRental || '',
-            mobile_app: extra.mobileApp || '',
-            passes: Array.isArray(extra.passes) ? extra.passes : [],
-            contactless: Boolean(extra.contactless),
-            qr: Boolean(extra.qr),
-            status: 'approved',
-          }
-        } else if (sub.category === 'poi') {
-          recordData = {
-            city: sub.city,
-            name: sub.title,
-            desc: sub.description || '',
-            link: sub.link || '',
-            status: 'approved',
-          }
-        }
-
-        let updated = false
-        if (targetId) {
-          const { error: updateErr } = await supabase
-            .from(targetTable)
-            .update(recordData)
-            .eq('id', targetId)
-
-          if (!updateErr) updated = true
-        } else if (sub.category === 'transport') {
-          const { data: existing } = await supabase
-            .from('transport')
-            .select('id')
-            .ilike('city', sub.city)
-            .limit(1)
-
-          if (existing && existing.length > 0) {
-            await supabase
-              .from('transport')
-              .update(recordData)
-              .eq('id', existing[0].id)
-            updated = true
-          }
-        }
-
-        if (!updated) {
-          const { error: insertErr } = await supabase.from(targetTable).insert([
-            { id: `user-${Date.now()}`, ...recordData },
-          ])
-          if (insertErr) {
-            console.error(`Insert to ${targetTable} error:`, insertErr)
-          }
-        }
+      const res = await approveSubmissionServer(sub)
+      if (!res.success) {
+        throw new Error(res.error || 'Failed to approve submission on server')
       }
-
-      // Update submission status to approved
-      const { error: subErr } = await supabase
-        .from('submissions')
-        .update({ status: 'approved' })
-        .eq('id', sub.id)
-
-      if (subErr) throw subErr
 
       // Optimistically update state so it immediately leaves pending list
       setSubmissions((prev) =>
@@ -199,9 +79,9 @@ export default function AdminPage() {
       if (inspectingSub?.id === sub.id) {
         setInspectingSub(null)
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Approve error:', err)
-      alert('Failed to approve submission')
+      alert(`Failed to approve submission: ${err.message || 'Unknown error'}`)
     } finally {
       setProcessingId(null)
     }
@@ -210,12 +90,10 @@ export default function AdminPage() {
   const handleReject = async (id: string) => {
     setProcessingId(id)
     try {
-      const { error } = await supabase
-        .from('submissions')
-        .update({ status: 'rejected' })
-        .eq('id', id)
-
-      if (error) throw error
+      const res = await rejectSubmissionServer(id)
+      if (!res.success) {
+        throw new Error(res.error || 'Failed to reject submission on server')
+      }
 
       // Optimistically update state so it immediately leaves pending list
       setSubmissions((prev) =>
@@ -225,9 +103,9 @@ export default function AdminPage() {
       if (inspectingSub?.id === id) {
         setInspectingSub(null)
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Reject error:', err)
-      alert('Failed to reject submission')
+      alert(`Failed to reject submission: ${err.message || 'Unknown error'}`)
     } finally {
       setProcessingId(null)
     }
