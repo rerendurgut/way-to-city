@@ -104,7 +104,7 @@ export function formatPrice(v?: string, currencySymbol?: string): string {
 
 export function formatEuroRate(rate?: string, currencyShort?: string): string {
   const r = (rate ?? '').trim()
-  if (!r) return ''
+  if (!r || r.startsWith('=')) return ''
   const symbol = (currencyShort ?? '').trim()
 
   if (r.includes('/')) {
@@ -115,8 +115,10 @@ export function formatEuroRate(rate?: string, currencyShort?: string): string {
     }
   }
 
-  if (!isNaN(Number(r.replace(',', '.')))) {
-    return symbol ? `1 euro = ${r} ${symbol}` : `1 euro = ${r}`
+  const num = Number(r.replace(',', '.'))
+  if (!isNaN(num) && num > 0) {
+    const valStr = num % 1 === 0 ? String(num) : String(num)
+    return symbol ? `1 euro = ${valStr} ${symbol}` : `1 euro = ${valStr}`
   }
 
   return r
