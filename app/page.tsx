@@ -1,6 +1,7 @@
 import { Compass } from 'lucide-react'
 import { ContinentSelector } from '@/components/continent-selector'
 import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
 import { EventsJsonLd } from '@/components/json-ld'
 import { getCountries, getAllUpcomingEvents } from '@/lib/sheets'
 
@@ -56,11 +57,7 @@ export default async function HomePage() {
         </main>
       </div>
 
-      <footer className="border-t border-border/60 bg-card/30 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6 text-xs text-muted-foreground">
-          <span>WayToCity — urban transit &amp; travel guide</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

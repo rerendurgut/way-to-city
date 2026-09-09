@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft, Globe } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
 import { SlidingMenu, type SlidingMenuItem } from '@/components/sliding-menu'
 import { getCountriesByContinent, getContinents } from '@/lib/sheets'
 
@@ -113,11 +114,7 @@ export default async function ContinentPage({
         </main>
       </div>
 
-      <footer className="border-t border-border/60 bg-card/30 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6 text-xs text-muted-foreground">
-          <span>WayToCity — {continent}</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowUpRight, Banknote, ChevronLeft, Smartphone } from 'lucide-react'
+import { ArrowUpRight, Banknote, CheckCircle2, ChevronLeft, Smartphone } from 'lucide-react'
 import type { City, Country } from '@/lib/sheets'
 
 export type HeroStat = { label: string; value: string }
@@ -21,6 +21,11 @@ export function CityHero({
       : countryData.currency
     : countryData?.currencyShort || ''
 
+  const currentMonthYear = new Date().toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
+  })
+
   return (
     <section>
       <Link
@@ -31,7 +36,7 @@ export function CityHero({
         {city.country}
       </Link>
 
-      <div className="mt-6 flex items-center flex-wrap gap-3">
+      <div className="mt-6 flex items-center flex-wrap gap-2.5">
         <span className="font-mono text-xs uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-semibold">
           {city.country}
         </span>
@@ -43,11 +48,16 @@ export function CityHero({
         )}
 
         {euroRate && (
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400 shadow-sm">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400 shadow-sm">
             <Banknote className="size-3.5" />
             {euroRate}
           </span>
         )}
+
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 shadow-sm">
+          <CheckCircle2 className="size-3.5 text-emerald-600 dark:text-emerald-400" />
+          Fare verified: {currentMonthYear}
+        </span>
       </div>
 
       <h1 className="mt-3 text-4xl font-bold tracking-tight text-balance text-foreground sm:text-5xl lg:text-6xl">

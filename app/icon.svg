@@ -1,0 +1,14 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="40" fill="url(#emerald-grad)" />
+  <!-- Compass / Location Pin Icon -->
+  <g transform="translate(36, 36)">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M54 10.8C35.6649 10.8 20.8 25.6649 20.8 44C20.8 66.8 49.6 94.6 51.9868 96.8841C53.1187 97.9678 54.8813 97.9678 56.0132 96.8841C58.4 94.6 87.2 66.8 87.2 44C87.2 25.6649 72.3351 10.8 54 10.8ZM54 58.4C61.9529 58.4 68.4 51.9529 68.4 44C68.4 36.0471 61.9529 29.6 54 29.6C46.0471 29.6 39.6 36.0471 39.6 44C39.6 51.9529 46.0471 58.4 54 58.4Z" fill="white"/>
+    <circle cx="54" cy="44" r="7.2" fill="#10B981" />
+  </g>
+  <defs>
+    <linearGradient id="emerald-grad" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#059669" />
+      <stop offset="1" stop-color="#10B981" />
+    </linearGradient>
+  </defs>
+</svg>

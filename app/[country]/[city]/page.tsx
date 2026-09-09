@@ -3,6 +3,7 @@ import { MapPin } from 'lucide-react'
 import { CityHero, type HeroStat } from '@/components/city-hero'
 import { GuideTabs } from '@/components/guide-tabs'
 import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
 import { SlidingMenu, type SlidingMenuItem } from '@/components/sliding-menu'
 import { CityJsonLd } from '@/components/json-ld'
 import {
@@ -132,13 +133,7 @@ export default async function CityDetailPage({
         </main>
       </div>
 
-      <footer className="border-t border-border/60 bg-card/30 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6 text-xs text-muted-foreground">
-          <span>
-            WayToCity — {guide.city.name}, {guide.city.country}
-          </span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

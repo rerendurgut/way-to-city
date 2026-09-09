@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ChevronLeft, MapPin } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
 import { SlidingMenu, type SlidingMenuItem } from '@/components/sliding-menu'
 import { getCities, getCountries } from '@/lib/sheets'
 
@@ -139,11 +140,7 @@ export default async function CountryPage({
         </main>
       </div>
 
-      <footer className="border-t border-border/60 bg-card/30 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6 text-xs text-muted-foreground">
-          <span>WayToCity — {country}</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
