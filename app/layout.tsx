@@ -2,7 +2,6 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { ContributeProvider } from '@/components/contribute-provider'
-import Script from 'next/script'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
@@ -78,19 +77,7 @@ export default function RootLayout({
     >
       <body className="font-sans antialiased">
         <ContributeProvider>{children}</ContributeProvider>
-        <Script
-          id="tp-drive"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function () {
-      var script = document.createElement("script");
-      script.async = 1;
-      script.setAttribute("data-cmp-ab","2");
-      script.src = 'https://emrldtp.cc/NTcxMzA4.js?t=571308';
-      document.head.appendChild(script);
-  })();`,
-          }}
-        />
+
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
