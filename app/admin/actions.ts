@@ -92,10 +92,13 @@ export async function approveSubmissionServer(sub: any) {
           name: sub.title,
           desc: sub.description || '',
           event_date: extra.eventDate || '',
-          end_date: extra.eventEndDate || extra.endDate || '',
           location: extra.location || '',
           price: extra.price || '',
           link: sub.link || '',
+        }
+        const endDateVal = extra.eventEndDate || extra.endDate
+        if (endDateVal) {
+          recordData.end_date = endDateVal
         }
       }
 
