@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Globe, MapPin, Calendar, Search, ArrowRight } from 'lucide-react'
 import { SlidingMenu, type SlidingMenuItem } from '@/components/sliding-menu'
-import type { Country, GlobalEventItem } from '@/lib/sheets'
+import { type Country, type GlobalEventItem, formatEventDates } from '@/lib/sheets'
 
 export function ContinentSelector({
   countries,
@@ -177,7 +177,7 @@ export function ContinentSelector({
                     {evt.eventDate && (
                       <span className="inline-flex items-center gap-1 rounded-md bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 font-mono font-bold text-amber-700 dark:text-amber-300">
                         <Calendar className="size-3" />
-                        {evt.eventDate}
+                        {formatEventDates(evt.eventDate, evt.endDate)}
                       </span>
                     )}
                   </div>

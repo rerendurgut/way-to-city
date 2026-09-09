@@ -74,6 +74,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
 
   // Event fields
   const [eventDate, setEventDate] = useState('')
+  const [eventEndDate, setEventEndDate] = useState('')
   const [eventLocation, setEventLocation] = useState('')
   const [eventPrice, setEventPrice] = useState('')
 
@@ -123,6 +124,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setContactless(false)
     setQr(false)
     setEventDate('')
+    setEventEndDate('')
     setEventLocation('')
     setEventPrice('')
     setTargetId(undefined)
@@ -252,6 +254,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
       setDescription(item.desc || '')
       setLink(item.link || '')
       setEventDate(item.eventDate || '')
+      setEventEndDate(item.endDate || '')
       setEventLocation(item.location || '')
       setEventPrice(item.price || '')
     } else if (category === 'city') {
@@ -290,6 +293,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
     setContactless(Boolean(extra.contactless))
     setQr(Boolean(extra.qr))
     setEventDate(extra.eventDate || '')
+    setEventEndDate(extra.eventEndDate || extra.endDate || '')
     setEventLocation(extra.location || '')
     setEventPrice(extra.price || '')
 
@@ -339,6 +343,7 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
         extra_info.isVegetarian = isVegetarian
       } else if (category === 'events') {
         extra_info.eventDate = eventDate
+        extra_info.eventEndDate = eventEndDate
         extra_info.location = eventLocation
         extra_info.price = eventPrice
       } else if (category === 'transport') {
@@ -569,20 +574,33 @@ export function ContributeProvider({ children }: { children: ReactNode }) {
               />
             </div>
 
-            {/* Category: Event Specific (Date, Venue, Ticket Price) */}
+            {/* Category: Event Specific (Dates, Venue, Ticket Price) */}
             {category === 'events' && (
               <div className="space-y-3 bg-accent/30 p-3 rounded-xl border border-border/60">
-                <div>
-                  <label className="block text-xs font-semibold text-foreground mb-1">
-                    📅 Event Date *
-                  </label>
-                  <input
-                    type="date"
-                    required
-                    value={eventDate}
-                    onChange={(e) => setEventDate(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
-                  />
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold text-foreground mb-1">
+                      📅 Start Date (From) *
+                    </label>
+                    <input
+                      type="date"
+                      required
+                      value={eventDate}
+                      onChange={(e) => setEventDate(e.target.value)}
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-foreground mb-1">
+                      📅 End Date (To) (Optional)
+                    </label>
+                    <input
+                      type="date"
+                      value={eventEndDate}
+                      onChange={(e) => setEventEndDate(e.target.value)}
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                    />
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">

@@ -32,6 +32,7 @@ import { useContributeModal } from '@/components/contribute-provider'
 import {
   formatEuroRate,
   formatPrice,
+  formatEventDates,
   linkLabel,
   type Arrival,
   type Country,
@@ -796,7 +797,7 @@ export function EventsPanel({
                   {evt.eventDate && (
                     <span className="inline-flex items-center gap-1 rounded-md bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 font-mono text-xs font-bold text-amber-700 dark:text-amber-300">
                       <Calendar className="size-3" />
-                      {evt.eventDate}
+                      {formatEventDates(evt.eventDate, evt.endDate)}
                     </span>
                   )}
                   {evt.price && (
@@ -824,6 +825,7 @@ export function EventsPanel({
                         targetId: evt.id,
                         extra_info: {
                           eventDate: evt.eventDate,
+                          eventEndDate: evt.endDate,
                           location: evt.location,
                           price: evt.price,
                         },

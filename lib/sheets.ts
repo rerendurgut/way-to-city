@@ -219,9 +219,16 @@ export type EventItem = {
   name: string
   desc: string
   eventDate: string
+  endDate?: string
   link: string
   location?: string
   price?: string
+}
+
+export function formatEventDates(eventDate?: string, endDate?: string): string {
+  if (!eventDate) return ''
+  if (!endDate || endDate === eventDate) return eventDate
+  return `${eventDate} – ${endDate}`
 }
 
 export type CityGuide = {
@@ -609,12 +616,17 @@ export async function getEvents(city: string): Promise<EventItem[]> {
           id: String(r.id),
           name: r.name || r.event_name || '',
           desc: r.desc || r.event_desc || '',
-          eventDate: r.event_date || r.date || '',
+          eventDate: r.event_date || r.date || r.from_date || '',
+          endDate: r.end_date || r.to_date || r.endDate || '',
           link: r.link || '',
           location: r.location || '',
           price: r.price || '',
         }))
-        .filter((e) => e.name && (!e.eventDate || e.eventDate >= todayStr))
+        .filter((e) => {
+          if (!e.name) return false
+          const finalDate = e.endDate || e.eventDate
+          return !finalDate || finalDate >= todayStr
+        })
         .sort((a, b) => (a.eventDate || '').localeCompare(b.eventDate || ''))
     }
   } catch (err) {
@@ -629,12 +641,17 @@ export async function getEvents(city: string): Promise<EventItem[]> {
         id: r.id,
         name: r.event_name || r.name || '',
         desc: r.event_desc || r.desc || '',
-        eventDate: r.event_date || r.date || '',
+        eventDate: r.event_date || r.date || r.from_date || '',
+        endDate: r.end_date || r.to_date || r.endDate || '',
         link: r.link || '',
         location: r.location || '',
         price: r.price || '',
       }))
-      .filter((e) => e.name && (!e.eventDate || e.eventDate >= todayStr))
+      .filter((e) => {
+        if (!e.name) return false
+        const finalDate = e.endDate || e.eventDate
+        return !finalDate || finalDate >= todayStr
+      })
       .sort((a, b) => (a.eventDate || '').localeCompare(b.eventDate || ''))
   } catch {
     return []
@@ -724,7 +741,8 @@ export async function getAllUpcomingEvents(): Promise<GlobalEventItem[]> {
         id: String(r.id),
         name: r.name || r.event_name || '',
         desc: r.desc || r.event_desc || '',
-        eventDate: r.event_date || r.date || '',
+        eventDate: r.event_date || r.date || r.from_date || '',
+        endDate: r.end_date || r.to_date || r.endDate || '',
         link: r.link || '',
         location: r.location || '',
         price: r.price || '',
@@ -733,6 +751,10 @@ export async function getAllUpcomingEvents(): Promise<GlobalEventItem[]> {
         continent: meta.continent,
       }
     })
-    .filter((e) => e.name && (!e.eventDate || e.eventDate >= todayStr))
+    .filter((e) => {
+      if (!e.name) return false
+      const finalDate = e.endDate || e.eventDate
+      return !finalDate || finalDate >= todayStr
+    })
     .sort((a, b) => (a.eventDate || '').localeCompare(b.eventDate || ''))
 }

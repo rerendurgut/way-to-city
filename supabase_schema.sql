@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS events (
   name TEXT NOT NULL,
   "desc" TEXT,
   event_date TEXT,
+  end_date TEXT,
   location TEXT,
   price TEXT,
   link TEXT,

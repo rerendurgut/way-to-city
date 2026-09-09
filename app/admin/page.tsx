@@ -559,17 +559,22 @@ export default function AdminPage() {
                   })
                 } else if (sub.category === 'events') {
                   const origDate = (orig.eventDate || orig.event_date || '').trim()
+                  const origEndDate = (orig.endDate || orig.end_date || '').trim()
                   const newDate = (extra.eventDate || '').trim()
+                  const newEndDate = (extra.eventEndDate || extra.endDate || '').trim()
                   const origLoc = (orig.location || '').trim()
                   const newLoc = (extra.location || '').trim()
                   const origPrice = (orig.price || '').trim()
                   const newPrice = (extra.price || '').trim()
 
+                  const origDatesFormatted = origDate ? `${origDate}${origEndDate ? ` – ${origEndDate}` : ''}` : 'N/A'
+                  const newDatesFormatted = newDate ? `${newDate}${newEndDate ? ` – ${newEndDate}` : ''}` : 'N/A'
+
                   diffs.push({
-                    label: '📅 Event Date & Details',
-                    origValue: `Date: ${origDate || 'N/A'}, Location: ${origLoc || 'N/A'}, Price: ${origPrice || 'N/A'}`,
-                    newValue: `Date: ${newDate || 'N/A'}, Location: ${newLoc || 'N/A'}, Price: ${newPrice || 'N/A'}`,
-                    isChanged: origDate !== newDate || origLoc !== newLoc || origPrice !== newPrice,
+                    label: '📅 Event Dates & Details',
+                    origValue: `Dates: ${origDatesFormatted}, Location: ${origLoc || 'N/A'}, Price: ${origPrice || 'N/A'}`,
+                    newValue: `Dates: ${newDatesFormatted}, Location: ${newLoc || 'N/A'}, Price: ${newPrice || 'N/A'}`,
+                    isChanged: origDate !== newDate || origEndDate !== newEndDate || origLoc !== newLoc || origPrice !== newPrice,
                   })
                 }
               }
