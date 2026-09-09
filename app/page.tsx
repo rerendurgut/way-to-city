@@ -1,6 +1,7 @@
 import { Compass } from 'lucide-react'
 import { ContinentSelector } from '@/components/continent-selector'
 import { SiteHeader } from '@/components/site-header'
+import { EventsJsonLd } from '@/components/json-ld'
 import { getCountries, getAllUpcomingEvents } from '@/lib/sheets'
 
 export const revalidate = 60
@@ -13,6 +14,7 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-svh bg-background flex flex-col justify-between animate-fade-in">
+      <EventsJsonLd events={events} />
       <div>
         <SiteHeader />
 

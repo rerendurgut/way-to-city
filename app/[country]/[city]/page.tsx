@@ -4,6 +4,7 @@ import { CityHero, type HeroStat } from '@/components/city-hero'
 import { GuideTabs } from '@/components/guide-tabs'
 import { SiteHeader } from '@/components/site-header'
 import { SlidingMenu, type SlidingMenuItem } from '@/components/sliding-menu'
+import { CityJsonLd } from '@/components/json-ld'
 import {
   formatEuroRate,
   formatPrice,
@@ -23,10 +24,10 @@ export async function generateMetadata({
   const cityName = decodeURIComponent(rawCity)
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://waytocity.com'
-  const title = `${cityName} Travel & Transit Guide | WayToCity`
-  const description = `Complete urban transit guide, public transport cards, top POIs, local food spots, and stays in ${cityName}, ${countryName}.`
+  const title = `${cityName} Ulaşım Rehberi, Şehir İçi Ulaşım Ücretleri & Gezilecek Yerler | WayToCity`
+  const description = `${cityName} (${countryName}) şehir içi ulaşım rehberi: otobüs/metro bilet fiyatları, Ulaşım Kartı detayları, havalimanı ulaşım hatları ve gezilecek yerler.`
   const pageUrl = `${siteUrl}/${encodeURIComponent(rawCountry)}/${encodeURIComponent(rawCity)}`
-  const ogImageUrl = `${siteUrl}/api/og?title=${encodeURIComponent(cityName)}&subtitle=${encodeURIComponent(`${countryName} Urban Transit & Travel Guide`)}`
+  const ogImageUrl = `${siteUrl}/api/og?title=${encodeURIComponent(`${cityName} Ulaşım Rehberi`)}&subtitle=${encodeURIComponent(`${countryName} Şehir İçi Ulaşım Ücretleri %26 Gezilecek Yerler`)}`
 
   return {
     title,
@@ -42,7 +43,7 @@ export async function generateMetadata({
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: `${cityName} Travel Guide`,
+          alt: `${cityName} Ulaşım Rehberi`,
         },
       ],
     },
@@ -101,6 +102,7 @@ export default async function CityDetailPage({
 
   return (
     <div className="min-h-svh bg-background flex flex-col justify-between animate-fade-in">
+      <CityJsonLd guide={guide} />
       <div>
         <SiteHeader country={country} city={guide.city.name} />
 

@@ -16,10 +16,10 @@ export async function generateMetadata({
   const countryName = decodeURIComponent(rawCountry)
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://waytocity.com'
-  const title = `${countryName} Cities & Transit Guides | WayToCity`
-  const description = `Explore cities in ${countryName}: public transit cards, arrival routes, points of interest, food, and stays.`
+  const title = `${countryName} Ulaşım Rehberi, Şehir İçi Bilet Fiyatları & Şehirler | WayToCity`
+  const description = `${countryName} şehir içi ulaşım rehberi: şehirler, otobüs ve metro bilet fiyatları, Ulaşım Kartları, havalimanı ulaşım hatları ve gezilecek yerler.`
   const pageUrl = `${siteUrl}/${encodeURIComponent(rawCountry)}`
-  const ogImageUrl = `${siteUrl}/api/og?title=${encodeURIComponent(countryName)}&subtitle=${encodeURIComponent('Cities & Urban Transit Guides')}`
+  const ogImageUrl = `${siteUrl}/api/og?title=${encodeURIComponent(`${countryName} Ulaşım Rehberi`)}&subtitle=${encodeURIComponent('Şehir İçi Bilet Fiyatları %26 Şehirler')}`
 
   return {
     title,
@@ -35,7 +35,7 @@ export async function generateMetadata({
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: `${countryName} Travel Guide`,
+          alt: `${countryName} Ulaşım Rehberi`,
         },
       ],
     },

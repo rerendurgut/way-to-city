@@ -15,14 +15,23 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://waytocity.com'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'WayToCity — Urban Transit & Travel Guide',
-    template: '%s | WayToCity',
+    default: 'WayToCity — Şehir İçi Ulaşım Rehberi, Bilet Fiyatları & Gezilecek Yerler',
+    template: '%s',
   },
   description:
-    'An ultra-minimalist urban transit and travel guide. Navigate the city with transit routes, 24-hour itineraries, food spots, and curated tours.',
+    'Dünya şehirlerinde otobüs, metro, raylı sistem bilet fiyatları, toplu taşıma kartları, havalimanı ulaşım rotaları ve gezilecek yerler rehberi.',
   generator: 'WayToCity',
   applicationName: 'WayToCity',
-  keywords: ['travel guide', 'urban transit', 'city guide', 'public transport', 'bursa', 'turkey', 'waytocity'],
+  keywords: [
+    'şehir içi ulaşım rehberi',
+    'bilet fiyatları',
+    'toplu taşıma kartı',
+    'otobüs bileti',
+    'gezilecek yerler',
+    'urban transit guide',
+    'public transport fare',
+    'waytocity',
+  ],
   icons: {
     icon: '/icon.svg',
     shortcut: '/icon.svg',
@@ -30,27 +39,27 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'tr_TR',
     url: siteUrl,
-    title: 'WayToCity — Urban Transit & Travel Guide',
+    title: 'WayToCity — Şehir İçi Ulaşım Rehberi, Bilet Fiyatları & Gezilecek Yerler',
     description:
-      'An ultra-minimalist urban transit and travel guide. Navigate the city with transit routes, 24-hour itineraries, food spots, and curated tours.',
+      'Dünya şehirlerinde otobüs, metro, raylı sistem bilet fiyatları, toplu taşıma kartları, havalimanı ulaşım rotaları ve gezilecek yerler rehberi.',
     siteName: 'WayToCity',
     images: [
       {
-        url: `${siteUrl}/api/og?title=WayToCity&subtitle=Urban+Transit+%26+Travel+Guide`,
+        url: `${siteUrl}/api/og?title=WayToCity&subtitle=Şehir+İçi+Ulaşım+Rehberi+%26+Bilet+Fiyatları`,
         width: 1200,
         height: 630,
-        alt: 'WayToCity Travel Guide',
+        alt: 'WayToCity Ulaşım Rehberi',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'WayToCity — Urban Transit & Travel Guide',
+    title: 'WayToCity — Şehir İçi Ulaşım Rehberi, Bilet Fiyatları & Gezilecek Yerler',
     description:
-      'An ultra-minimalist urban transit and travel guide. Navigate the city with transit routes, 24-hour itineraries, food spots, and curated tours.',
-    images: [`${siteUrl}/api/og?title=WayToCity&subtitle=Urban+Transit+%26+Travel+Guide`],
+      'Dünya şehirlerinde otobüs, metro, raylı sistem bilet fiyatları, toplu taşıma kartları, havalimanı ulaşım rotaları ve gezilecek yerler rehberi.',
+    images: [`${siteUrl}/api/og?title=WayToCity&subtitle=Şehir+İçi+Ulaşım+Rehberi+%26+Bilet+Fiyatları`],
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
