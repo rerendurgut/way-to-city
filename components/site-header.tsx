@@ -1,6 +1,7 @@
 'use client'
 
-import { Navigation, PlusCircle, Twitter, Instagram } from 'lucide-react'
+import { Navigation, PlusCircle } from 'lucide-react'
+import { XIcon, InstagramIcon } from '@/components/social-icons'
 import { useContributeModal } from '@/components/contribute-provider'
 
 export function SiteHeader({ country, city }: { country?: string; city?: string }) {
@@ -27,7 +28,7 @@ export function SiteHeader({ country, city }: { country?: string; city?: string 
               aria-label="WayToCity on X (Twitter)"
               className="flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
-              <Twitter className="size-3.5" />
+              <XIcon className="size-3.5" />
             </a>
             <a
               href="https://instagram.com/waytocity"
@@ -36,7 +37,7 @@ export function SiteHeader({ country, city }: { country?: string; city?: string 
               aria-label="WayToCity on Instagram"
               className="flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
-              <Instagram className="size-3.5" />
+              <InstagramIcon className="size-3.5" />
             </a>
           </div>
 

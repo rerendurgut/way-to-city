@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Navigation, Twitter, Instagram } from 'lucide-react'
+import { Navigation } from 'lucide-react'
+import { XIcon, InstagramIcon } from '@/components/social-icons'
 
 export function SiteFooter() {
   return (
@@ -49,7 +50,7 @@ export function SiteFooter() {
               aria-label="WayToCity on X (Twitter)"
               className="flex size-8 items-center justify-center rounded-full border border-border/80 bg-accent/50 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
-              <Twitter className="size-3.5" />
+              <XIcon className="size-3.5" />
             </a>
             <a
               href="https://instagram.com/waytocity"
@@ -58,7 +59,7 @@ export function SiteFooter() {
               aria-label="WayToCity on Instagram"
               className="flex size-8 items-center justify-center rounded-full border border-border/80 bg-accent/50 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
-              <Instagram className="size-3.5" />
+              <InstagramIcon className="size-3.5" />
             </a>
           </div>
         </div>
