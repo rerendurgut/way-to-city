@@ -242,12 +242,12 @@ export type CityGuide = {
   events: EventItem[]
 }
 
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 
 /* ------------------------------- getters -------------------------------- */
 
 export async function getCountries(): Promise<Country[]> {
-  try {
+  if (isSupabaseConfigured) try {
     const { data, error } = await supabase.from('countries').select('*')
     if (!error && data && data.length > 0) {
       const countries = data.map((r: any) => ({
@@ -328,7 +328,7 @@ export async function getCountry(
 }
 
 export async function getCities(country?: string): Promise<City[]> {
-  try {
+  if (isSupabaseConfigured) try {
     let query = supabase.from('cities').select('*')
     if (country) {
       query = query.ilike('country', country)
@@ -375,7 +375,7 @@ export async function getCity(
 }
 
 export async function getArrivals(city: string): Promise<Arrival[]> {
-  try {
+  if (isSupabaseConfigured) try {
     const { data, error } = await supabase
       .from('tocity')
       .select('*')
@@ -411,7 +411,7 @@ export async function getArrivals(city: string): Promise<Arrival[]> {
 }
 
 export async function getTransport(city: string): Promise<Transport | null> {
-  try {
+  if (isSupabaseConfigured) try {
     const { data, error } = await supabase
       .from('transport')
       .select('*')
@@ -496,7 +496,7 @@ export async function getTransport(city: string): Promise<Transport | null> {
 }
 
 export async function getPois(city: string): Promise<Poi[]> {
-  try {
+  if (isSupabaseConfigured) try {
     const { data, error } = await supabase
       .from('pois')
       .select('*')
@@ -533,7 +533,7 @@ export async function getPois(city: string): Promise<Poi[]> {
 }
 
 export async function getStays(city: string): Promise<Stay[]> {
-  try {
+  if (isSupabaseConfigured) try {
     const { data, error } = await supabase
       .from('stays')
       .select('*')
@@ -566,7 +566,7 @@ export async function getStays(city: string): Promise<Stay[]> {
 }
 
 export async function getFoods(city: string): Promise<Food[]> {
-  try {
+  if (isSupabaseConfigured) try {
     const { data, error } = await supabase
       .from('foods')
       .select('*')
@@ -709,7 +709,7 @@ export async function getAllUpcomingEvents(): Promise<GlobalEventItem[]> {
 
   let eventsData: any[] = []
 
-  try {
+  if (isSupabaseConfigured) try {
     const { data, error } = await supabase
       .from('events')
       .select('*')
